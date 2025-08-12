@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StethoLink AI Dashboard - Offline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+        }
+        
+        .offline-banner {
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            font-size: 32px;
+            margin-right: 15px;
+        }
+        
+        .card-title {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-online { background: #28a745; }
+        .status-offline { background: #dc3545; }
+        .status-syncing { background: #ffc107; }
+        
+        .feature-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .feature-list li {
+            color: #555;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .sync-status {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .sync-status h3 {
+            color: #0056b3;
+            margin-bottom: 15px;
+        }
+        
+        .sync-info {
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏥 StethoLink AI Dashboard</h1>
+        <p class="subtitle">Medical Learning Platform - Offline Mode</p>
+    </div>
+    
+    <div class="offline-banner">
+        <strong>📴 You're currently offline</strong> - Some features may be limited, but your cached data is available
+    </div>
+    
+    <div class="dashboard-grid">
+        <!-- Medical Curriculum Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">📚</div>
+                <h3 class="card-title">Medical Curriculum</h3>
+            </div>
+            <div class="card-content">
+                <p>Access your cached medical curriculum and study materials offline.</p>
+                <ul class="feature-list">
+                    <li>1st Year Curriculum</li>
+                    <li>2nd Year Curriculum</li>
+                    <li>3rd Year Curriculum</li>
+                    <li>Clinical Guidelines</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="openCurriculum()">📖 Open Curriculum</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Medical Tools Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">🩺</div>
+                <h3 class="card-title">Medical Tools</h3>
+            </div>
+            <div class="card-content">
+                <p>Use medical calculators and clinical tools that work offline.</p>
+                <ul class="feature-list">
+                    <li>BMI Calculator</li>
+                    <li>Drug Dosage Calculator</li>
+                    <li>Clinical Decision Tools</li>
+                    <li>Medical Formulas</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="openTools()">🛠️ Open Tools</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Study Progress Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">📊</div>
+                <h3 class="card-title">Study Progress</h3>
+            </div>
+            <div class="card-content">
+                <p>View your cached study progress and completed tasks.</p>
+                <ul class="feature-list">
+                    <li>Completed Modules</li>
+                    <li>Quiz Results</li>
+                    <li>Study Notes</li>
+                    <li>Learning Path</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="openProgress()">📈 View Progress</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Offline Features Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">💾</div>
+                <h3 class="card-title">Offline Features</h3>
+            </div>
+            <div class="card-content">
+                <p>Features available while offline:</p>
+                <ul class="feature-list">
+                    <li>Local Data Storage</li>
+                    <li>Cached Medical Resources</li>
+                    <li>Offline Note Taking</li>
+                    <li>Progress Tracking</li>
+                </ul>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="checkCacheStatus()">🔍 Cache Status</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Connection Status Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">🌐</div>
+                <h3 class="card-title">Connection Status</h3>
+            </div>
+            <div class="card-content">
+                <p>Current network and sync status:</p>
+                <div style="margin: 15px 0;">
+                    <span class="status-indicator status-offline"></span>
+                    <strong>Network:</strong> Offline
+                </div>
+                <div style="margin: 15px 0;">
+                    <span class="status-indicator status-syncing"></span>
+                    <strong>Sync:</strong> Waiting for connection
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="retryConnection()">🔄 Retry Connection</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions Card -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div class="card-icon">⚡</div>
+                <h3 class="card-title">Quick Actions</h3>
+            </div>
+            <div class="card-content">
+                <p>Quick access to offline features:</p>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="openNotes()">📝 Notes</button>
+                    <button class="btn btn-primary" onclick="openBookmarks()">🔖 Bookmarks</button>
+                    <button class="btn btn-secondary" onclick="clearCache()">🗑️ Clear Cache</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sync-status">
+        <h3>🔄 Data Synchronization</h3>
+        <p class="sync-info">Your offline data will automatically sync when you're back online.</p>
+        <p class="sync-info">Last sync: <span id="lastSync">Never</span></p>
+        <button class="btn btn-primary" onclick="forceSync()">🔄 Force Sync Now</button>
+    </div>
+    
+    <div class="footer">
+        <p>StethoLink AI v2.0.0 - Advanced Offline Dashboard</p>
+        <p>Designed for medical students and professionals</p>
+    </div>
+
+    <script>
+        // Check connection status
+        function checkConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            }
+        }
+        
+        // Retry connection
+        function retryConnection() {
+            checkConnection();
+        }
+        
+        // Open curriculum
+        function openCurriculum() {
+            alert('Curriculum feature - This would open your cached medical curriculum');
+        }
+        
+        // Open tools
+        function openTools() {
+            alert('Medical Tools - This would open your cached medical tools');
+        }
+        
+        // Open progress
+        function openProgress() {
+            alert('Study Progress - This would show your cached study progress');
+        }
+        
+        // Open notes
+        function openNotes() {
+            alert('Notes - This would open your offline notes');
+        }
+        
+        // Open bookmarks
+        function openBookmarks() {
+            alert('Bookmarks - This would open your saved bookmarks');
+        }
+        
+        // Check cache status
+        function checkCacheStatus() {
+            if ('serviceWorker' in navigator && 'caches' in window) {
+                caches.keys().then(cacheNames => {
+                    let status = 'Cache Status:\n';
+                    cacheNames.forEach(name => {
+                        status += `• ${name}\n`;
+                    });
+                    alert(status);
+                });
+            } else {
+                alert('Cache API not available');
+            }
+        }
+        
+        // Clear cache
+        function clearCache() {
+            if (confirm('Are you sure you want to clear all cached data? This will remove offline access to content.')) {
+                if ('serviceWorker' in navigator && 'caches' in window) {
+                    caches.keys().then(cacheNames => {
+                        Promise.all(cacheNames.map(name => caches.delete(name)))
+                            .then(() => {
+                                alert('Cache cleared successfully');
+                                location.reload();
+                            });
+                    });
+                }
+            }
+        }
+        
+        // Force sync
+        function forceSync() {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.ready.then(registration => {
+                    registration.sync.register('offline-data-sync');
+                    alert('Sync requested. Data will sync when connection is restored.');
+                });
+            }
+        }
+        
+        // Update connection status
+        function updateConnectionStatus() {
+            const networkStatus = document.querySelector('.status-indicator.status-offline');
+            const syncStatus = document.querySelector('.status-indicator.status-syncing');
+            
+            if (navigator.onLine) {
+                networkStatus.className = 'status-indicator status-online';
+                networkStatus.parentElement.innerHTML = '<span class="status-indicator status-online"></span><strong>Network:</strong> Online';
+                
+                syncStatus.className = 'status-indicator status-online';
+                syncStatus.parentElement.innerHTML = '<span class="status-indicator status-online"></span><strong>Sync:</strong> Connected';
+            } else {
+                networkStatus.className = 'status-indicator status-offline';
+                networkStatus.parentElement.innerHTML = '<span class="status-indicator status-offline"></span><strong>Network:</strong> Offline';
+                
+                syncStatus.className = 'status-indicator status-syncing';
+                syncStatus.parentElement.innerHTML = '<span class="status-indicator status-syncing"></span><strong>Sync:</strong> Waiting for connection';
+            }
+        }
+        
+        // Listen for online/offline events
+        window.addEventListener('online', () => {
+            console.log('Connection restored');
+            updateConnectionStatus();
+            setTimeout(() => {
+                if (confirm('Connection restored! Would you like to reload the page to access full features?')) {
+                    window.location.reload();
+                }
+            }, 1000);
+        });
+        
+        window.addEventListener('offline', () => {
+            console.log('Connection lost');
+            updateConnectionStatus();
+        });
+        
+        // Check connection every 5 seconds
+        setInterval(checkConnection, 5000);
+        
+        // Initialize
+        updateConnectionStatus();
+        
+        // Check if we have a service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(registration => {
+                console.log('Service Worker ready:', registration);
+            });
+        }
+    </script>
+</body>
+</html> 

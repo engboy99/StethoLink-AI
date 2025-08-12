@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StethoLink AI - Test Page</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="header-content">
+                <h1>🏥 StethoLink AI Test</h1>
+                <p>Testing CSS and JavaScript functionality</p>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <h2>Test Page</h2>
+                    <p>This page tests if CSS and JavaScript are working.</p>
+                    <button id="test-btn" class="btn btn-primary">Test Button</button>
+                    <div id="test-output"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Test page loaded');
+            
+            const testBtn = document.getElementById('test-btn');
+            const testOutput = document.getElementById('test-output');
+            
+            testBtn.addEventListener('click', function() {
+                console.log('✅ Button clicked');
+                testOutput.innerHTML = '<p style="color: green;">✅ CSS and JavaScript are working!</p>';
+                
+                // Test if StethoLinkApp class exists
+                if (typeof StethoLinkApp === 'function') {
+                    testOutput.innerHTML += '<p style="color: green;">✅ StethoLinkApp class found</p>';
+                } else {
+                    testOutput.innerHTML += '<p style="color: red;">❌ StethoLinkApp class not found</p>';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
