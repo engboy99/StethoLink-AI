@@ -6,32 +6,81 @@ console.log('==========================================');
 const fs = require('fs');
 const path = require('path');
 
-// Check if public directory exists
-if (fs.existsSync('public')) {
-  console.log('✅ Public directory exists');
-  const publicFiles = fs.readdirSync('public');
-  console.log(`📁 Public directory contains ${publicFiles.length} files`);
+console.log('📂 Current working directory:', process.cwd());
+console.log('📂 Directory contents:', fs.readdirSync('.'));
+
+// Check multiple possible locations for public directory
+const publicPaths = ['public', './public', '../public', '../../public'];
+let publicFound = false;
+let publicPath = '';
+
+for (const testPath of publicPaths) {
+  if (fs.existsSync(testPath)) {
+    console.log(`✅ Public directory found at: ${testPath}`);
+    publicFound = true;
+    publicPath = testPath;
+    break;
+  }
+}
+
+if (!publicFound) {
+  console.log('❌ Public directory not found in any expected location');
+  console.log('🔍 Searching for HTML files...');
   
-  // List key files
-  const keyFiles = ['index.html', 'manifest.json', 'sw.js'];
-  keyFiles.forEach(file => {
-    if (fs.existsSync(`public/${file}`)) {
-      console.log(`✅ ${file} found`);
-    } else {
-      console.log(`❌ ${file} missing`);
+  // Search recursively for HTML files
+  function findHtmlFiles(dir, depth = 0) {
+    if (depth > 3) return; // Limit recursion depth
+    
+    try {
+      const items = fs.readdirSync(dir);
+      for (const item of items) {
+        const fullPath = path.join(dir, item);
+        const stat = fs.statSync(fullPath);
+        
+        if (stat.isDirectory() && depth < 3) {
+          findHtmlFiles(fullPath, depth + 1);
+        } else if (item.endsWith('.html')) {
+          console.log(`📄 Found HTML file: ${fullPath}`);
+        }
+      }
+    } catch (err) {
+      // Skip directories we can't read
     }
-  });
-} else {
-  console.log('❌ Public directory not found');
+  }
+  
+  findHtmlFiles('.');
   process.exit(1);
 }
 
+// Check key files in the found public directory
+const publicFiles = fs.readdirSync(publicPath);
+console.log(`📁 Public directory contains ${publicFiles.length} files`);
+
+const keyFiles = ['index.html', 'manifest.json', 'sw.js'];
+keyFiles.forEach(file => {
+  if (fs.existsSync(path.join(publicPath, file))) {
+    console.log(`✅ ${file} found`);
+  } else {
+    console.log(`❌ ${file} missing`);
+  }
+});
+
 // Check if functions directory exists
-if (fs.existsSync('netlify/functions')) {
-  console.log('✅ Functions directory exists');
-  const functionFiles = fs.readdirSync('netlify/functions');
-  console.log(`📁 Functions directory contains: ${functionFiles.join(', ')}`);
-} else {
+const functionPaths = ['netlify/functions', './netlify/functions', '../netlify/functions'];
+let functionsFound = false;
+
+for (const testPath of functionPaths) {
+  if (fs.existsSync(testPath)) {
+    console.log(`✅ Functions directory found at: ${testPath}`);
+    functionsFound = true;
+    
+    const functionFiles = fs.readdirSync(testPath);
+    console.log(`📁 Functions directory contains: ${functionFiles.join(', ')}`);
+    break;
+  }
+}
+
+if (!functionsFound) {
   console.log('❌ Functions directory not found');
   process.exit(1);
 }
