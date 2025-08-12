@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StethoLink AI - Medical Chat Assistant</title>
+    <meta name="description" content="AI Medical Chat Assistant with Memory for Sri Lankan Medical Students">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="StethoLink AI">
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/chat-style.css">
+    
+    <!-- App Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+</head>
+<body>
+    <div id="chat-app">
+        <!-- Sidebar - Chat History -->
+        <aside class="chat-sidebar" id="chat-sidebar">
+            <div class="sidebar-header">
+                <h2>🏥 StethoLink AI</h2>
+                <button id="new-chat-btn" class="new-chat-btn">🆕 New Chat</button>
+            </div>
+            
+            <div class="chat-history" id="chat-history">
+                <!-- Chat history items will be populated here -->
+            </div>
+            
+            <div class="sidebar-footer">
+                <button id="clear-history-btn" class="clear-history-btn">🗑️ Clear History</button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <!-- Chat Header -->
+            <header class="chat-header">
+                <button id="toggle-sidebar" class="toggle-sidebar-btn">☰</button>
+                <h1 id="current-chat-title">New Medical Chat</h1>
+                <div class="chat-actions">
+                    <button id="export-chat-btn" class="export-btn" title="Export Chat">📤</button>
+                    <button id="share-chat-btn" class="share-btn" title="Share Chat">🔗</button>
+                </div>
+            </header>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages" id="chat-messages">
+                <!-- Welcome message -->
+                <div class="message system-message">
+                    <div class="message-content">
+                        <h3>👨‍⚕️ Welcome to StethoLink AI Medical Assistant!</h3>
+                        <p>I'm Dr. StethoLink, your AI medical learning companion. I can help you with:</p>
+                        <ul>
+                            <li>📚 Medical concepts and explanations</li>
+                            <li>🔍 Symptom analysis and differential diagnosis</li>
+                            <li>🧮 Medical calculations and formulas</li>
+                            <li>📋 Study planning and task management</li>
+                            <li>🎭 Patient simulation scenarios</li>
+                            <li>💊 Drug information and interactions</li>
+                        </ul>
+                        <p><strong>Start by asking me any medical question!</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="chat-input" 
+                        placeholder="Ask me anything about medicine, symptoms, or medical concepts..."
+                        rows="1"
+                        maxlength="2000"
+                    ></textarea>
+                    <button id="send-btn" class="send-btn" disabled>📤</button>
+                </div>
+                <div class="input-footer">
+                    <span class="char-count">0/2000</span>
+                    <div class="quick-actions">
+                        <button class="quick-action" data-action="symptoms">🔍 Symptoms</button>
+                        <button class="quick-action" data-action="calculator">🧮 Calculator</button>
+                        <button class="quick-action" data-action="simulation">🎭 Simulation</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-overlay" id="mobile-overlay"></div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="loading-indicator" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Dr. StethoLink is thinking...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/chat-system.js"></script>
+</body>
+</html> 

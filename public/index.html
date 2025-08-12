@@ -3,324 +3,847 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StethoLink AI - Medical Learning Assistant</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>🏥 StethoLink AI - Advanced Medical AI System</title>
+    <meta name="description" content="Advanced Medical AI Assistant with Image Analysis, Calculators, Research Tools, and Patient Simulations">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest-new.json">
-    
-    <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#667eea">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="StethoLink AI">
     
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#667eea">
-    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    
+    <!-- Advanced CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading Screen */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .app-sidebar {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        /* Main Content */
+        .app-main {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Authentication Container */
+        #authContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .auth-switch a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        /* Chat Interface */
+        .chat-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chat-header h2 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        #chatContainer {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+        }
+
+        .message {
+            margin: 1rem 0;
+        }
+
+        .message-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .message-bubble {
+            padding: 1rem;
+            border-radius: 15px;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .user-bubble {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            margin-left: auto;
+        }
+
+        .ai-bubble {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+
+        .message-icon {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-text {
+            line-height: 1.5;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-form input {
+            flex: 1;
+        }
+
+        /* Advanced Features */
+        .advanced-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .feature-card h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Image Analysis */
+        .image-analysis-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .image-upload {
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(102, 126, 234, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .image-upload:hover {
+            border-color: #764ba2;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .image-upload input[type="file"] {
+            display: none;
+        }
+
+        .upload-label {
+            cursor: pointer;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .upload-label:hover {
+            color: #764ba2;
+        }
+
+        /* Calculators */
+        .calculators-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .calculator-card {
+            text-align: center;
+        }
+
+        .calculator-form {
+            margin-top: 1.5rem;
+        }
+
+        .calculator-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 0.5rem 0;
+        }
+
+        .result-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .result-category.normal {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .result-category.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .result-category.danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Research */
+        .research-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .research-form {
+            margin-top: 1.5rem;
+        }
+
+        .research-result {
+            margin-top: 1.5rem;
+        }
+
+        .research-result-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-result-card h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .research-result-card h4 {
+            color: #667eea;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .research-result-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .research-result-card li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Simulations */
+        .simulations-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .simulation-form {
+            margin-top: 1.5rem;
+        }
+
+        .simulation-result {
+            margin-top: 1.5rem;
+        }
+
+        .simulation-result-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .simulation-result-card h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .case-details p {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .learning-objectives ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .learning-objectives li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Progress */
+        .progress-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        }
+
+        .progress-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-container {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-bar.animated {
+            animation: progressFill 1s ease-out;
+        }
+
+        @keyframes progressFill {
+            from { width: 0%; }
+            to { width: var(--progress-width); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .app-sidebar {
+                width: 100%;
+                order: 2;
+            }
+
+            .app-main {
+                order: 1;
+                padding: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-card {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .chat-form {
+                flex-direction: column;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mt-3 { margin-top: 1.5rem; }
+    </style>
 </head>
 <body>
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <h2>StethoLink AI</h2>
-            <p>Initializing medical learning assistant...</p>
+    <div id="loadingScreen">
+        <div class="advanced-loading">
+            <div class="loading-heartbeat">
+                <div class="heartbeat-icon">❤️</div>
+                <div class="heartbeat-pulse"></div>
+            </div>
+            <div class="loading-text">
+                <h2>StethoLink AI</h2>
+                <p>Initializing Advanced Medical AI System...</p>
+                <div class="loading-progress">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="loading-features">
+                <span class="feature-tag">🔬 AI Analysis</span>
+                <span class="feature-tag">📊 Calculators</span>
+                <span class="feature-tag">🔍 Research</span>
+                <span class="feature-tag">🎯 Simulations</span>
+            </div>
         </div>
     </div>
 
     <!-- Authentication Container -->
-    <div id="authContainer" class="auth-container hidden">
+    <div id="authContainer" class="hidden">
         <div class="auth-card">
             <div class="auth-header">
-                <div class="logo">
-                    <i class="fas fa-stethoscope"></i>
-                    <h1>StethoLink AI</h1>
-                </div>
-                <p>Your intelligent medical learning companion</p>
+                <h1>🏥 StethoLink AI</h1>
+                <p>Advanced Medical AI System</p>
             </div>
 
             <!-- Login Form -->
-            <form id="loginForm" class="auth-form">
-                <h2>Welcome Back</h2>
+            <form id="loginForm">
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" required placeholder="Enter your email">
+                    <input type="email" id="loginEmail" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    <input type="password" id="loginPassword" name="password" required>
                 </div>
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Sign In
-                </button>
-                <p class="auth-switch">
-                    Don't have an account? 
-                    <a href="#" id="showRegister">Sign up</a>
-                </p>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
             </form>
 
             <!-- Register Form -->
-            <form id="registerForm" class="auth-form hidden">
-                <h2>Create Account</h2>
+            <form id="registerForm" class="hidden">
                 <div class="form-group">
                     <label for="registerName">Full Name</label>
-                    <input type="text" id="registerName" required placeholder="Enter your full name">
+                    <input type="text" id="registerName" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
-                    <input type="email" id="registerEmail" required placeholder="Enter your email">
+                    <input type="email" id="registerEmail" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="registerPassword">Password</label>
-                    <input type="password" id="registerPassword" required placeholder="Create a password">
+                    <input type="password" id="registerPassword" name="password" required>
                 </div>
-                <div class="form-group">
-                    <label for="registerLanguage">Preferred Language</label>
-                    <select id="registerLanguage" required>
-                        <option value="en">English</option>
-                        <option value="si">සිංහල (Sinhala)</option>
-                        <option value="ta">தமிழ் (Tamil)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-user-plus"></i>
-                    Create Account
-                </button>
-                <p class="auth-switch">
-                    Already have an account? 
-                    <a href="#" id="showLogin">Sign in</a>
-                </p>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
             </form>
+
+            <div class="auth-switch">
+                <a href="#" onclick="app.switchAuthForm('login')" id="showLogin">Already have an account? Login</a>
+                <a href="#" onclick="app.switchAuthForm('register')" id="showRegister" class="hidden">Need an account? Register</a>
+            </div>
         </div>
     </div>
 
-    <!-- Main Application Container -->
-    <div id="appContainer" class="app-container hidden">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-left">
-                <div class="logo">
-                    <i class="fas fa-stethoscope"></i>
-                    <h1>StethoLink AI</h1>
-                </div>
+    <!-- Main App Container -->
+    <div id="appContainer" class="hidden">
+        <div class="main-container">
+            <!-- Sidebar Navigation -->
+            <div class="app-sidebar">
+                <!-- Navigation will be populated by JavaScript -->
             </div>
-            <div class="header-center">
-                <div class="user-status">
-                    <span class="status-indicator online"></span>
-                    <span class="status-text">Online</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="user-menu">
-                    <button id="userMenuBtn" class="user-menu-btn">
-                        <i class="fas fa-user-circle"></i>
-                        <span id="userDisplayName">User</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div id="userDropdown" class="user-dropdown hidden">
-                        <a href="#" id="profileLink">
-                            <i class="fas fa-user"></i>
-                            Profile
-                        </a>
-                        <a href="#" id="settingsLink">
-                            <i class="fas fa-cog"></i>
-                            Settings
-                        </a>
-                        <a href="#" id="logoutBtn">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Logout
-                        </a>
+
+            <!-- Main Content Area -->
+            <div class="app-main">
+                <!-- Welcome Section -->
+                <div class="content-section welcome-section">
+                    <div class="welcome-message">
+                        <h1>🏥 Welcome to StethoLink AI</h1>
+                        <p>Your advanced medical AI assistant is ready to help with diagnosis, research, and learning.</p>
                     </div>
                 </div>
-            </div>
-        </header>
 
-        <!-- Main Content -->
-        <main class="app-main">
-            <!-- Sidebar -->
-            <aside class="app-sidebar">
-                <nav class="sidebar-nav">
-                    <a href="#" class="nav-item active" data-section="chat">
-                        <i class="fas fa-comments"></i>
-                        <span>Chat</span>
-                    </a>
-                    <a href="#" class="nav-item" data-section="tasks">
-                        <i class="fas fa-tasks"></i>
-                        <span>Tasks</span>
-                    </a>
-                    <a href="#" class="nav-item" data-section="progress">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Progress</span>
-                    </a>
-                    <a href="#" class="nav-item" data-section="notebook">
-                        <i class="fas fa-book"></i>
-                        <span>Notebook</span>
-                    </a>
-                    <a href="#" class="nav-item" data-section="simulations">
-                        <i class="fas fa-user-md"></i>
-                        <span>Simulations</span>
-                    </a>
-                </nav>
-            </aside>
-
-            <!-- Content Area -->
-            <div class="content-area">
                 <!-- Chat Section -->
-                <section id="chatSection" class="content-section active">
-                    <div class="chat-container">
-                        <div class="chat-header">
-                            <h2>Medical Learning Assistant</h2>
-                            <p>Ask me anything about medicine, practice with simulations, or get study guidance</p>
-                        </div>
-                        
-                        <div class="chat-messages" id="chatMessages">
-                            <div class="message ai-message">
-                                <div class="message-avatar">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                                <div class="message-content">
-                                    <div class="message-text">
-                                        Hello! I'm your StethoLink AI medical learning assistant. I can help you with:
-                                        <br><br>
-                                        🏥 Medical diagnosis and symptoms<br>
-                                        📚 Study planning and curriculum guidance<br>
-                                        🎯 Practice simulations and case studies<br>
-                                        💊 Drug interactions and calculations<br>
-                                        📝 Note-taking and progress tracking<br><br>
-                                        What would you like to learn about today?
-                                    </div>
+                <div class="content-section chat-section content-section">
+                    <div class="chat-header">
+                        <h2>💬 Medical AI Assistant</h2>
+                        <p>Ask me anything about medicine, symptoms, or medical procedures</p>
+                    </div>
+                    
+                    <div id="chatContainer">
+                        <div class="message ai-message">
+                            <div class="message-content text-left">
+                                <div class="message-bubble ai-bubble">
+                                    <div class="message-icon">🤖</div>
+                                    <div class="message-text">Hello! I'm your StethoLink AI medical assistant. I can help you with medical questions, image analysis, calculations, research, and patient simulations. How can I assist you today?</div>
                                     <div class="message-time">Just now</div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <form id="chatForm" class="chat-form">
+                        <input type="text" id="chatInput" placeholder="Type your medical question here..." required>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
 
-                        <div class="chat-input-container">
-                            <div class="chat-input-wrapper">
-                                <textarea 
-                                    id="chatInput" 
-                                    placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
-                                    rows="1"
-                                ></textarea>
-                                <button id="sendMessageBtn" class="send-btn" disabled>
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
+                <!-- Advanced Features Section -->
+                <div class="content-section advanced-section content-section hidden">
+                    <h2>🔬 Advanced Medical AI Features</h2>
+                    <p>Access powerful AI tools for medical analysis and decision support</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🖼️</div>
+                            <h3>Medical Image Analysis</h3>
+                            <p>Upload medical images for AI-powered analysis and diagnosis assistance</p>
+                            
+                            <div class="image-upload">
+                                <input type="file" id="imageInput" accept="image/*">
+                                <label for="imageInput" class="upload-label">
+                                    📁 Click to upload medical image
+                                </label>
                             </div>
-                            <div class="chat-actions">
-                                <button class="action-btn" title="Voice Message">
-                                    <i class="fas fa-microphone"></i>
-                                </button>
-                                <button class="action-btn" title="Attach File">
-                                    <i class="fas fa-paperclip"></i>
-                                </button>
-                                <button class="action-btn" title="Quick Actions">
-                                    <i class="fas fa-bolt"></i>
-                                </button>
-                            </div>
+                            
+                            <div class="image-analysis-result"></div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Clinical Decision Support</h3>
+                            <p>Get AI-powered recommendations for clinical scenarios and treatment options</p>
+                            
+                            <button class="btn btn-primary" onclick="app.showAdvancedToast('Clinical Decision Support coming soon!', 'info')">
+                                Launch Decision Support
+                            </button>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">📱</div>
+                            <h3>Mobile Medical Assistant</h3>
+                            <p>Access medical information and tools optimized for mobile devices</p>
+                            
+                            <button class="btn btn-primary" onclick="app.showAdvancedToast('Mobile features activated!', 'success')">
+                                Enable Mobile Mode
+                            </button>
                         </div>
                     </div>
-                </section>
+                </div>
 
-                <!-- Tasks Section -->
-                <section id="tasksSection" class="content-section">
-                    <div class="section-header">
-                        <h2>Learning Tasks</h2>
-                        <button class="btn-primary" id="addTaskBtn">
-                            <i class="fas fa-plus"></i>
-                            Add Task
-                        </button>
+                <!-- Calculators Section -->
+                <div class="content-section calculators-section content-section hidden">
+                    <h2>📊 Medical Calculators</h2>
+                    <p>Professional medical calculators for clinical decision making</p>
+                    
+                    <div class="calculators-container">
+                        <!-- Calculators will be populated by JavaScript -->
                     </div>
-                    <div class="tasks-container" id="tasksContainer">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading tasks...</p>
-                        </div>
-                    </div>
-                </section>
+                </div>
 
-                <!-- Progress Section -->
-                <section id="progressSection" class="content-section">
-                    <div class="section-header">
-                        <h2>Learning Progress</h2>
-                        <div class="progress-filters">
-                            <select id="progressTimeframe">
-                                <option value="week">This Week</option>
-                                <option value="month">This Month</option>
-                                <option value="year">This Year</option>
-                            </select>
-                        </div>
+                <!-- Research Section -->
+                <div class="content-section research-section content-section hidden">
+                    <h2>🔍 Research AI Assistant</h2>
+                    <p>AI-powered medical literature research and analysis tools</p>
+                    
+                    <div class="research-container">
+                        <!-- Research tools will be populated by JavaScript -->
                     </div>
-                    <div class="progress-container" id="progressContainer">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading progress...</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Notebook Section -->
-                <section id="notebookSection" class="content-section">
-                    <div class="section-header">
-                        <h2>Learning Notebook</h2>
-                        <button class="btn-primary" id="addNoteBtn">
-                            <i class="fas fa-plus"></i>
-                            Add Note
-                        </button>
-                    </div>
-                    <div class="notebook-container" id="notebookContainer">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading notes...</p>
-                        </div>
-                    </div>
-                </section>
+                </div>
 
                 <!-- Simulations Section -->
-                <section id="simulationsSection" class="content-section">
-                    <div class="section-header">
-                        <h2>Medical Simulations</h2>
-                        <button class="btn-primary" id="startSimulationBtn">
-                            <i class="fas fa-play"></i>
-                            Start Simulation
-                        </button>
+                <div class="content-section simulations-section content-section hidden">
+                    <h2>🎯 Patient Simulations</h2>
+                    <p>Practice with realistic patient cases and improve diagnostic skills</p>
+                    
+                    <div class="simulations-container">
+                        <!-- Simulations will be populated by JavaScript -->
                     </div>
-                    <div class="simulations-container" id="simulationsContainer">
-                        <div class="loading-placeholder">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Loading simulations...</p>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="content-section progress-section content-section hidden">
+                    <h2>📈 Learning Progress</h2>
+                    <p>Track your learning progress and achievements</p>
+                    
+                    <div class="progress-grid">
+                        <div class="progress-card">
+                            <div class="progress-header">
+                                <h3>🔬 AI Analysis</h3>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" data-feature="aiAnalysis" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-card">
+                            <div class="progress-header">
+                                <h3>📊 Calculators</h3>
+                                <span>60%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" data-feature="calculators" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-card">
+                            <div class="progress-header">
+                                <h3>🔍 Research</h3>
+                                <span>45%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" data-feature="research" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-card">
+                            <div class="progress-header">
+                                <h3>🎯 Simulations</h3>
+                                <span>80%</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" data-feature="simulations" style="width: 80%"></div>
+                            </div>
                         </div>
                     </div>
-                </section>
-            </div>
-        </main>
-    </div>
-
-    <!-- Modals -->
-    <div id="modalOverlay" class="modal-overlay hidden">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="modalTitle">Modal Title</h3>
-                <button class="modal-close" id="modalClose">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Modal content will be inserted here -->
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notifications -->
-    <div id="toastContainer" class="toast-container"></div>
-
+    <!-- Advanced JavaScript -->
     <script src="app.js"></script>
     
     <!-- Service Worker Registration -->
     <script>
-        // Register Service Worker for PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
@@ -332,19 +855,6 @@
                     });
             });
         }
-        
-        // PWA Install Prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            console.log('🚀 PWA Install prompt ready');
-        });
-        
-        window.addEventListener('appinstalled', () => {
-            console.log('🎉 PWA installed successfully!');
-            deferredPrompt = null;
-        });
     </script>
 </body>
 </html> 

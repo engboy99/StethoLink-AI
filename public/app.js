@@ -1,37 +1,589 @@
-// StethoLink AI Application
+// 🏥 StethoLink AI - Advanced Medical AI System
 class StethoLinkApp {
     constructor() {
         this.currentUser = null;
         this.chatHistory = [];
         this.isAuthenticated = false;
         this.apiBaseUrl = '/.netlify/functions/api';
+        this.currentSection = 'chat';
+        this.animationQueue = [];
+        this.isAnimating = false;
+        
+        // Advanced Features State
+        this.advancedFeatures = {
+            imageAnalysis: false,
+            medicalCalculators: false,
+            researchAssistant: false,
+            patientSimulation: false,
+            voiceProcessing: false
+        };
         
         this.init();
     }
 
     async init() {
         try {
-            // Hide loading screen
-            this.hideLoadingScreen();
+            // Show advanced loading animation
+            this.showAdvancedLoadingScreen();
+            
+            // Initialize advanced UI components
+            await this.initializeAdvancedUI();
             
             // Check authentication status
             await this.checkAuthStatus();
             
-            // Initialize event listeners
-            this.initializeEventListeners();
+            // Initialize all event listeners
+            this.initializeAllEventListeners();
             
-            // Show appropriate container
+            // Show appropriate container with animations
             if (this.isAuthenticated) {
-                this.showAppContainer();
+                await this.showAppContainerWithAnimation();
                 await this.loadUserData();
             } else {
-                this.showAuthContainer();
+                await this.showAuthContainerWithAnimation();
             }
             
-            console.log('🚀 StethoLink AI App initialized successfully');
+            // Initialize advanced features
+            await this.initializeAdvancedFeatures();
+            
+            // Start background animations
+            this.startBackgroundAnimations();
+            
+            console.log('🚀 Advanced StethoLink AI App initialized successfully');
         } catch (error) {
-            console.error('❌ Error initializing app:', error);
-            this.showToast('Error initializing application', 'error');
+            console.error('❌ Error initializing advanced app:', error);
+            this.showAdvancedToast('Error initializing advanced application', 'error');
+        }
+    }
+
+    showAdvancedLoadingScreen() {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.innerHTML = `
+                <div class="advanced-loading">
+                    <div class="loading-heartbeat">
+                        <div class="heartbeat-icon">❤️</div>
+                        <div class="heartbeat-pulse"></div>
+                    </div>
+                    <div class="loading-text">
+                        <h2>StethoLink AI</h2>
+                        <p>Initializing Advanced Medical AI System...</p>
+                        <div class="loading-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                    <div class="loading-features">
+                        <span class="feature-tag">🔬 AI Analysis</span>
+                        <span class="feature-tag">📊 Calculators</span>
+                        <span class="feature-tag">🔍 Research</span>
+                        <span class="feature-tag">🎯 Simulations</span>
+                    </div>
+                </div>
+            `;
+            
+            // Animate loading progress
+            setTimeout(() => {
+                const progressBar = loadingScreen.querySelector('.progress-bar');
+                if (progressBar) {
+                    progressBar.style.width = '100%';
+                }
+            }, 1000);
+        }
+    }
+
+    async initializeAdvancedUI() {
+        // Add advanced CSS animations
+        this.injectAdvancedStyles();
+        
+        // Create floating action buttons
+        this.createFloatingActionButtons();
+        
+        // Initialize particle effects
+        this.initializeParticleEffects();
+        
+        // Setup advanced navigation
+        this.setupAdvancedNavigation();
+    }
+
+    injectAdvancedStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Advanced Animations */
+            @keyframes heartbeat {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+            
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
+            }
+            
+            @keyframes slideInUp {
+                from { transform: translateY(100px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+            
+            @keyframes slideInLeft {
+                from { transform: translateX(-100px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-10px); }
+                60% { transform: translateY(-5px); }
+            }
+            
+            @keyframes glow {
+                0% { box-shadow: 0 0 5px #007bff; }
+                50% { box-shadow: 0 0 20px #007bff, 0 0 30px #007bff; }
+                100% { box-shadow: 0 0 5px #007bff; }
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+            
+            /* Advanced Loading Screen */
+            .advanced-loading {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                text-align: center;
+            }
+            
+            .loading-heartbeat {
+                position: relative;
+                margin-bottom: 2rem;
+            }
+            
+            .heartbeat-icon {
+                font-size: 4rem;
+                animation: heartbeat 1.5s ease-in-out infinite;
+            }
+            
+            .heartbeat-pulse {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 100px;
+                height: 100px;
+                border: 2px solid rgba(255,255,255,0.3);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                animation: pulse 2s ease-in-out infinite;
+            }
+            
+            .loading-progress {
+                width: 300px;
+                height: 4px;
+                background: rgba(255,255,255,0.3);
+                border-radius: 2px;
+                margin: 1rem 0;
+                overflow: hidden;
+            }
+            
+            .progress-bar {
+                height: 100%;
+                background: linear-gradient(90deg, #00ff88, #00d4ff);
+                width: 0%;
+                transition: width 1s ease-in-out;
+                border-radius: 2px;
+            }
+            
+            .loading-features {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 2rem;
+            }
+            
+            .feature-tag {
+                background: rgba(255,255,255,0.2);
+                padding: 0.5rem 1rem;
+                border-radius: 20px;
+                font-size: 0.9rem;
+                animation: float 3s ease-in-out infinite;
+                animation-delay: calc(var(--i) * 0.5s);
+            }
+            
+            /* Floating Action Buttons */
+            .floating-actions {
+                position: fixed;
+                right: 20px;
+                bottom: 20px;
+                z-index: 1000;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .fab {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                border: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                transition: all 0.3s ease;
+                animation: float 3s ease-in-out infinite;
+            }
+            
+            .fab:hover {
+                transform: scale(1.1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+                animation: glow 2s ease-in-out infinite;
+            }
+            
+            /* Advanced Navigation */
+            .advanced-nav {
+                background: linear-gradient(135deg, #1e3c72, #2a5298);
+                padding: 1rem;
+                border-radius: 15px;
+                margin: 1rem;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            }
+            
+            .nav-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            
+            .nav-card {
+                background: rgba(255,255,255,0.1);
+                padding: 1.5rem;
+                border-radius: 10px;
+                text-align: center;
+                color: white;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            }
+            
+            .nav-card:hover {
+                transform: translateY(-5px);
+                background: rgba(255,255,255,0.2);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+            
+            .nav-card i {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
+            
+            /* Advanced Content Sections */
+            .content-section {
+                animation: slideInUp 0.6s ease-out;
+            }
+            
+            .feature-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+            
+            .feature-card {
+                background: white;
+                border-radius: 15px;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+                border: 1px solid #e0e0e0;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .feature-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                background: linear-gradient(90deg, #667eea, #764ba2);
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+            
+            .feature-card:hover::before {
+                transform: scaleX(1);
+            }
+            
+            .feature-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            }
+            
+            .feature-icon {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                color: white;
+                margin: 0 auto 1rem;
+                animation: float 4s ease-in-out infinite;
+            }
+            
+            /* Advanced Chat Interface */
+            .advanced-chat {
+                background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+                border-radius: 20px;
+                padding: 2rem;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            }
+            
+            .chat-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            
+            .chat-header h2 {
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .chat-header p {
+                color: #666;
+                font-size: 1.1rem;
+            }
+            
+            .message {
+                margin: 1rem 0;
+                animation: slideInLeft 0.5s ease-out;
+            }
+            
+            .ai-message {
+                animation: slideInLeft 0.5s ease-out;
+            }
+            
+            .user-message {
+                animation: slideInLeft 0.5s ease-out;
+                animation-delay: 0.1s;
+            }
+            
+            /* Advanced Toast */
+            .advanced-toast {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideInLeft 0.5s ease-out;
+                max-width: 300px;
+            }
+            
+            .advanced-toast.success {
+                background: linear-gradient(135deg, #00b09b, #96c93d);
+            }
+            
+            .advanced-toast.error {
+                background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            }
+            
+            .advanced-toast.warning {
+                background: linear-gradient(135deg, #f093fb, #f5576c);
+            }
+            
+            /* Particle Effects */
+            .particles {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: -1;
+            }
+            
+            .particle {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: rgba(102, 126, 234, 0.6);
+                border-radius: 50%;
+                animation: float 6s ease-in-out infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    createFloatingActionButtons() {
+        const fabContainer = document.createElement('div');
+        fabContainer.className = 'floating-actions';
+        fabContainer.innerHTML = `
+            <button class="fab" onclick="app.showAdvancedFeatures()" title="Advanced Features">
+                🔬
+            </button>
+            <button class="fab" onclick="app.showMedicalCalculators()" title="Medical Calculators">
+                📊
+            </button>
+            <button class="fab" onclick="app.showImageAnalysis()" title="Image Analysis">
+                🖼️
+            </button>
+            <button class="fab" onclick="app.showResearchAssistant()" title="Research AI">
+                🔍
+            </button>
+            <button class="fab" onclick="app.showPatientSimulation()" title="Patient Simulation">
+                🎯
+            </button>
+        `;
+        document.body.appendChild(fabContainer);
+    }
+
+    initializeParticleEffects() {
+        const particlesContainer = document.createElement('div');
+        particlesContainer.className = 'particles';
+        
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        document.body.appendChild(particlesContainer);
+    }
+
+    setupAdvancedNavigation() {
+        const navContainer = document.querySelector('.app-sidebar');
+        if (navContainer) {
+            navContainer.innerHTML = `
+                <div class="advanced-nav">
+                    <div class="nav-grid">
+                        <div class="nav-card" data-section="chat" onclick="app.switchSection('chat')">
+                            <i>💬</i>
+                            <h3>AI Chat</h3>
+                            <p>Medical AI Assistant</p>
+                        </div>
+                        <div class="nav-card" data-section="advanced" onclick="app.switchSection('advanced')">
+                            <i>🔬</i>
+                            <h3>Advanced Features</h3>
+                            <p>AI Analysis & Tools</p>
+                        </div>
+                        <div class="nav-card" data-section="calculators" onclick="app.switchSection('calculators')">
+                            <i>📊</i>
+                            <h3>Calculators</h3>
+                            <p>Medical Formulas</p>
+                        </div>
+                        <div class="nav-card" data-section="research" onclick="app.switchSection('research')">
+                            <i>🔍</i>
+                            <h3>Research AI</h3>
+                            <p>Literature & Analysis</p>
+                        </div>
+                        <div class="nav-card" data-section="simulations" onclick="app.switchSection('simulations')">
+                            <i>🎯</i>
+                            <h3>Simulations</h3>
+                            <p>Patient Cases</p>
+                        </div>
+                        <div class="nav-card" data-section="progress" onclick="app.switchSection('progress')">
+                            <i>📈</i>
+                            <h3>Progress</h3>
+                            <p>Learning Analytics</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    async initializeAdvancedFeatures() {
+        try {
+            // Test advanced features availability
+            const response = await fetch(`${this.apiBaseUrl}/advanced-features/health`);
+            if (response.ok) {
+                this.advancedFeatures = {
+                    imageAnalysis: true,
+                    medicalCalculators: true,
+                    researchAssistant: true,
+                    patientSimulation: true,
+                    voiceProcessing: true
+                };
+                console.log('✅ Advanced features initialized successfully');
+            }
+        } catch (error) {
+            console.log('⚠️ Advanced features not available, using fallback');
+        }
+    }
+
+    startBackgroundAnimations() {
+        // Animate feature tags
+        const featureTags = document.querySelectorAll('.feature-tag');
+        featureTags.forEach((tag, index) => {
+            tag.style.setProperty('--i', index);
+        });
+        
+        // Start floating animations
+        setInterval(() => {
+            const floatingElements = document.querySelectorAll('.fab, .feature-icon');
+            floatingElements.forEach(el => {
+                el.style.animationDelay = Math.random() * 2 + 's';
+            });
+        }, 5000);
+    }
+
+    async showAppContainerWithAnimation() {
+        const appContainer = document.getElementById('appContainer');
+        const loadingScreen = document.getElementById('loadingScreen');
+        
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                appContainer.classList.remove('hidden');
+                appContainer.style.animation = 'fadeIn 0.8s ease-out';
+            }, 500);
+        }
+    }
+
+    async showAuthContainerWithAnimation() {
+        const authContainer = document.getElementById('authContainer');
+        const loadingScreen = document.getElementById('loadingScreen');
+        
+        if (loadingScreen) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                authContainer.classList.remove('hidden');
+                authContainer.style.animation = 'slideInUp 0.8s ease-out';
+            }, 500);
         }
     }
 
@@ -53,10 +605,9 @@ class StethoLinkApp {
     }
 
     async checkAuthStatus() {
-        try {
-            const token = localStorage.getItem('authToken');
-            if (token) {
-                // Verify token with backend
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            try {
                 const response = await fetch(`/.netlify/functions/auth/verify`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -64,497 +615,278 @@ class StethoLinkApp {
                 });
                 
                 if (response.ok) {
-                    const userData = await response.json();
-                    this.currentUser = userData.user;
+                    const data = await response.json();
+                    this.currentUser = data.user;
                     this.isAuthenticated = true;
-                    return true;
+                    console.log('✅ User authenticated:', this.currentUser);
                 } else {
-                    // Token invalid, remove it
                     localStorage.removeItem('authToken');
-                    return false;
+                    this.isAuthenticated = false;
                 }
+            } catch (error) {
+                console.error('❌ Auth check error:', error);
+                localStorage.removeItem('authToken');
+                this.isAuthenticated = false;
             }
-            return false;
-        } catch (error) {
-            console.error('Error checking auth status:', error);
-            return false;
         }
     }
 
-    initializeEventListeners() {
-        // Authentication events
-        this.setupAuthEvents();
-        
-        // Navigation events
-        this.setupNavigationEvents();
-        
-        // Chat events
-        this.setupChatEvents();
-        
-        // User menu events
-        this.setupUserMenuEvents();
-        
-        // Global events
-        this.setupGlobalEvents();
-    }
+    initializeAllEventListeners() {
+        // Chat form submission
+        const chatForm = document.getElementById('chatForm');
+        if (chatForm) {
+            chatForm.addEventListener('submit', (e) => this.handleChatSubmit(e));
+        }
 
-    setupAuthEvents() {
-        // Show/hide forms
-        document.getElementById('showRegister').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.toggleAuthForms();
-        });
-
-        document.getElementById('showLogin').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.toggleAuthForms();
-        });
-
-        // Login form
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleLogin();
-        });
-
-        // Register form
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleRegister();
-        });
-    }
-
-    setupNavigationEvents() {
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.switchSection(item.dataset.section);
-            });
-        });
-    }
-
-    setupChatEvents() {
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendMessageBtn');
-
-        // Auto-resize textarea
-        chatInput.addEventListener('input', () => {
-            this.autoResizeTextarea(chatInput);
-            this.toggleSendButton();
-        });
-
-        // Send message on Enter
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                this.sendMessage();
-            }
-        });
-
-        // Send button click
-        sendBtn.addEventListener('click', () => {
-            this.sendMessage();
-        });
-
-        // Chat action buttons
-        document.querySelectorAll('.action-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const action = e.currentTarget.title.toLowerCase();
-                this.handleChatAction(action);
-            });
-        });
-    }
-
-    setupUserMenuEvents() {
-        const userMenuBtn = document.getElementById('userMenuBtn');
-        const userDropdown = document.getElementById('userDropdown');
-
-        userMenuBtn.addEventListener('click', () => {
-            userDropdown.classList.toggle('hidden');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!userMenuBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.add('hidden');
-            }
-        });
-
-        // Profile link
-        document.getElementById('profileLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.showProfile();
-        });
-
-        // Settings link
-        document.getElementById('settingsLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.showSettings();
-        });
-
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            this.handleLogout();
-        });
-    }
-
-    setupGlobalEvents() {
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            this.handleResize();
-        });
-
-        // Handle beforeunload
-        window.addEventListener('beforeunload', () => {
-            this.saveChatHistory();
-        });
-    }
-
-    toggleAuthForms() {
+        // Authentication forms
         const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+        }
+
         const registerForm = document.getElementById('registerForm');
-        
-        loginForm.classList.toggle('hidden');
-        registerForm.classList.toggle('hidden');
-    }
-
-    async handleLogin() {
-        const email = document.getElementById('loginEmail').value;
-        const password = document.getElementById('loginPassword').value;
-
-        if (!email || !password) {
-            this.showToast('Please fill in all fields', 'error');
-            return;
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => this.handleRegister(e));
         }
 
-        try {
-            const response = await fetch(`/.netlify/functions/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('authToken', data.token);
-                this.currentUser = data.user;
-                this.isAuthenticated = true;
-                
-                this.showToast('Login successful!', 'success');
-                this.showAppContainer();
-                await this.loadUserData();
-            } else {
-                this.showToast(data.message || 'Login failed', 'error');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            this.showToast('Network error. Please try again.', 'error');
-        }
+        // Advanced feature buttons
+        this.initializeAdvancedEventListeners();
     }
 
-    async handleRegister() {
-        const name = document.getElementById('registerName').value;
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
-        const language = document.getElementById('registerLanguage').value;
-
-        if (!name || !email || !password) {
-            this.showToast('Please fill in all required fields', 'error');
-            return;
+    initializeAdvancedEventListeners() {
+        // Image analysis
+        const imageInput = document.getElementById('imageInput');
+        if (imageInput) {
+            imageInput.addEventListener('change', (e) => this.handleImageUpload(e));
         }
 
-        try {
-            const response = await fetch(`/.netlify/functions/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    name, 
-                    email, 
-                    password, 
-                    language,
-                    platform: 'web'
-                })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                this.showToast('Account created successfully! Please log in.', 'success');
-                this.toggleAuthForms(); // Switch to login form
-            } else {
-                this.showToast(data.message || 'Registration failed', 'error');
-            }
-        } catch (error) {
-            console.error('Registration error:', error);
-            this.showToast('Network error. Please try again.', 'error');
-        }
-    }
-
-    async handleLogout() {
-        try {
-            // Clear local storage
-            localStorage.removeItem('authToken');
-            
-            // Clear user data
-            this.currentUser = null;
-            this.isAuthenticated = false;
-            this.chatHistory = [];
-            
-            // Save chat history before logout
-            this.saveChatHistory();
-            
-            // Show auth container
-            this.showAuthContainer();
-            
-            // Clear forms
-            this.clearAuthForms();
-            
-            this.showToast('Logged out successfully', 'success');
-        } catch (error) {
-            console.error('Logout error:', error);
-        }
-    }
-
-    clearAuthForms() {
-        document.getElementById('loginForm').reset();
-        document.getElementById('registerForm').reset();
-    }
-
-    switchSection(sectionName) {
-        // Hide all sections
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.classList.remove('active');
+        // Calculator forms
+        const calculatorForms = document.querySelectorAll('.calculator-form');
+        calculatorForms.forEach(form => {
+            form.addEventListener('submit', (e) => this.handleCalculatorSubmit(e));
         });
 
-        // Remove active class from all nav items
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.classList.remove('active');
-        });
-
-        // Show selected section
-        const targetSection = document.getElementById(`${sectionName}Section`);
-        if (targetSection) {
-            targetSection.classList.add('active');
+        // Research assistant
+        const researchForm = document.getElementById('researchForm');
+        if (researchForm) {
+            researchForm.addEventListener('submit', (e) => this.handleResearchSubmit(e));
         }
 
-        // Add active class to nav item
-        const activeNavItem = document.querySelector(`[data-section="${sectionName}"]`);
-        if (activeNavItem) {
-            activeNavItem.classList.add('active');
-        }
-
-        // Load section data
-        this.loadSectionData(sectionName);
-    }
-
-    async loadSectionData(sectionName) {
-        try {
-            switch (sectionName) {
-                case 'tasks':
-                    await this.loadTasks();
-                    break;
-                case 'progress':
-                    await this.loadProgress();
-                    break;
-                case 'notebook':
-                    await this.loadNotebook();
-                    break;
-                case 'simulations':
-                    await this.loadSimulations();
-                    break;
-            }
-        } catch (error) {
-            console.error(`Error loading ${sectionName} data:`, error);
+        // Patient simulation
+        const simulationForm = document.getElementById('simulationForm');
+        if (simulationForm) {
+            simulationForm.addEventListener('submit', (e) => this.handleSimulationSubmit(e));
         }
     }
 
     async loadUserData() {
         try {
-            // Update user display name
-            const userDisplayName = document.getElementById('userDisplayName');
-            if (userDisplayName && this.currentUser) {
-                userDisplayName.textContent = this.currentUser.displayName || this.currentUser.name || 'User';
-            }
-
-            // Load chat history
-            await this.loadChatHistory();
-
-            // Load initial section data
-            await this.loadSectionData('chat');
-        } catch (error) {
-            console.error('Error loading user data:', error);
-        }
-    }
-
-    async loadChatHistory() {
-        try {
-            const response = await fetch(`${this.apiBaseUrl}/chat/history`, {
+            // Load user preferences and progress
+            const response = await fetch(`${this.apiBaseUrl}/user/profile`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 }
             });
-
+            
             if (response.ok) {
-                const data = await response.json();
-                this.chatHistory = data.conversations || [];
-                this.displayChatHistory();
+                const userData = await response.json();
+                this.updateUserInterface(userData);
             }
         } catch (error) {
-            console.error('Error loading chat history:', error);
+            console.log('⚠️ Could not load user data, using defaults');
         }
     }
 
-    displayChatHistory() {
-        const chatMessages = document.getElementById('chatMessages');
-        if (!chatMessages) return;
-
-        // Clear existing messages (except welcome message)
-        const welcomeMessage = chatMessages.querySelector('.ai-message');
-        chatMessages.innerHTML = '';
-        if (welcomeMessage) {
-            chatMessages.appendChild(welcomeMessage);
+    updateUserInterface(userData) {
+        // Update welcome message
+        const welcomeElement = document.querySelector('.welcome-message');
+        if (welcomeElement && userData.name) {
+            welcomeElement.textContent = `Welcome back, ${userData.name}!`;
         }
 
-        // Display chat history
-        this.chatHistory.forEach(conversation => {
-            if (conversation.message) {
-                this.addMessageToChat(conversation.message, 'user');
-            }
-            if (conversation.response) {
-                this.addMessageToChat(conversation.response, 'ai');
+        // Update progress indicators
+        this.updateProgressIndicators(userData.progress || {});
+    }
+
+    updateProgressIndicators(progress) {
+        const progressElements = document.querySelectorAll('.progress-indicator');
+        progressElements.forEach(element => {
+            const feature = element.dataset.feature;
+            if (progress[feature]) {
+                element.style.width = `${progress[feature]}%`;
+                element.classList.add('animated');
             }
         });
-
-        // Scroll to bottom
-        this.scrollChatToBottom();
     }
 
-    async sendMessage() {
-        const chatInput = document.getElementById('chatInput');
-        const message = chatInput.value.trim();
+    // Advanced Feature Methods
+    async showAdvancedFeatures() {
+        this.switchSection('advanced');
+        this.showAdvancedToast('Advanced Medical AI Features Activated', 'success');
+        
+        // Animate feature cards
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.animation = 'slideInUp 0.6s ease-out';
+                card.style.animationDelay = `${index * 0.1}s`;
+            }, 100);
+        });
+    }
 
+    async showMedicalCalculators() {
+        this.switchSection('calculators');
+        this.showAdvancedToast('Medical Calculators Ready', 'success');
+        
+        // Initialize calculator interfaces
+        this.initializeCalculators();
+    }
+
+    async showImageAnalysis() {
+        this.switchSection('advanced');
+        this.showAdvancedToast('Medical Image Analysis Ready', 'success');
+        
+        // Focus on image analysis section
+        const imageSection = document.querySelector('.image-analysis-section');
+        if (imageSection) {
+            imageSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    async showResearchAssistant() {
+        this.switchSection('research');
+        this.showAdvancedToast('Research AI Assistant Activated', 'success');
+        
+        // Initialize research tools
+        this.initializeResearchTools();
+    }
+
+    async showPatientSimulation() {
+        this.switchSection('simulations');
+        this.showAdvancedToast('Patient Simulation Ready', 'success');
+        
+        // Load simulation cases
+        this.loadSimulationCases();
+    }
+
+    // Section Navigation
+    switchSection(section) {
+        this.currentSection = section;
+        
+        // Hide all sections
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(s => s.classList.add('hidden'));
+        
+        // Show selected section
+        const targetSection = document.querySelector(`.${section}-section`);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.style.animation = 'slideInUp 0.6s ease-out';
+        }
+        
+        // Update navigation
+        this.updateNavigation(section);
+    }
+
+    updateNavigation(activeSection) {
+        const navCards = document.querySelectorAll('.nav-card');
+        navCards.forEach(card => {
+            card.classList.remove('active');
+            if (card.dataset.section === activeSection) {
+                card.classList.add('active');
+                card.style.animation = 'glow 2s ease-in-out infinite';
+            }
+        });
+    }
+
+    // Advanced Chat Methods
+    async handleChatSubmit(e) {
+        e.preventDefault();
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        
         if (!message) return;
-
+        
         // Add user message to chat
-        this.addMessageToChat(message, 'user');
-
-        // Clear input
-        chatInput.value = '';
-        this.autoResizeTextarea(chatInput);
-        this.toggleSendButton();
-
+        this.addMessageToChat('user', message);
+        input.value = '';
+        
         // Show typing indicator
         this.showTypingIndicator();
-
+        
         try {
-            // Send message to backend
-            const response = await fetch(`${this.apiBaseUrl}/chat/send`, {
+            // Send to AI backend
+            const response = await fetch(`${this.apiBaseUrl}/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
-                body: JSON.stringify({
-                    message,
-                    platform: 'web',
-                    context: {
-                        userId: this.currentUser.id,
-                        previousMessages: this.chatHistory.slice(-5)
-                    }
-                })
+                body: JSON.stringify({ message })
             });
-
-            const data = await response.json();
-
+            
             if (response.ok) {
-                // Remove typing indicator
-                this.hideTypingIndicator();
-
-                // Add AI response to chat
-                this.addMessageToChat(data.response, 'ai');
-
-                // Save to chat history
-                this.chatHistory.push({
-                    message,
-                    response: data.response,
-                    timestamp: new Date(),
-                    platform: 'web'
-                });
-
-                // Save chat history
-                this.saveChatHistory();
+                const data = await response.json();
+                this.addMessageToChat('ai', data.response);
             } else {
-                throw new Error(data.message || 'Failed to get response');
+                this.addMessageToChat('ai', 'I apologize, but I encountered an error. Please try again.');
             }
         } catch (error) {
-            console.error('Chat error:', error);
-            this.hideTypingIndicator();
-            this.addMessageToChat('Sorry, I encountered an error. Please try again.', 'ai');
-            this.showToast('Error sending message', 'error');
+            console.error('❌ Chat error:', error);
+            this.addMessageToChat('ai', 'I apologize, but I encountered a connection error. Please check your internet connection.');
         }
+        
+        this.hideTypingIndicator();
     }
 
-    addMessageToChat(content, sender) {
-        const chatMessages = document.getElementById('chatMessages');
-        if (!chatMessages) return;
-
+    addMessageToChat(sender, message) {
+        const chatContainer = document.getElementById('chatContainer');
+        if (!chatContainer) return;
+        
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
-
-        const avatar = document.createElement('div');
-        avatar.className = 'message-avatar';
-        avatar.innerHTML = sender === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
-
-        const messageContent = document.createElement('div');
-        messageContent.className = 'message-content';
-
-        const messageText = document.createElement('div');
-        messageText.className = 'message-text';
-        messageText.innerHTML = content;
-
-        const messageTime = document.createElement('div');
-        messageTime.className = 'message-time';
-        messageTime.textContent = this.formatTime(new Date());
-
-        messageContent.appendChild(messageText);
-        messageContent.appendChild(messageTime);
-
-        messageDiv.appendChild(avatar);
-        messageDiv.appendChild(messageContent);
-
-        chatMessages.appendChild(messageDiv);
-
-        // Scroll to bottom
-        this.scrollChatToBottom();
+        
+        const icon = sender === 'user' ? '👤' : '🤖';
+        const alignment = sender === 'user' ? 'text-right' : 'text-left';
+        
+        messageDiv.innerHTML = `
+            <div class="message-content ${alignment}">
+                <div class="message-bubble ${sender === 'user' ? 'user-bubble' : 'ai-bubble'}">
+                    <div class="message-icon">${icon}</div>
+                    <div class="message-text">${message}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString()}</div>
+                </div>
+            </div>
+        `;
+        
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        // Add to history
+        this.chatHistory.push({ sender, message, timestamp: new Date() });
     }
 
     showTypingIndicator() {
-        const chatMessages = document.getElementById('chatMessages');
-        if (!chatMessages) return;
-
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'message ai-message typing-indicator';
-        typingDiv.id = 'typingIndicator';
-
-        const avatar = document.createElement('div');
-        avatar.className = 'message-avatar';
-        avatar.innerHTML = '<i class="fas fa-robot"></i>';
-
-        const messageContent = document.createElement('div');
-        messageContent.className = 'message-content';
-        messageContent.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-
-        typingDiv.appendChild(avatar);
-        typingDiv.appendChild(messageContent);
-
-        chatMessages.appendChild(typingDiv);
-        this.scrollChatToBottom();
+        const typingIndicator = document.createElement('div');
+        typingIndicator.id = 'typingIndicator';
+        typingIndicator.className = 'message ai-message typing-indicator';
+        typingIndicator.innerHTML = `
+            <div class="message-content text-left">
+                <div class="message-bubble ai-bubble">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        const chatContainer = document.getElementById('chatContainer');
+        if (chatContainer) {
+            chatContainer.appendChild(typingIndicator);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
     }
 
     hideTypingIndicator() {
@@ -564,573 +896,427 @@ class StethoLinkApp {
         }
     }
 
-    scrollChatToBottom() {
-        const chatMessages = document.getElementById('chatMessages');
-        if (chatMessages) {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-    }
-
-    autoResizeTextarea(textarea) {
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
-    }
-
-    toggleSendButton() {
-        const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendMessageBtn');
+    // Advanced Feature Implementations
+    async handleImageUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
         
-        if (sendBtn) {
-            sendBtn.disabled = !chatInput.value.trim();
-        }
-    }
-
-    handleChatAction(action) {
-        switch (action) {
-            case 'voice message':
-                this.showToast('Voice messages coming soon!', 'info');
-                break;
-            case 'attach file':
-                this.showToast('File attachments coming soon!', 'info');
-                break;
-            case 'quick actions':
-                this.showQuickActions();
-                break;
-        }
-    }
-
-    showQuickActions() {
-        const actions = [
-            { label: 'Study Plan', icon: '📚', action: () => this.switchSection('progress') },
-            { label: 'Add Task', icon: '📋', action: () => this.switchSection('tasks') },
-            { label: 'Take Notes', icon: '📝', action: () => this.switchSection('notebook') },
-            { label: 'Practice', icon: '🎯', action: () => this.switchSection('simulations') }
-        ];
-
-        this.showModal('Quick Actions', this.createQuickActionsHTML(actions), actions);
-    }
-
-    createQuickActionsHTML(actions) {
-        return `
-            <div class="quick-actions-grid">
-                ${actions.map(action => `
-                    <button class="quick-action-btn" data-action="${action.label.toLowerCase().replace(' ', '-')}">
-                        <div class="action-icon">${action.icon}</div>
-                        <div class="action-label">${action.label}</div>
-                    </button>
-                `).join('')}
-            </div>
-        `;
-    }
-
-    async loadTasks() {
-        const tasksContainer = document.getElementById('tasksContainer');
-        if (!tasksContainer) return;
-
+        // Show upload progress
+        this.showAdvancedToast('Analyzing medical image...', 'info');
+        
         try {
-            const response = await fetch(`${this.apiBaseUrl}/tasks`, {
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('analysisType', 'general');
+            
+            const response = await fetch(`${this.apiBaseUrl}/advanced-features/analyze-image`, {
+                method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                }
+                },
+                body: formData
             });
-
+            
             if (response.ok) {
-                const data = await response.json();
-                this.displayTasks(data.tasks || []);
+                const result = await response.json();
+                this.displayImageAnalysisResult(result);
+                this.showAdvancedToast('Image analysis completed!', 'success');
             } else {
-                tasksContainer.innerHTML = '<p class="error-message">Failed to load tasks</p>';
+                throw new Error('Analysis failed');
             }
         } catch (error) {
-            console.error('Error loading tasks:', error);
-            tasksContainer.innerHTML = '<p class="error-message">Error loading tasks</p>';
+            console.error('❌ Image analysis error:', error);
+            this.showAdvancedToast('Image analysis failed. Please try again.', 'error');
         }
     }
 
-    displayTasks(tasks) {
-        const tasksContainer = document.getElementById('tasksContainer');
-        if (!tasksContainer) return;
-
-        if (tasks.length === 0) {
-            tasksContainer.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-tasks"></i>
-                    <h3>No tasks yet</h3>
-                    <p>Create your first learning task to get started</p>
-                    <button class="btn-primary" onclick="app.showAddTaskModal()">
-                        <i class="fas fa-plus"></i>
-                        Create Task
-                    </button>
+    displayImageAnalysisResult(result) {
+        const resultContainer = document.querySelector('.image-analysis-result');
+        if (resultContainer) {
+            resultContainer.innerHTML = `
+                <div class="analysis-result-card">
+                    <h3>🔬 Image Analysis Results</h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <strong>Image Type:</strong> ${result.imageType || 'Unknown'}
+                        </div>
+                        <div class="result-item">
+                            <strong>Confidence:</strong> ${result.confidence || 'N/A'}%
+                        </div>
+                        <div class="result-item">
+                            <strong>Findings:</strong> ${result.findings || 'No significant findings'}
+                        </div>
+                        <div class="result-item">
+                            <strong>Recommendations:</strong> ${result.recommendations || 'Consult with healthcare provider'}
+                        </div>
+                    </div>
                 </div>
             `;
-            return;
+            
+            resultContainer.style.animation = 'slideInUp 0.6s ease-out';
         }
-
-        const tasksHTML = tasks.map(task => `
-            <div class="task-item" data-task-id="${task.id}">
-                <div class="task-header">
-                    <h4>${task.title}</h4>
-                    <span class="task-status ${task.status}">${task.status}</span>
-                </div>
-                <p class="task-description">${task.description}</p>
-                <div class="task-meta">
-                    <span class="task-category">${task.category}</span>
-                    <span class="task-due-date">${this.formatDate(task.dueDate)}</span>
-                </div>
-            </div>
-        `).join('');
-
-        tasksContainer.innerHTML = tasksHTML;
     }
 
-    async loadProgress() {
-        const progressContainer = document.getElementById('progressContainer');
-        if (!progressContainer) return;
-
+    async handleCalculatorSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const calculatorType = form.dataset.calculator;
+        const formData = new FormData(form);
+        
         try {
-            const response = await fetch(`${this.apiBaseUrl}/progress`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                this.displayProgress(data);
-            } else {
-                progressContainer.innerHTML = '<p class="error-message">Failed to load progress</p>';
-            }
-        } catch (error) {
-            console.error('Error loading progress:', error);
-            progressContainer.innerHTML = '<p class="error-message">Error loading progress</p>';
-        }
-    }
-
-    displayProgress(data) {
-        const progressContainer = document.getElementById('progressContainer');
-        if (!progressContainer) return;
-
-        progressContainer.innerHTML = `
-            <div class="progress-overview">
-                <div class="progress-card">
-                    <h3>Overall Progress</h3>
-                    <div class="progress-circle">
-                        <span class="progress-percentage">${data.overallProgress || 0}%</span>
-                    </div>
-                </div>
-                <div class="progress-stats">
-                    <div class="stat-item">
-                        <span class="stat-label">Tasks Completed</span>
-                        <span class="stat-value">${data.completedTasks || 0}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Study Streak</span>
-                        <span class="stat-value">${data.currentStreak || 0} days</span>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    async loadNotebook() {
-        const notebookContainer = document.getElementById('notebookContainer');
-        if (!notebookContainer) return;
-
-        try {
-            const response = await fetch(`${this.apiBaseUrl}/notebook`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                this.displayNotebook(data.notes || []);
-            } else {
-                notebookContainer.innerHTML = '<p class="error-message">Failed to load notes</p>';
-            }
-        } catch (error) {
-            console.error('Error loading notebook:', error);
-            notebookContainer.innerHTML = '<p class="error-message">Error loading notes</p>';
-        }
-    }
-
-    displayNotebook(notes) {
-        const notebookContainer = document.getElementById('notebookContainer');
-        if (!notebookContainer) return;
-
-        if (notes.length === 0) {
-            notebookContainer.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-book"></i>
-                    <h3>No notes yet</h3>
-                    <p>Start taking notes to track your learning</p>
-                    <button class="btn-primary" onclick="app.showAddNoteModal()">
-                        <i class="fas fa-plus"></i>
-                        Add Note
-                    </button>
-                </div>
-            `;
-            return;
-        }
-
-        const notesHTML = notes.map(note => `
-            <div class="note-item" data-note-id="${note.id}">
-                <div class="note-header">
-                    <h4>${note.title}</h4>
-                    <span class="note-date">${this.formatDate(note.createdAt)}</span>
-                </div>
-                <p class="note-content">${note.content}</p>
-                <div class="note-tags">
-                    ${note.tags ? note.tags.map(tag => `<span class="note-tag">${tag}</span>`).join('') : ''}
-                </div>
-            </div>
-        `).join('');
-
-        notebookContainer.innerHTML = notesHTML;
-    }
-
-    async loadSimulations() {
-        const simulationsContainer = document.getElementById('simulationsContainer');
-        if (!simulationsContainer) return;
-
-        try {
-            const response = await fetch(`${this.apiBaseUrl}/simulations`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                this.displaySimulations(data.simulations || []);
-            } else {
-                simulationsContainer.innerHTML = '<p class="error-message">Failed to load simulations</p>';
-            }
-        } catch (error) {
-            console.error('Error loading simulations:', error);
-            simulationsContainer.innerHTML = '<p class="error-message">Error loading simulations</p>';
-        }
-    }
-
-    displaySimulations(simulations) {
-        const simulationsContainer = document.getElementById('simulationsContainer');
-        if (!simulationsContainer) return;
-
-        if (simulations.length === 0) {
-            simulationsContainer.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-user-md"></i>
-                    <h3>No simulations available</h3>
-                    <p>Medical simulations will be available soon</p>
-                </div>
-            `;
-            return;
-        }
-
-        const simulationsHTML = simulations.map(sim => `
-            <div class="simulation-item" data-sim-id="${sim.id}">
-                <div class="simulation-header">
-                    <h4>${sim.title}</h4>
-                    <span class="simulation-difficulty ${sim.difficulty}">${sim.difficulty}</span>
-                </div>
-                <p class="simulation-description">${sim.description}</p>
-                <button class="btn-primary" onclick="app.startSimulation('${sim.id}')">
-                    <i class="fas fa-play"></i>
-                    Start Simulation
-                </button>
-            </div>
-        `).join('');
-
-        simulationsContainer.innerHTML = simulationsHTML;
-    }
-
-    showModal(title, content, actions = []) {
-        const modalOverlay = document.getElementById('modalOverlay');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-
-        if (modalTitle) modalTitle.textContent = title;
-        if (modalBody) modalBody.innerHTML = content;
-
-        modalOverlay.classList.remove('hidden');
-
-        // Add event listeners for actions
-        if (actions.length > 0) {
-            actions.forEach(action => {
-                const actionBtn = modalBody.querySelector(`[data-action="${action.label.toLowerCase().replace(' ', '-')}"]`);
-                if (actionBtn) {
-                    actionBtn.addEventListener('click', action.action);
-                }
-            });
-        }
-    }
-
-    hideModal() {
-        const modalOverlay = document.getElementById('modalOverlay');
-        modalOverlay.classList.add('hidden');
-    }
-
-    showProfile() {
-        this.showModal('User Profile', `
-            <div class="profile-content">
-                <div class="profile-section">
-                    <h4>Personal Information</h4>
-                    <p><strong>Name:</strong> ${this.currentUser?.displayName || this.currentUser?.name || 'N/A'}</p>
-                    <p><strong>Email:</strong> ${this.currentUser?.email || 'N/A'}</p>
-                    <p><strong>Member since:</strong> ${this.formatDate(this.currentUser?.createdAt)}</p>
-                </div>
-                <div class="profile-section">
-                    <h4>Learning Statistics</h4>
-                    <p><strong>Total sessions:</strong> ${this.currentUser?.stats?.totalSessions || 0}</p>
-                    <p><strong>Current streak:</strong> ${this.currentUser?.stats?.currentStreak || 0} days</p>
-                </div>
-            </div>
-        `);
-    }
-
-    showSettings() {
-        this.showModal('Settings', `
-            <div class="settings-content">
-                <div class="setting-group">
-                    <label>Language</label>
-                    <select id="languageSetting">
-                        <option value="en">English</option>
-                        <option value="si">සිංහල (Sinhala)</option>
-                        <option value="ta">தமிழ் (Tamil)</option>
-                    </select>
-                </div>
-                <div class="setting-group">
-                    <label>Notifications</label>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="emailNotif" checked>
-                        <label for="emailNotif">Email notifications</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="pushNotif" checked>
-                        <label for="pushNotif">Push notifications</label>
-                    </div>
-                </div>
-                <button class="btn-primary" onclick="app.saveSettings()">Save Settings</button>
-            </div>
-        `);
-    }
-
-    async saveSettings() {
-        // Implementation for saving settings
-        this.showToast('Settings saved successfully!', 'success');
-        this.hideModal();
-    }
-
-    startSimulation(simId) {
-        this.showToast(`Starting simulation ${simId}...`, 'info');
-        // Implementation for starting simulation
-    }
-
-    showAddTaskModal() {
-        this.showModal('Add New Task', `
-            <form id="addTaskForm">
-                <div class="form-group">
-                    <label for="taskTitle">Task Title</label>
-                    <input type="text" id="taskTitle" required>
-                </div>
-                <div class="form-group">
-                    <label for="taskDescription">Description</label>
-                    <textarea id="taskDescription" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="taskCategory">Category</label>
-                    <select id="taskCategory" required>
-                        <option value="anatomy">Anatomy</option>
-                        <option value="physiology">Physiology</option>
-                        <option value="pathology">Pathology</option>
-                        <option value="pharmacology">Pharmacology</option>
-                        <option value="clinical">Clinical Skills</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="taskDueDate">Due Date</label>
-                    <input type="date" id="taskDueDate">
-                </div>
-                <button type="submit" class="btn-primary">Create Task</button>
-            </form>
-        `);
-
-        // Add form submission handler
-        const form = document.getElementById('addTaskForm');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.createTask();
-            });
-        }
-    }
-
-    async createTask() {
-        const title = document.getElementById('taskTitle').value;
-        const description = document.getElementById('taskDescription').value;
-        const category = document.getElementById('taskCategory').value;
-        const dueDate = document.getElementById('taskDueDate').value;
-
-        try {
-            const response = await fetch(`${this.apiBaseUrl}/tasks`, {
+            const response = await fetch(`${this.apiBaseUrl}/advanced-features/calculator/${calculatorType}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
-                body: JSON.stringify({
-                    title,
-                    description,
-                    category,
-                    dueDate: dueDate || null
-                })
+                body: JSON.stringify(Object.fromEntries(formData))
             });
-
+            
             if (response.ok) {
-                this.showToast('Task created successfully!', 'success');
-                this.hideModal();
-                this.loadTasks(); // Refresh tasks
+                const result = await response.json();
+                this.displayCalculatorResult(calculatorType, result);
             } else {
-                const data = await response.json();
-                this.showToast(data.message || 'Failed to create task', 'error');
+                throw new Error('Calculation failed');
             }
         } catch (error) {
-            console.error('Error creating task:', error);
-            this.showToast('Error creating task', 'error');
+            console.error('❌ Calculator error:', error);
+            this.showAdvancedToast('Calculation failed. Please check your inputs.', 'error');
         }
     }
 
-    showAddNoteModal() {
-        this.showModal('Add New Note', `
-            <form id="addNoteForm">
-                <div class="form-group">
-                    <label for="noteTitle">Note Title</label>
-                    <input type="text" id="noteTitle" required>
+    displayCalculatorResult(calculatorType, result) {
+        const resultContainer = document.querySelector(`.${calculatorType}-result`);
+        if (resultContainer) {
+            resultContainer.innerHTML = `
+                <div class="calculator-result">
+                    <h4>📊 ${calculatorType.toUpperCase()} Result</h4>
+                    <div class="result-value">${result.result}</div>
+                    <div class="result-interpretation">${result.interpretation || ''}</div>
+                    <div class="result-category ${result.category || 'normal'}">${result.category || 'Normal'}</div>
                 </div>
-                <div class="form-group">
-                    <label for="noteContent">Content</label>
-                    <textarea id="noteContent" rows="6" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="noteTags">Tags (comma-separated)</label>
-                    <input type="text" id="noteTags" placeholder="anatomy, heart, cardiovascular">
-                </div>
-                <button type="submit" class="btn-primary">Save Note</button>
-            </form>
-        `);
-
-        // Add form submission handler
-        const form = document.getElementById('addNoteForm');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.createNote();
-            });
+            `;
+            
+            resultContainer.style.animation = 'bounce 0.6s ease-out';
         }
     }
 
-    async createNote() {
-        const title = document.getElementById('noteTitle').value;
-        const content = document.getElementById('noteContent').value;
-        const tags = document.getElementById('noteTags').value
-            .split(',')
-            .map(tag => tag.trim())
-            .filter(tag => tag.length > 0);
-
+    async handleResearchSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const researchQuestion = formData.get('researchQuestion');
+        
+        if (!researchQuestion) return;
+        
+        this.showAdvancedToast('Researching medical literature...', 'info');
+        
         try {
-            const response = await fetch(`${this.apiBaseUrl}/notebook`, {
+            const response = await fetch(`${this.apiBaseUrl}/advanced-features/research`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 },
-                body: JSON.stringify({
-                    title,
-                    content,
-                    tags
-                })
+                body: JSON.stringify({ researchQuestion })
             });
-
+            
             if (response.ok) {
-                this.showToast('Note saved successfully!', 'success');
-                this.hideModal();
-                this.loadNotebook(); // Refresh notes
+                const result = await response.json();
+                this.displayResearchResult(result);
+                this.showAdvancedToast('Research completed!', 'success');
             } else {
-                const data = await response.json();
-                this.showToast(data.message || 'Failed to save note', 'error');
+                throw new Error('Research failed');
             }
         } catch (error) {
-            console.error('Error saving note:', error);
-            this.showToast('Error saving note', 'error');
+            console.error('❌ Research error:', error);
+            this.showAdvancedToast('Research failed. Please try again.', 'error');
         }
     }
 
-    saveChatHistory() {
-        try {
-            localStorage.setItem('chatHistory', JSON.stringify(this.chatHistory));
-        } catch (error) {
-            console.error('Error saving chat history:', error);
+    displayResearchResult(result) {
+        const resultContainer = document.querySelector('.research-result');
+        if (resultContainer) {
+            resultContainer.innerHTML = `
+                <div class="research-result-card">
+                    <h3>🔍 Research Results</h3>
+                    <div class="research-summary">
+                        <h4>Summary</h4>
+                        <p>${result.summary || 'No summary available'}</p>
+                    </div>
+                    <div class="research-sources">
+                        <h4>Key Sources</h4>
+                        <ul>
+                            ${(result.sources || []).map(source => `<li>${source}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="research-recommendations">
+                        <h4>Recommendations</h4>
+                        <p>${result.recommendations || 'No specific recommendations'}</p>
+                    </div>
+                </div>
+            `;
+            
+            resultContainer.style.animation = 'slideInUp 0.6s ease-out';
         }
     }
 
-    formatTime(date) {
-        const now = new Date();
-        const diff = now - date;
-        const minutes = Math.floor(diff / 60000);
-        const hours = Math.floor(diff / 3600000);
-        const days = Math.floor(diff / 86400000);
-
-        if (minutes < 1) return 'Just now';
-        if (minutes < 60) return `${minutes}m ago`;
-        if (hours < 24) return `${hours}h ago`;
-        if (days < 7) return `${days}d ago`;
+    async handleSimulationSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const simulationType = formData.get('simulationType');
         
-        return date.toLocaleDateString();
-    }
-
-    formatDate(dateString) {
-        if (!dateString) return 'N/A';
-        const date = new Date(dateString);
-        return date.toLocaleDateString();
-    }
-
-    handleResize() {
-        // Handle responsive behavior
-        const sidebar = document.querySelector('.app-sidebar');
-        if (window.innerWidth <= 768) {
-            sidebar.classList.add('mobile');
-        } else {
-            sidebar.classList.remove('mobile');
+        this.showAdvancedToast('Loading patient simulation...', 'info');
+        
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/advanced-features/simulation/${simulationType}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                },
+                body: JSON.stringify(Object.fromEntries(formData))
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                this.displaySimulationResult(result);
+                this.showAdvancedToast('Simulation loaded!', 'success');
+            } else {
+                throw new Error('Simulation failed');
+            }
+        } catch (error) {
+            console.error('❌ Simulation error:', error);
+            this.showAdvancedToast('Simulation failed. Please try again.', 'error');
         }
     }
 
-    showToast(message, type = 'info') {
-        const toastContainer = document.getElementById('toastContainer');
-        if (!toastContainer) return;
+    displaySimulationResult(result) {
+        const resultContainer = document.querySelector('.simulation-result');
+        if (resultContainer) {
+            resultContainer.innerHTML = `
+                <div class="simulation-result-card">
+                    <h3>🎯 Patient Simulation</h3>
+                    <div class="patient-case">
+                        <h4>Patient Case</h4>
+                        <div class="case-details">
+                            <p><strong>Age:</strong> ${result.patient?.age || 'N/A'}</p>
+                            <p><strong>Gender:</strong> ${result.patient?.gender || 'N/A'}</p>
+                            <p><strong>Chief Complaint:</strong> ${result.patient?.chiefComplaint || 'N/A'}</p>
+                        </div>
+                    </div>
+                    <div class="simulation-scenario">
+                        <h4>Scenario</h4>
+                        <p>${result.scenario || 'No scenario available'}</p>
+                    </div>
+                    <div class="learning-objectives">
+                        <h4>Learning Objectives</h4>
+                        <ul>
+                            ${(result.learningObjectives || []).map(obj => `<li>${obj}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            resultContainer.style.animation = 'slideInUp 0.6s ease-out';
+        }
+    }
 
+    // Utility Methods
+    showAdvancedToast(message, type = 'info') {
         const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.innerHTML = `
-            <div class="toast-content">
-                <span class="toast-message">${message}</span>
-                <button class="toast-close" onclick="this.parentElement.parentElement.remove()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        `;
-
-        toastContainer.appendChild(toast);
-
+        toast.className = `advanced-toast ${type}`;
+        toast.textContent = message;
+        
+        document.body.appendChild(toast);
+        
         // Auto-remove after 5 seconds
         setTimeout(() => {
-            if (toast.parentElement) {
-                toast.remove();
-            }
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
         }, 5000);
+    }
+
+    // Authentication Methods
+    async handleLogin(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        
+        try {
+            const response = await fetch(`/.netlify/functions/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('authToken', data.token);
+                this.currentUser = data.user;
+                this.isAuthenticated = true;
+                
+                this.showAdvancedToast('Login successful! Welcome to StethoLink AI', 'success');
+                await this.showAppContainerWithAnimation();
+                await this.loadUserData();
+            } else {
+                this.showAdvancedToast('Login failed. Please check your credentials.', 'error');
+            }
+        } catch (error) {
+            console.error('❌ Login error:', error);
+            this.showAdvancedToast('Login failed. Please try again.', 'error');
+        }
+    }
+
+    async handleRegister(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const name = formData.get('name');
+        
+        try {
+            const response = await fetch(`/.netlify/functions/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password, name })
+            });
+            
+            if (response.ok) {
+                this.showAdvancedToast('Registration successful! Please log in.', 'success');
+                // Switch to login form
+                this.switchAuthForm('login');
+            } else {
+                this.showAdvancedToast('Registration failed. Please try again.', 'error');
+            }
+        } catch (error) {
+            console.error('❌ Registration error:', error);
+            this.showAdvancedToast('Registration failed. Please try again.', 'error');
+        }
+    }
+
+    switchAuthForm(formType) {
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        
+        if (formType === 'login') {
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+        } else {
+            registerForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        }
+    }
+
+    logout() {
+        localStorage.removeItem('authToken');
+        this.currentUser = null;
+        this.isAuthenticated = false;
+        
+        this.showAdvancedToast('Logged out successfully', 'info');
+        this.showAuthContainerWithAnimation();
+    }
+
+    // Initialize calculators
+    initializeCalculators() {
+        const calculators = [
+            { id: 'bmi', name: 'BMI Calculator', fields: ['weight', 'height'] },
+            { id: 'gfr', name: 'GFR Calculator', fields: ['age', 'weight', 'creatinine', 'gender'] },
+            { id: 'chads2', name: 'CHADS2 Score', fields: ['chf', 'hypertension', 'age', 'diabetes', 'stroke'] },
+            { id: 'apache', name: 'APACHE II Score', fields: ['age', 'temperature', 'map', 'hr', 'rr', 'pao2', 'ph', 'na', 'k', 'creatinine', 'hct', 'wbc', 'glasgow'] }
+        ];
+        
+        const calculatorContainer = document.querySelector('.calculators-section');
+        if (calculatorContainer) {
+            calculatorContainer.innerHTML = `
+                <div class="feature-grid">
+                    ${calculators.map(calc => `
+                        <div class="feature-card calculator-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>${calc.name}</h3>
+                            <form class="calculator-form" data-calculator="${calc.id}">
+                                ${calc.fields.map(field => `
+                                    <div class="form-group">
+                                        <label for="${field}">${field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                                        <input type="number" id="${field}" name="${field}" step="0.01" required>
+                                    </div>
+                                `).join('')}
+                                <button type="submit" class="btn btn-primary">Calculate</button>
+                            </form>
+                            <div class="${calc.id}-result"></div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    }
+
+    // Initialize research tools
+    initializeResearchTools() {
+        const researchContainer = document.querySelector('.research-section');
+        if (researchContainer) {
+            researchContainer.innerHTML = `
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Medical Research Assistant</h3>
+                    <p>Get AI-powered insights from medical literature and research papers.</p>
+                    
+                    <form id="researchForm" class="research-form">
+                        <div class="form-group">
+                            <label for="researchQuestion">Research Question</label>
+                            <textarea id="researchQuestion" name="researchQuestion" rows="4" 
+                                placeholder="Enter your medical research question here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Research</button>
+                    </form>
+                    
+                    <div class="research-result"></div>
+                </div>
+            `;
+        }
+    }
+
+    // Load simulation cases
+    loadSimulationCases() {
+        const simulationContainer = document.querySelector('.simulations-section');
+        if (simulationContainer) {
+            simulationContainer.innerHTML = `
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Patient Simulation Cases</h3>
+                    <p>Practice with realistic patient scenarios and improve your diagnostic skills.</p>
+                    
+                    <form id="simulationForm" class="simulation-form">
+                        <div class="form-group">
+                            <label for="simulationType">Case Type</label>
+                            <select id="simulationType" name="simulationType" required>
+                                <option value="">Select a case type</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="neurology">Neurology</option>
+                                <option value="emergency">Emergency Medicine</option>
+                                <option value="pediatrics">Pediatrics</option>
+                                <option value="internal">Internal Medicine</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Load Case</button>
+                    </form>
+                    
+                    <div class="simulation-result"></div>
+                </div>
+            `;
+        }
     }
 }
 
-// Initialize app when DOM is loaded
+// Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new StethoLinkApp();
 });

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Quick Actions Test - StethoLink AI</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="StethoLink AI">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest-new.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/quick-actions-enhanced.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+        }
+        
+        .pwa-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .pwa-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .pwa-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .pwa-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .pwa-content {
+            padding: 2rem;
+        }
+        
+        .pwa-status {
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .pwa-status h3 {
+            margin: 0 0 0.5rem 0;
+            color: #667eea;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.25rem 0;
+        }
+        
+        .status-icon {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .status-success { color: #28a745; }
+        .status-warning { color: #ffc107; }
+        .status-error { color: #dc3545; }
+        .status-info { color: #17a2b8; }
+        
+        .install-prompt {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .install-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .install-btn:hover {
+            background: #1976d2;
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+        }
+        
+        .test-section h3 {
+            margin: 0 0 1rem 0;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .offline-test {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+        }
+        
+        .offline-test h3 {
+            color: #856404;
+        }
+        
+        .quick-actions-section {
+            background: #f8f9fa;
+            border-color: #dee2e6;
+        }
+        
+        .pwa-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e9ecef;
+            text-align: center;
+        }
+        
+        .feature-card i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #495057;
+        }
+        
+        .feature-card p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        
+        @media (max-width: 768px) {
+            .pwa-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .pwa-content {
+                padding: 1rem;
+            }
+            
+            .pwa-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pwa-container">
+        <!-- PWA Header -->
+        <div class="pwa-header">
+            <h1>🏥 StethoLink AI PWA</h1>
+            <p>Progressive Web App with Enhanced Quick Actions</p>
+        </div>
+        
+        <!-- PWA Content -->
+        <div class="pwa-content">
+            <!-- PWA Status -->
+            <div class="pwa-status">
+                <h3>📱 PWA Status</h3>
+                <div id="pwa-status-content">
+                    <div class="status-item">
+                        <span class="status-icon">⏳</span>
+                        <span>Checking PWA status...</span>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; text-align: center;">
+                    <button class="install-btn" onclick="triggerInstallPrompt()" style="background: #28a745;">
+                        🔧 Force Show Install Option
+                    </button>
+                    <button class="install-btn" onclick="openChromeMenu()" style="background: #17a2b8; margin-left: 0.5rem;">
+                        📱 Open Chrome Menu
+                    </button>
+                    <button class="install-btn" onclick="openDevToolsInstall()" style="background: #6f42c1; margin-left: 0.5rem;">
+                        🛠️ DevTools Install
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Install Prompt -->
+            <div class="install-prompt" id="install-prompt">
+                <h3>📲 Install StethoLink AI</h3>
+                <p>Add this app to your home screen for a native app experience!</p>
+                <button class="install-btn" id="install-btn">Install App</button>
+                <button class="install-btn" onclick="dismissInstallPrompt()">Not Now</button>
+                <div style="margin-top: 1rem; padding: 0.5rem; background: #e8f5e8; border-radius: 0.25rem; font-size: 0.875rem;">
+                    <strong>💡 Tip:</strong> If the install button doesn't work, try right-clicking on the page and look for "Install StethoLink AI"
+                </div>
+            </div>
+            
+            <!-- Quick Actions Test -->
+            <div class="test-section quick-actions-section">
+                <h3>
+                    <i class="fas fa-bolt"></i>
+                    Enhanced Quick Actions System
+                </h3>
+                <p>Test the interactive quick actions with PWA functionality:</p>
+                
+                <div class="quick-actions-grid">
+                    <div class="quick-action-btn medical">
+                        <i class="fas fa-stethoscope action-icon"></i>
+                        <div class="action-label">Patient Assessment</div>
+                        <div class="action-description">Quick patient evaluation</div>
+                    </div>
+                    <div class="quick-action-btn study">
+                        <i class="fas fa-book-medical action-icon"></i>
+                        <div class="action-label">Study Materials</div>
+                        <div class="action-description">Educational resources</div>
+                    </div>
+                    <div class="quick-action-btn practice">
+                        <i class="fas fa-dumbbell action-icon"></i>
+                        <div class="action-label">Practice Mode</div>
+                        <div class="action-description">Training exercises</div>
+                    </div>
+                    <div class="quick-action-btn emergency">
+                        <i class="fas fa-ambulance action-icon"></i>
+                        <div class="action-label">Emergency Protocol</div>
+                        <div class="action-description">Urgent care procedures</div>
+                    </div>
+                    <div class="quick-action-btn medical">
+                        <i class="fas fa-heartbeat action-icon"></i>
+                        <div class="action-label">Vital Signs</div>
+                        <div class="action-description">Monitor patient vitals</div>
+                    </div>
+                    <div class="quick-action-btn study">
+                        <i class="fas fa-graduation-cap action-icon"></i>
+                        <div class="action-label">Certification</div>
+                        <div class="action-description">Professional development</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Offline Test -->
+            <div class="test-section offline-test">
+                <h3>
+                    <i class="fas fa-wifi-slash"></i>
+                    Offline Functionality Test
+                </h3>
+                <p>Test offline features by turning off your internet connection:</p>
+                <div class="pwa-features">
+                    <div class="feature-card">
+                        <i class="fas fa-download"></i>
+                        <h4>Offline Access</h4>
+                        <p>App works without internet</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-sync"></i>
+                        <h4>Background Sync</h4>
+                        <p>Data syncs when online</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Mobile Optimized</h4>
+                        <p>Touch-friendly interface</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-home"></i>
+                        <h4>Home Screen</h4>
+                        <p>Install like native app</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PWA Features -->
+            <div class="test-section">
+                <h3>
+                    <i class="fas fa-star"></i>
+                    PWA Features
+                </h3>
+                <div class="pwa-features">
+                    <div class="feature-card">
+                        <i class="fas fa-cache"></i>
+                        <h4>Smart Caching</h4>
+                        <p>Fast loading from cache</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bell"></i>
+                        <h4>Push Notifications</h4>
+                        <p>Medical alerts & updates</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Secure HTTPS</h4>
+                        <p>Safe data transmission</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-rocket"></i>
+                        <h4>Fast Performance</h4>
+                        <p>Optimized for speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PWA Scripts -->
+    <script>
+        // PWA Installation Logic
+        let deferredPrompt;
+        let isPWAReady = false;
+        
+        // Check if already installed
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+            isPWAReady = true;
+            document.getElementById('install-prompt').innerHTML = `
+                <h3>🎉 Already Installed!</h3>
+                <p>StethoLink AI is already installed as a PWA on your device.</p>
+                <button class="install-btn" onclick="openInstalledApp()">Open Installed App</button>
+            `;
+        }
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('🚀 beforeinstallprompt event fired!');
+            e.preventDefault();
+            deferredPrompt = e;
+            isPWAReady = true;
+            showInstallPrompt();
+            updatePWAStatus('Install prompt ready!');
+        });
+        
+        // Listen for app installed
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('🎉 App was installed!');
+            isPWAReady = true;
+            updatePWAStatus('App installed successfully!');
+        });
+        
+        function showInstallPrompt() {
+            const prompt = document.getElementById('install-prompt');
+            prompt.style.display = 'block';
+        }
+        
+        function dismissInstallPrompt() {
+            const prompt = document.getElementById('install-prompt');
+            prompt.style.display = 'none';
+        }
+        
+        function triggerInstallPrompt() {
+            console.log('🔧 Triggering install prompt...');
+            console.log('deferredPrompt:', deferredPrompt);
+            console.log('isPWAReady:', isPWAReady);
+            
+            if (deferredPrompt) {
+                console.log('🚀 Showing native install prompt...');
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('✅ User accepted the install prompt');
+                        updatePWAStatus('Installation accepted!');
+                    } else {
+                        console.log('❌ User dismissed the install prompt');
+                        updatePWAStatus('Installation dismissed');
+                    }
+                    deferredPrompt = null;
+                });
+            } else if (isPWAReady) {
+                console.log('⚠️ Install prompt not available, but PWA is ready');
+                updatePWAStatus('PWA ready, waiting for browser prompt...');
+                showManualInstallInstructions();
+            } else {
+                console.log('❌ PWA not ready yet');
+                updatePWAStatus('PWA not ready - checking requirements...');
+                checkPWARequirements();
+            }
+        }
+        
+        function showManualInstallInstructions() {
+            const instructions = `
+🔧 Manual Installation Instructions:
+
+1. **Chrome Menu Method:**
+   - Click the three dots (⋮) in Chrome toolbar
+   - Look for "Install StethoLink AI" option
+   - Click to install
+
+2. **Address Bar Method:**
+   - Look for a "+" icon or "Install" button in address bar
+   - Click to install
+
+3. **DevTools Method:**
+   - Press F12 to open DevTools
+   - Go to Application tab → Manifest
+   - Click "Install" button if available
+
+4. **Refresh and Wait:**
+   - Refresh the page (F5)
+   - Wait 10-15 seconds for browser to detect PWA
+   - Look for install prompts
+
+5. **Check PWA Status:**
+   - Open Chrome DevTools (F12)
+   - Go to Application tab
+   - Check Manifest and Service Workers sections
+            `;
+            alert(instructions);
+        }
+        
+        function checkPWARequirements() {
+            console.log('🔍 Checking PWA requirements...');
+            
+                    // Check manifest
+        fetch('/manifest.json?v=' + Date.now())
+                .then(response => {
+                    if (response.ok) {
+                        console.log('✅ Manifest accessible');
+                        updatePWAStatus('Manifest OK, checking service worker...');
+                    } else {
+                        console.log('❌ Manifest not accessible');
+                        updatePWAStatus('Manifest error!');
+                    }
+                })
+                .catch(error => {
+                    console.log('❌ Manifest fetch error:', error);
+                    updatePWAStatus('Manifest fetch error!');
+                });
+            
+            // Check service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistration()
+                    .then(registration => {
+                        if (registration) {
+                            console.log('✅ Service worker registered');
+                            updatePWAStatus('Service worker OK, PWA should be ready!');
+                        } else {
+                            console.log('❌ Service worker not registered');
+                            updatePWAStatus('Service worker not registered!');
+                        }
+                    });
+            } else {
+                console.log('❌ Service worker not supported');
+                updatePWAStatus('Service worker not supported!');
+            }
+        }
+        
+        function openInstalledApp() {
+            // This would open the app in standalone mode
+            window.location.reload();
+        }
+        
+        function openChromeMenu() {
+            const instructions = `
+📱 Chrome Menu Installation Method:
+
+1. **Look at the Chrome toolbar** (top-right of browser)
+2. **Click the three dots (⋮)** to open Chrome menu
+3. **Look for "Install StethoLink AI"** option
+4. **Click it** to install the PWA
+
+💡 If you don't see the install option:
+- Wait 10-15 seconds after page loads
+- Refresh the page (F5)
+- Check that all PWA requirements are met
+- Try the "Force Show Install Option" button first
+
+🔍 Alternative: Check address bar for "+" icon or "Install" button
+            `;
+            alert(instructions);
+        }
+        
+        function openDevToolsInstall() {
+            const instructions = `
+🛠️ Chrome DevTools Installation Method:
+
+1. **Press F12** to open Chrome DevTools
+2. **Go to "Application" tab**
+3. **Click "Manifest" in left sidebar**
+4. **Look for "Install" button** at the top
+5. **Click "Install"** to install the PWA
+
+💡 If no Install button appears:
+- Check "Service Workers" section for errors
+- Verify manifest.json is accessible
+- Look for any error messages
+- Try refreshing the page first
+
+🔍 This method often works when others don't!
+            `;
+            alert(instructions);
+        }
+        
+        function updatePWAStatus(message) {
+            const statusContent = document.getElementById('pwa-status-content');
+            const statusItem = document.createElement('div');
+            statusItem.className = 'status-item';
+            statusItem.innerHTML = `
+                <span class="status-icon status-info">ℹ️</span>
+                <span>${message}</span>
+            `;
+            statusContent.appendChild(statusItem);
+            
+            // Remove old status items if too many
+            const items = statusContent.querySelectorAll('.status-item');
+            if (items.length > 6) {
+                items[0].remove();
+            }
+        }
+        
+        document.getElementById('install-btn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to install prompt: ${outcome}`);
+                deferredPrompt = null;
+                dismissInstallPrompt();
+            }
+        });
+        
+        // PWA Status Check
+        async function checkPWAStatus() {
+            const statusContent = document.getElementById('pwa-status-content');
+            let statusHTML = '';
+            
+            // Check if running as PWA
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+            const isInPWA = window.navigator.standalone || isStandalone;
+            
+            statusHTML += `
+                <div class="status-item">
+                    <span class="status-icon ${isInPWA ? 'status-success' : 'status-info'}">${isInPWA ? '✅' : 'ℹ️'}</span>
+                    <span>Display Mode: ${isInPWA ? 'Standalone (PWA)' : 'Browser Tab'}</span>
+                </div>
+            `;
+            
+            // Check service worker
+            if ('serviceWorker' in navigator) {
+                const registration = await navigator.serviceWorker.getRegistration();
+                if (registration) {
+                    statusHTML += `
+                        <div class="status-item">
+                            <span class="status-icon status-success">✅</span>
+                            <span>Service Worker: Active</span>
+                        </div>
+                    `;
+                } else {
+                    statusHTML += `
+                        <div class="status-item">
+                            <span class="status-icon status-warning">⚠️</span>
+                            <span>Service Worker: Not registered</span>
+                        </div>
+                    `;
+                }
+            } else {
+                statusHTML += `
+                    <div class="status-item">
+                        <span class="status-icon status-error">❌</span>
+                        <span>Service Worker: Not supported</span>
+                    </div>
+                `;
+            }
+            
+            // Check manifest
+            try {
+                const manifestResponse = await fetch('/manifest.json');
+                if (manifestResponse.ok) {
+                    statusHTML += `
+                        <div class="status-item">
+                            <span class="status-icon status-success">✅</span>
+                            <span>Manifest: Accessible</span>
+                        </div>
+                    `;
+                } else {
+                    statusHTML += `
+                        <div class="status-item">
+                            <span class="status-icon status-error">❌</span>
+                            <span>Manifest: Not accessible</span>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                statusHTML += `
+                    <div class="status-item">
+                        <span class="status-icon status-error">❌</span>
+                        <span>Manifest: Error loading</span>
+                    </div>
+                `;
+            }
+            
+            // Check offline capability
+            if ('caches' in window) {
+                statusHTML += `
+                    <div class="status-item">
+                        <span class="status-icon status-success">✅</span>
+                        <span>Cache API: Supported</span>
+                    </div>
+                `;
+            } else {
+                statusHTML += `
+                    <div class="status-item">
+                        <span class="status-icon status-error">❌</span>
+                        <span>Cache API: Not supported</span>
+                    </div>
+                `;
+            }
+            
+            statusContent.innerHTML = statusHTML;
+        }
+        
+        // Initialize PWA status
+        document.addEventListener('DOMContentLoaded', () => {
+            checkPWAStatus();
+            
+            // Check status every 5 seconds
+            setInterval(checkPWAStatus, 5000);
+        });
+        
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered successfully:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+    
+    <!-- Quick Actions JavaScript -->
+    <script src="js/quick-actions.js"></script>
+</body>
+</html> 
