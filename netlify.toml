@@ -1,5 +1,8 @@
-# Netlify Configuration for StethoLink AI
+# ========================================
+# NETLIFY CONFIGURATION - STETHOLINK AI
+# ========================================
 # This file forces Netlify to use our custom build script
+# Last updated: 2025-08-12
 
 [build]
   publish = "public"

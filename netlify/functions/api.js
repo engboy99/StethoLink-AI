@@ -1,3 +1,4 @@
+// FORCE REBUILD: 2025-08-12 - Clean API function without serverless-http
 exports.handler = async (event, context) => {
   // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
