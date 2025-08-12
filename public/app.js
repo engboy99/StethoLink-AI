@@ -4,7 +4,7 @@ class StethoLinkApp {
         this.currentUser = null;
         this.chatHistory = [];
         this.isAuthenticated = false;
-        this.apiBaseUrl = '/api';
+        this.apiBaseUrl = '/.netlify/functions/api';
         
         this.init();
     }
@@ -57,7 +57,7 @@ class StethoLinkApp {
             const token = localStorage.getItem('authToken');
             if (token) {
                 // Verify token with backend
-                const response = await fetch(`${this.apiBaseUrl}/auth/verify`, {
+                const response = await fetch(`/.netlify/functions/auth/verify`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -229,7 +229,7 @@ class StethoLinkApp {
         }
 
         try {
-            const response = await fetch(`${this.apiBaseUrl}/auth/login`, {
+            const response = await fetch(`/.netlify/functions/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -268,7 +268,7 @@ class StethoLinkApp {
         }
 
         try {
-            const response = await fetch(`${this.apiBaseUrl}/auth/register`, {
+            const response = await fetch(`/.netlify/functions/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
