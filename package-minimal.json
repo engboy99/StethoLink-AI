@@ -1,0 +1,20 @@
+{
+  "name": "stetholink-ai-minimal",
+  "version": "1.0.0",
+  "description": "Minimal StethoLink AI Backend for Railway",
+  "main": "src/server-minimal.js",
+  "scripts": {
+    "start": "node start-minimal.js",
+    "dev": "node start-minimal.js"
+  },
+  "keywords": ["medical", "ai", "backend", "railway"],
+  "author": "StethoLink AI Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
