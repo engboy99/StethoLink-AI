@@ -1165,6 +1165,34 @@ class StethoLinkApp {
         this.initializeAdvancedEventListeners();
     }
 
+    // Complete the remaining revolutionary methods
+    async checkAuthStatus() {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            try {
+                const response = await fetch(`/.netlify/functions/auth/verify`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    this.currentUser = data.user;
+                    this.isAuthenticated = true;
+                    console.log('✅ User authenticated:', this.currentUser);
+                } else {
+                    localStorage.removeItem('authToken');
+                    this.isAuthenticated = false;
+                }
+            } catch (error) {
+                console.error('❌ Auth check error:', error);
+                localStorage.removeItem('authToken');
+                this.isAuthenticated = false;
+            }
+        }
+    }
+
     initializeAdvancedEventListeners() {
         // Image analysis
         const imageInput = document.getElementById('imageInput');
@@ -1231,10 +1259,10 @@ class StethoLinkApp {
         });
     }
 
-    // Advanced Feature Methods
+    // Revolutionary Feature Methods
     async showAdvancedFeatures() {
         this.switchSection('advanced');
-        this.showAdvancedToast('Advanced Medical AI Features Activated', 'success');
+        this.showRevolutionaryToast('🔬 Advanced Medical AI Features Activated', 'success');
         
         // Animate feature cards
         const featureCards = document.querySelectorAll('.feature-card');
@@ -1248,7 +1276,7 @@ class StethoLinkApp {
 
     async showMedicalCalculators() {
         this.switchSection('calculators');
-        this.showAdvancedToast('Medical Calculators Ready', 'success');
+        this.showRevolutionaryToast('📊 Medical Calculators Ready', 'success');
         
         // Initialize calculator interfaces
         this.initializeCalculators();
@@ -1256,7 +1284,7 @@ class StethoLinkApp {
 
     async showImageAnalysis() {
         this.switchSection('advanced');
-        this.showAdvancedToast('Medical Image Analysis Ready', 'success');
+        this.showRevolutionaryToast('🖼️ Medical Image Analysis Ready', 'success');
         
         // Focus on image analysis section
         const imageSection = document.querySelector('.image-analysis-section');
@@ -1267,7 +1295,7 @@ class StethoLinkApp {
 
     async showResearchAssistant() {
         this.switchSection('research');
-        this.showAdvancedToast('Research AI Assistant Activated', 'success');
+        this.showRevolutionaryToast('🔍 Research AI Assistant Activated', 'success');
         
         // Initialize research tools
         this.initializeResearchTools();
@@ -1275,7 +1303,7 @@ class StethoLinkApp {
 
     async showPatientSimulation() {
         this.switchSection('simulations');
-        this.showAdvancedToast('Patient Simulation Ready', 'success');
+        this.showRevolutionaryToast('🎯 Patient Simulation Ready', 'success');
         
         // Load simulation cases
         this.loadSimulationCases();
@@ -1414,7 +1442,7 @@ class StethoLinkApp {
         if (!file) return;
         
         // Show upload progress
-        this.showAdvancedToast('Analyzing medical image...', 'info');
+        this.showRevolutionaryToast('Analyzing medical image...', 'info');
         
         try {
             const formData = new FormData();
@@ -1432,13 +1460,13 @@ class StethoLinkApp {
             if (response.ok) {
                 const result = await response.json();
                 this.displayImageAnalysisResult(result);
-                this.showAdvancedToast('Image analysis completed!', 'success');
+                this.showRevolutionaryToast('Image analysis completed!', 'success');
             } else {
                 throw new Error('Analysis failed');
             }
         } catch (error) {
             console.error('❌ Image analysis error:', error);
-            this.showAdvancedToast('Image analysis failed. Please try again.', 'error');
+            this.showRevolutionaryToast('Image analysis failed. Please try again.', 'error');
         }
     }
 
@@ -1493,7 +1521,7 @@ class StethoLinkApp {
             }
         } catch (error) {
             console.error('❌ Calculator error:', error);
-            this.showAdvancedToast('Calculation failed. Please check your inputs.', 'error');
+            this.showRevolutionaryToast('Calculation failed. Please check your inputs.', 'error');
         }
     }
 
@@ -1521,7 +1549,7 @@ class StethoLinkApp {
         
         if (!researchQuestion) return;
         
-        this.showAdvancedToast('Researching medical literature...', 'info');
+        this.showRevolutionaryToast('Researching medical literature...', 'info');
         
         try {
             const response = await fetch(`${this.apiBaseUrl}/advanced-features/research`, {
@@ -1536,13 +1564,13 @@ class StethoLinkApp {
             if (response.ok) {
                 const result = await response.json();
                 this.displayResearchResult(result);
-                this.showAdvancedToast('Research completed!', 'success');
+                this.showRevolutionaryToast('Research completed!', 'success');
             } else {
                 throw new Error('Research failed');
             }
         } catch (error) {
             console.error('❌ Research error:', error);
-            this.showAdvancedToast('Research failed. Please try again.', 'error');
+            this.showRevolutionaryToast('Research failed. Please try again.', 'error');
         }
     }
 
@@ -1579,7 +1607,7 @@ class StethoLinkApp {
         const formData = new FormData(form);
         const simulationType = formData.get('simulationType');
         
-        this.showAdvancedToast('Loading patient simulation...', 'info');
+        this.showRevolutionaryToast('Loading patient simulation...', 'info');
         
         try {
             const response = await fetch(`${this.apiBaseUrl}/advanced-features/simulation/${simulationType}`, {
@@ -1594,13 +1622,13 @@ class StethoLinkApp {
             if (response.ok) {
                 const result = await response.json();
                 this.displaySimulationResult(result);
-                this.showAdvancedToast('Simulation loaded!', 'success');
+                this.showRevolutionaryToast('Simulation loaded!', 'success');
             } else {
                 throw new Error('Simulation failed');
             }
         } catch (error) {
             console.error('❌ Simulation error:', error);
-            this.showAdvancedToast('Simulation failed. Please try again.', 'error');
+            this.showRevolutionaryToast('Simulation failed. Please try again.', 'error');
         }
     }
 
@@ -1635,105 +1663,34 @@ class StethoLinkApp {
         }
     }
 
-    // Utility Methods
-    showAdvancedToast(message, type = 'info') {
-        const toast = document.createElement('div');
-        toast.className = `advanced-toast ${type}`;
-        toast.textContent = message;
-        
-        document.body.appendChild(toast);
-        
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 300);
-        }, 5000);
-    }
-
     // Authentication Methods
-    async handleLogin(e) {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        const email = formData.get('email');
-        const password = formData.get('password');
-        
-        try {
-            const response = await fetch(`/.netlify/functions/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-            
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('authToken', data.token);
-                this.currentUser = data.user;
-                this.isAuthenticated = true;
-                
-                this.showAdvancedToast('Login successful! Welcome to StethoLink AI', 'success');
-                await this.showAppContainerWithAnimation();
-                await this.loadUserData();
-            } else {
-                this.showAdvancedToast('Login failed. Please check your credentials.', 'error');
-            }
-        } catch (error) {
-            console.error('❌ Login error:', error);
-            this.showAdvancedToast('Login failed. Please try again.', 'error');
-        }
-    }
-
-    async handleRegister(e) {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        const email = formData.get('email');
-        const password = formData.get('password');
-        const name = formData.get('name');
-        
-        try {
-            const response = await fetch(`/.netlify/functions/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password, name })
-            });
-            
-            if (response.ok) {
-                this.showAdvancedToast('Registration successful! Please log in.', 'success');
-                // Switch to login form
-                this.switchAuthForm('login');
-            } else {
-                this.showAdvancedToast('Registration failed. Please try again.', 'error');
-            }
-        } catch (error) {
-            console.error('❌ Registration error:', error);
-            this.showAdvancedToast('Registration failed. Please try again.', 'error');
-        }
-    }
-
     switchAuthForm(formType) {
         const loginForm = document.getElementById('loginForm');
         const registerForm = document.getElementById('registerForm');
+        const showLogin = document.getElementById('showLogin');
+        const showRegister = document.getElementById('showRegister');
         
         if (formType === 'login') {
             loginForm.classList.remove('hidden');
             registerForm.classList.add('hidden');
+            showLogin.classList.add('hidden');
+            showRegister.classList.remove('hidden');
         } else {
             registerForm.classList.remove('hidden');
             loginForm.classList.add('hidden');
+            showRegister.classList.add('hidden');
+            showLogin.classList.remove('hidden');
         }
     }
 
     logout() {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userProfile');
         this.currentUser = null;
+        this.userProfile = null;
         this.isAuthenticated = false;
         
-        this.showAdvancedToast('Logged out successfully', 'info');
+        this.showRevolutionaryToast('Logged out successfully', 'info');
         this.showAuthContainerWithAnimation();
     }
 
@@ -1746,7 +1703,7 @@ class StethoLinkApp {
             { id: 'apache', name: 'APACHE II Score', fields: ['age', 'temperature', 'map', 'hr', 'rr', 'pao2', 'ph', 'na', 'k', 'creatinine', 'hct', 'wbc', 'glasgow'] }
         ];
         
-        const calculatorContainer = document.querySelector('.calculators-section');
+        const calculatorContainer = document.querySelector('.calculators-container');
         if (calculatorContainer) {
             calculatorContainer.innerHTML = `
                 <div class="feature-grid">
@@ -1773,7 +1730,7 @@ class StethoLinkApp {
 
     // Initialize research tools
     initializeResearchTools() {
-        const researchContainer = document.querySelector('.research-section');
+        const researchContainer = document.querySelector('.research-container');
         if (researchContainer) {
             researchContainer.innerHTML = `
                 <div class="feature-card">
@@ -1798,7 +1755,7 @@ class StethoLinkApp {
 
     // Load simulation cases
     loadSimulationCases() {
-        const simulationContainer = document.querySelector('.simulations-section');
+        const simulationContainer = document.querySelector('.simulations-container');
         if (simulationContainer) {
             simulationContainer.innerHTML = `
                 <div class="feature-card">
@@ -1825,6 +1782,253 @@ class StethoLinkApp {
                 </div>
             `;
         }
+    }
+
+    // Note Taking Methods
+    createNewNote() {
+        const note = {
+            id: Date.now(),
+            title: 'New Note',
+            content: '',
+            template: 'general',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        };
+        
+        this.notes.push(note);
+        this.saveNotes();
+        this.loadNotes();
+        this.showRevolutionaryToast('New note created!', 'success');
+    }
+
+    useTemplate(templateType) {
+        const templates = {
+            'patient-history': {
+                title: 'Patient History Template',
+                content: `Patient Name: _____________
+Age: _____________
+Gender: _____________
+Chief Complaint: _____________
+History of Present Illness: _____________
+Past Medical History: _____________
+Medications: _____________
+Allergies: _____________
+Family History: _____________
+Social History: _____________`
+            },
+            'prescription': {
+                title: 'Prescription Template',
+                content: `Patient Name: _____________
+Date: _____________
+Rx: _____________
+Sig: _____________
+Disp: _____________
+Refills: _____________
+Prescriber: Dr. ${this.userProfile?.name || '[Your Name]'}`
+            },
+            'case-study': {
+                title: 'Case Study Template',
+                content: `Case Title: _____________
+Patient Demographics: _____________
+Clinical Presentation: _____________
+Differential Diagnosis: _____________
+Investigations: _____________
+Final Diagnosis: _____________
+Treatment Plan: _____________
+Outcome: _____________
+Learning Points: _____________`
+            },
+            'research-notes': {
+                title: 'Research Notes Template',
+                content: `Research Topic: _____________
+Research Question: _____________
+Hypothesis: _____________
+Methodology: _____________
+Key Findings: _____________
+Conclusions: _____________
+References: _____________`
+            }
+        };
+        
+        const template = templates[templateType];
+        if (template) {
+            const note = {
+                id: Date.now(),
+                title: template.title,
+                content: template.content,
+                template: templateType,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            };
+            
+            this.notes.push(note);
+            this.saveNotes();
+            this.loadNotes();
+            this.showRevolutionaryToast(`Template "${template.title}" applied!`, 'success');
+        }
+    }
+
+    loadNotes() {
+        const notesContainer = document.getElementById('notesContainer');
+        if (notesContainer) {
+            if (this.notes.length === 0) {
+                notesContainer.innerHTML = '<p>No notes yet. Create your first note!</p>';
+                return;
+            }
+            
+            notesContainer.innerHTML = this.notes.map(note => `
+                <div class="note-item" data-note-id="${note.id}">
+                    <div class="note-header">
+                        <h5>${note.title}</h5>
+                        <div class="note-actions">
+                            <button onclick="app.editNote(${note.id})" class="btn btn-secondary btn-sm">Edit</button>
+                            <button onclick="app.deleteNote(${note.id})" class="btn btn-secondary btn-sm">Delete</button>
+                            <button onclick="app.downloadNote(${note.id})" class="btn btn-primary btn-sm">Download</button>
+                        </div>
+                    </div>
+                    <div class="note-content">${note.content.substring(0, 100)}${note.content.length > 100 ? '...' : ''}</div>
+                    <div class="note-meta">
+                        <small>Created: ${note.createdAt.toLocaleDateString()}</small>
+                        <small>Updated: ${note.updatedAt.toLocaleDateString()}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    saveNotes() {
+        localStorage.setItem('userNotes', JSON.stringify(this.notes));
+    }
+
+    editNote(noteId) {
+        const note = this.notes.find(n => n.id === noteId);
+        if (note) {
+            // Create edit modal
+            const modal = document.createElement('div');
+            modal.className = 'note-edit-modal';
+            modal.innerHTML = `
+                <div class="note-edit-card">
+                    <h3>Edit Note</h3>
+                    <input type="text" id="editNoteTitle" value="${note.title}" class="form-control">
+                    <textarea id="editNoteContent" rows="10" class="form-control">${note.content}</textarea>
+                    <div class="note-edit-actions">
+                        <button onclick="app.saveNoteEdit(${noteId})" class="btn btn-primary">Save</button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+    }
+
+    saveNoteEdit(noteId) {
+        const title = document.getElementById('editNoteTitle').value;
+        const content = document.getElementById('editNoteContent').value;
+        
+        const note = this.notes.find(n => n.id === noteId);
+        if (note) {
+            note.title = title;
+            note.content = content;
+            note.updatedAt = new Date();
+            
+            this.saveNotes();
+            this.loadNotes();
+            this.showRevolutionaryToast('Note updated successfully!', 'success');
+            
+            // Remove modal
+            const modal = document.querySelector('.note-edit-modal');
+            if (modal) modal.remove();
+        }
+    }
+
+    deleteNote(noteId) {
+        if (confirm('Are you sure you want to delete this note?')) {
+            this.notes = this.notes.filter(n => n.id !== noteId);
+            this.saveNotes();
+            this.loadNotes();
+            this.showRevolutionaryToast('Note deleted successfully!', 'success');
+        }
+    }
+
+    downloadNote(noteId) {
+        const note = this.notes.find(n => n.id === noteId);
+        if (note) {
+            const content = `${note.title}\n\n${note.content}\n\nCreated: ${note.createdAt.toLocaleDateString()}\nUpdated: ${note.updatedAt.toLocaleDateString()}\n\nGenerated by StethoLink AI`;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${note.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            this.showRevolutionaryToast('Note downloaded successfully!', 'success');
+        }
+    }
+
+    // Profile Methods
+    showProfile() {
+        this.switchSection('profile');
+        this.showRevolutionaryToast('Profile section loaded!', 'info');
+        this.loadProfileData();
+    }
+
+    loadProfileData() {
+        const profileContainer = document.querySelector('.profile-section');
+        if (profileContainer && this.userProfile) {
+            profileContainer.innerHTML = `
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3>Your Profile</h3>
+                    
+                    <div class="profile-info">
+                        <div class="profile-field">
+                            <label>Name:</label>
+                            <span>Dr. ${this.userProfile.name}</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Gender:</label>
+                            <span>${this.userProfile.gender === 'male' ? '👨‍⚕️ Male' : '👩‍⚕️ Female'}</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>University:</label>
+                            <span>${this.userProfile.university}</span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Year of Study:</label>
+                            <span>${this.userProfile.year} Year</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button onclick="app.editProfile()" class="btn btn-primary">Edit Profile</button>
+                        <button onclick="app.logout()" class="btn btn-secondary">Logout</button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    editProfile() {
+        this.showProfileSetup();
+    }
+
+    // Utility Methods
+    showRevolutionaryToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = `advanced-toast ${type}`;
+        toast.textContent = message;
+        
+        document.body.appendChild(toast);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
     }
 }
 
