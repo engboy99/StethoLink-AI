@@ -1,4 +1,4 @@
-// 🏥 StethoLink AI - Advanced Medical AI System
+// 🏥 StethoLink AI - Revolutionary Medical AI Assistant for Sri Lanka
 class StethoLinkApp {
     constructor() {
         this.currentUser = null;
@@ -8,14 +8,25 @@ class StethoLinkApp {
         this.currentSection = 'chat';
         this.animationQueue = [];
         this.isAnimating = false;
+        this.userProfile = null;
+        this.notes = [];
+        this.drugDatabase = {};
+        this.hospitalDirectory = {};
+        this.knowledgeBank = {};
         
-        // Advanced Features State
+        // Revolutionary Features State
         this.advancedFeatures = {
-            imageAnalysis: false,
-            medicalCalculators: false,
-            researchAssistant: false,
-            patientSimulation: false,
-            voiceProcessing: false
+            imageAnalysis: true,
+            medicalCalculators: true,
+            researchAssistant: true,
+            patientSimulation: true,
+            voiceProcessing: true,
+            knowledgeBank: true,
+            drugDatabase: true,
+            hospitalDirectory: true,
+            interUniversity: true,
+            noteTaking: true,
+            downloadTemplates: true
         };
         
         this.init();
@@ -23,11 +34,11 @@ class StethoLinkApp {
 
     async init() {
         try {
-            // Show advanced loading animation
-            this.showAdvancedLoadingScreen();
+            // Show revolutionary loading animation
+            this.showRevolutionaryLoadingScreen();
             
-            // Initialize advanced UI components
-            await this.initializeAdvancedUI();
+            // Initialize revolutionary UI components
+            await this.initializeRevolutionaryUI();
             
             // Check authentication status
             await this.checkAuthStatus();
@@ -39,24 +50,26 @@ class StethoLinkApp {
             if (this.isAuthenticated) {
                 await this.showAppContainerWithAnimation();
                 await this.loadUserData();
+                this.updateTimeDisplay();
+                setInterval(() => this.updateTimeDisplay(), 1000);
             } else {
                 await this.showAuthContainerWithAnimation();
             }
             
-            // Initialize advanced features
-            await this.initializeAdvancedFeatures();
+            // Initialize revolutionary features
+            await this.initializeRevolutionaryFeatures();
             
             // Start background animations
-            this.startBackgroundAnimations();
+            this.startRevolutionaryBackgroundAnimations();
             
-            console.log('🚀 Advanced StethoLink AI App initialized successfully');
+            console.log('🚀 Revolutionary StethoLink AI App initialized successfully');
         } catch (error) {
-            console.error('❌ Error initializing advanced app:', error);
-            this.showAdvancedToast('Error initializing advanced application', 'error');
+            console.error('❌ Error initializing revolutionary app:', error);
+            this.showRevolutionaryToast('Error initializing revolutionary application', 'error');
         }
     }
 
-    showAdvancedLoadingScreen() {
+    showRevolutionaryLoadingScreen() {
         const loadingScreen = document.getElementById('loadingScreen');
         if (loadingScreen) {
             loadingScreen.innerHTML = `
@@ -66,8 +79,8 @@ class StethoLinkApp {
                         <div class="heartbeat-pulse"></div>
                     </div>
                     <div class="loading-text">
-                        <h2>StethoLink AI</h2>
-                        <p>Initializing Advanced Medical AI System...</p>
+                        <h2>🏥 StethoLink AI</h2>
+                        <p>Initializing Revolutionary Medical AI System for Sri Lanka...</p>
                         <div class="loading-progress">
                             <div class="progress-bar"></div>
                         </div>
@@ -77,6 +90,10 @@ class StethoLinkApp {
                         <span class="feature-tag">📊 Calculators</span>
                         <span class="feature-tag">🔍 Research</span>
                         <span class="feature-tag">🎯 Simulations</span>
+                        <span class="feature-tag">💊 Drug Database</span>
+                        <span class="feature-tag">🏥 Hospital Directory</span>
+                        <span class="feature-tag">📚 Knowledge Bank</span>
+                        <span class="feature-tag">🎓 Inter-University</span>
                     </div>
                 </div>
             `;
@@ -91,24 +108,24 @@ class StethoLinkApp {
         }
     }
 
-    async initializeAdvancedUI() {
-        // Add advanced CSS animations
-        this.injectAdvancedStyles();
+    async initializeRevolutionaryUI() {
+        // Add revolutionary CSS animations
+        this.injectRevolutionaryStyles();
         
         // Create floating action buttons
-        this.createFloatingActionButtons();
+        this.createRevolutionaryFloatingActionButtons();
         
         // Initialize particle effects
-        this.initializeParticleEffects();
+        this.initializeRevolutionaryParticleEffects();
         
-        // Setup advanced navigation
-        this.setupAdvancedNavigation();
+        // Setup revolutionary navigation
+        this.setupRevolutionaryNavigation();
     }
 
-    injectAdvancedStyles() {
+    injectRevolutionaryStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            /* Advanced Animations */
+            /* Revolutionary Animations */
             @keyframes heartbeat {
                 0% { transform: scale(1); }
                 50% { transform: scale(1.1); }
@@ -153,7 +170,12 @@ class StethoLinkApp {
                 50% { transform: translateY(-10px); }
             }
             
-            /* Advanced Loading Screen */
+            @keyframes gradientShift {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+            
+            /* Revolutionary Loading Screen */
             .advanced-loading {
                 display: flex;
                 flex-direction: column;
@@ -221,7 +243,7 @@ class StethoLinkApp {
                 animation-delay: calc(var(--i) * 0.5s);
             }
             
-            /* Floating Action Buttons */
+            /* Revolutionary Floating Action Buttons */
             .floating-actions {
                 position: fixed;
                 right: 20px;
@@ -233,8 +255,8 @@ class StethoLinkApp {
             }
             
             .fab {
-                width: 60px;
-                height: 60px;
+                width: 70px;
+                height: 70px;
                 border-radius: 50%;
                 background: linear-gradient(135deg, #667eea, #764ba2);
                 color: white;
@@ -243,75 +265,144 @@ class StethoLinkApp {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 1.5rem;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                font-size: 1.8rem;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
                 transition: all 0.3s ease;
-                animation: float 3s ease-in-out infinite;
+                animation: float 4s ease-in-out infinite;
             }
             
             .fab:hover {
-                transform: scale(1.1);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+                transform: scale(1.15);
+                box-shadow: 0 12px 35px rgba(0,0,0,0.4);
                 animation: glow 2s ease-in-out infinite;
             }
             
-            /* Advanced Navigation */
+            /* Revolutionary Navigation */
             .advanced-nav {
                 background: linear-gradient(135deg, #1e3c72, #2a5298);
-                padding: 1rem;
-                border-radius: 15px;
-                margin: 1rem;
-                box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+                padding: 1.5rem;
+                border-radius: 20px;
+                margin: 1rem 0;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .advanced-nav::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+                transform: translateX(-100%);
+                animation: navShimmer 4s ease-in-out infinite;
+            }
+            
+            @keyframes navShimmer {
+                0% { transform: translateX(-100%); }
+                50% { transform: translateX(100%); }
+                100% { transform: translateX(-100%); }
             }
             
             .nav-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 gap: 1rem;
+                position: relative;
+                z-index: 1;
             }
             
             .nav-card {
                 background: rgba(255,255,255,0.1);
                 padding: 1.5rem;
-                border-radius: 10px;
+                border-radius: 15px;
                 text-align: center;
                 color: white;
                 cursor: pointer;
                 transition: all 0.3s ease;
                 backdrop-filter: blur(10px);
                 border: 1px solid rgba(255,255,255,0.2);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .nav-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+                transform: translateX(-100%);
+                transition: transform 0.5s;
+            }
+            
+            .nav-card:hover::before {
+                transform: translateX(100%);
             }
             
             .nav-card:hover {
-                transform: translateY(-5px);
+                transform: translateY(-8px);
                 background: rgba(255,255,255,0.2);
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            }
+            
+            .nav-card.active {
+                background: rgba(255,255,255,0.3);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                animation: activeGlow 2s ease-in-out infinite;
+            }
+            
+            @keyframes activeGlow {
+                0%, 100% { box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+                50% { box-shadow: 0 10px 25px rgba(102, 126, 234,0.5); }
             }
             
             .nav-card i {
-                font-size: 2rem;
+                font-size: 2.5rem;
                 margin-bottom: 1rem;
                 display: block;
+                animation: iconFloat 3s ease-in-out infinite;
             }
             
-            /* Advanced Content Sections */
+            @keyframes iconFloat {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-5px); }
+            }
+            
+            .nav-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+            }
+            
+            .nav-card p {
+                font-size: 0.9rem;
+                opacity: 0.9;
+                line-height: 1.4;
+            }
+            
+            /* Revolutionary Content Sections */
             .content-section {
                 animation: slideInUp 0.6s ease-out;
             }
             
             .feature-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
                 gap: 2rem;
                 margin: 2rem 0;
             }
             
             .feature-card {
                 background: white;
-                border-radius: 15px;
-                padding: 2rem;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                transition: all 0.3s ease;
+                border-radius: 20px;
+                padding: 2.5rem;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                transition: all 0.4s ease;
                 border: 1px solid #e0e0e0;
                 position: relative;
                 overflow: hidden;
@@ -324,35 +415,36 @@ class StethoLinkApp {
                 left: 0;
                 width: 100%;
                 height: 4px;
-                background: linear-gradient(90deg, #667eea, #764ba2);
-                transform: scaleX(0);
-                transition: transform 0.3s ease;
-            }
-            
-            .feature-card:hover::before {
-                transform: scaleX(1);
+                background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+                background-size: 200% 100%;
+                animation: gradientShift 3s ease-in-out infinite;
             }
             
             .feature-card:hover {
-                transform: translateY(-10px);
-                box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+                transform: translateY(-15px) scale(1.02);
+                box-shadow: 0 30px 60px rgba(0,0,0,0.15);
             }
             
             .feature-icon {
-                width: 80px;
-                height: 80px;
+                width: 100px;
+                height: 100px;
                 background: linear-gradient(135deg, #667eea, #764ba2);
                 border-radius: 50%;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 2rem;
+                font-size: 3rem;
                 color: white;
-                margin: 0 auto 1rem;
-                animation: float 4s ease-in-out infinite;
+                margin: 0 auto 1.5rem;
+                animation: iconPulse 4s ease-in-out infinite;
             }
             
-            /* Advanced Chat Interface */
+            @keyframes iconPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+            
+            /* Revolutionary Chat Interface */
             .advanced-chat {
                 background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
                 border-radius: 20px;
@@ -392,7 +484,7 @@ class StethoLinkApp {
                 animation-delay: 0.1s;
             }
             
-            /* Advanced Toast */
+            /* Revolutionary Toast */
             .advanced-toast {
                 position: fixed;
                 top: 20px;
@@ -400,11 +492,12 @@ class StethoLinkApp {
                 background: linear-gradient(135deg, #667eea, #764ba2);
                 color: white;
                 padding: 1rem 1.5rem;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                border-radius: 15px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.3);
                 z-index: 10000;
                 animation: slideInLeft 0.5s ease-out;
-                max-width: 300px;
+                max-width: 350px;
+                backdrop-filter: blur(10px);
             }
             
             .advanced-toast.success {
@@ -417,6 +510,10 @@ class StethoLinkApp {
             
             .advanced-toast.warning {
                 background: linear-gradient(135deg, #f093fb, #f5576c);
+            }
+            
+            .advanced-toast.info {
+                background: linear-gradient(135deg, #667eea, #764ba2);
             }
             
             /* Particle Effects */
@@ -442,7 +539,7 @@ class StethoLinkApp {
         document.head.appendChild(style);
     }
 
-    createFloatingActionButtons() {
+    createRevolutionaryFloatingActionButtons() {
         const fabContainer = document.createElement('div');
         fabContainer.className = 'floating-actions';
         fabContainer.innerHTML = `
@@ -461,15 +558,27 @@ class StethoLinkApp {
             <button class="fab" onclick="app.showPatientSimulation()" title="Patient Simulation">
                 🎯
             </button>
+            <button class="fab" onclick="app.showKnowledgeBank()" title="Knowledge Bank">
+                📚
+            </button>
+            <button class="fab" onclick="app.showDrugDatabase()" title="Drug Database">
+                💊
+            </button>
+            <button class="fab" onclick="app.showHospitalDirectory()" title="Hospital Directory">
+                🏥
+            </button>
+            <button class="fab" onclick="app.showNoteTaking()" title="Smart Notes">
+                📝
+            </button>
         `;
         document.body.appendChild(fabContainer);
     }
 
-    initializeParticleEffects() {
+    initializeRevolutionaryParticleEffects() {
         const particlesContainer = document.createElement('div');
         particlesContainer.className = 'particles';
         
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 30; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
@@ -482,7 +591,7 @@ class StethoLinkApp {
         document.body.appendChild(particlesContainer);
     }
 
-    setupAdvancedNavigation() {
+    setupRevolutionaryNavigation() {
         const navContainer = document.querySelector('.app-sidebar');
         if (navContainer) {
             navContainer.innerHTML = `
@@ -513,10 +622,40 @@ class StethoLinkApp {
                             <h3>Simulations</h3>
                             <p>Patient Cases</p>
                         </div>
+                        <div class="nav-card" data-section="knowledge-bank" onclick="app.switchSection('knowledge-bank')">
+                            <i>📚</i>
+                            <h3>Knowledge Bank</h3>
+                            <p>Medical Database</p>
+                        </div>
+                        <div class="nav-card" data-section="drug-database" onclick="app.switchSection('drug-database')">
+                            <i>💊</i>
+                            <h3>Drug Database</h3>
+                            <p>Medications & Interactions</p>
+                        </div>
+                        <div class="nav-card" data-section="hospital-directory" onclick="app.switchSection('hospital-directory')">
+                            <i>🏥</i>
+                            <h3>Hospital Directory</h3>
+                            <p>Sri Lanka Hospitals</p>
+                        </div>
+                        <div class="nav-card" data-section="inter-university" onclick="app.switchSection('inter-university')">
+                            <i>🎓</i>
+                            <h3>Inter-University</h3>
+                            <p>Medical Community</p>
+                        </div>
+                        <div class="nav-card" data-section="note-taking" onclick="app.switchSection('note-taking')">
+                            <i>📝</i>
+                            <h3>Smart Notes</h3>
+                            <p>AI-Powered Notes</p>
+                        </div>
                         <div class="nav-card" data-section="progress" onclick="app.switchSection('progress')">
                             <i>📈</i>
                             <h3>Progress</h3>
                             <p>Learning Analytics</p>
+                        </div>
+                        <div class="nav-card" data-section="profile" onclick="app.showProfile()">
+                            <i>👤</i>
+                            <h3>Profile</h3>
+                            <p>Settings & Preferences</p>
                         </div>
                     </div>
                 </div>
@@ -524,7 +663,7 @@ class StethoLinkApp {
         }
     }
 
-    async initializeAdvancedFeatures() {
+    async initializeRevolutionaryFeatures() {
         try {
             // Test advanced features availability
             const response = await fetch(`${this.apiBaseUrl}/advanced-features/health`);
@@ -534,16 +673,22 @@ class StethoLinkApp {
                     medicalCalculators: true,
                     researchAssistant: true,
                     patientSimulation: true,
-                    voiceProcessing: true
+                    voiceProcessing: true,
+                    knowledgeBank: true,
+                    drugDatabase: true,
+                    hospitalDirectory: true,
+                    interUniversity: true,
+                    noteTaking: true,
+                    downloadTemplates: true
                 };
-                console.log('✅ Advanced features initialized successfully');
+                console.log('✅ Revolutionary features initialized successfully');
             }
         } catch (error) {
-            console.log('⚠️ Advanced features not available, using fallback');
+            console.log('⚠️ Revolutionary features not available, using fallback');
         }
     }
 
-    startBackgroundAnimations() {
+    startRevolutionaryBackgroundAnimations() {
         // Animate feature tags
         const featureTags = document.querySelectorAll('.feature-tag');
         featureTags.forEach((tag, index) => {
@@ -587,51 +732,418 @@ class StethoLinkApp {
         }
     }
 
-    hideLoadingScreen() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-            loadingScreen.style.display = 'none';
+    // Time Display
+    updateTimeDisplay() {
+        const now = new Date();
+        const timeElement = document.getElementById('currentTime');
+        const dateElement = document.getElementById('currentDate');
+        
+        if (timeElement) {
+            timeElement.textContent = now.toLocaleTimeString('en-US', { 
+                hour12: true, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+        }
+        
+        if (dateElement) {
+            dateElement.textContent = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
         }
     }
 
-    showAuthContainer() {
-        document.getElementById('authContainer').classList.remove('hidden');
-        document.getElementById('appContainer').classList.add('hidden');
+    // Profile Setup
+    showProfileSetup() {
+        const modal = document.getElementById('profileSetupModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+        }
     }
 
-    showAppContainer() {
-        document.getElementById('authContainer').classList.add('hidden');
-        document.getElementById('appContainer').classList.remove('hidden');
+    selectGender(gender) {
+        const options = document.querySelectorAll('.gender-option');
+        options.forEach(option => option.classList.remove('selected'));
+        
+        const selectedOption = event.currentTarget;
+        selectedOption.classList.add('selected');
+        
+        const radio = selectedOption.querySelector('input');
+        radio.checked = true;
+        
+        // Update avatar
+        const avatar = document.getElementById('profileAvatar');
+        if (avatar) {
+            avatar.textContent = gender === 'male' ? '👨‍⚕️' : '👩‍⚕️';
+        }
     }
 
-    async checkAuthStatus() {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            try {
-                const response = await fetch(`/.netlify/functions/auth/verify`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
+    async handleProfileSetup(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        
+        const profileData = {
+            name: formData.get('name'),
+            gender: formData.get('gender'),
+            university: formData.get('university'),
+            year: formData.get('year')
+        };
+        
+        // Save profile data
+        this.userProfile = profileData;
+        localStorage.setItem('userProfile', JSON.stringify(profileData));
+        
+        // Update welcome message
+        this.updateWelcomeMessage();
+        
+        // Hide modal
+        const modal = document.getElementById('profileSetupModal');
+        if (modal) {
+            modal.classList.add('hidden');
+        }
+        
+        this.showRevolutionaryToast(`Welcome Dr. ${profileData.name}! Your profile is complete.`, 'success');
+    }
+
+    updateWelcomeMessage() {
+        const welcomeElement = document.getElementById('welcomeMessage');
+        if (welcomeElement && this.userProfile) {
+            welcomeElement.textContent = `Welcome, Dr. ${this.userProfile.name}!`;
+        }
+    }
+
+    // Authentication Methods
+    async handleLogin(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        
+        try {
+            const response = await fetch(`/.netlify/functions/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('authToken', data.token);
+                this.currentUser = data.user;
+                this.isAuthenticated = true;
                 
-                if (response.ok) {
-                    const data = await response.json();
-                    this.currentUser = data.user;
-                    this.isAuthenticated = true;
-                    console.log('✅ User authenticated:', this.currentUser);
+                // Check if profile exists
+                const savedProfile = localStorage.getItem('userProfile');
+                if (savedProfile) {
+                    this.userProfile = JSON.parse(savedProfile);
+                    await this.showAppContainerWithAnimation();
+                    await this.loadUserData();
+                    this.updateWelcomeMessage();
                 } else {
-                    localStorage.removeItem('authToken');
-                    this.isAuthenticated = false;
+                    // Show profile setup
+                    this.showProfileSetup();
                 }
-            } catch (error) {
-                console.error('❌ Auth check error:', error);
-                localStorage.removeItem('authToken');
-                this.isAuthenticated = false;
+                
+                this.showRevolutionaryToast('Login successful! Welcome to StethoLink AI', 'success');
+            } else {
+                this.showRevolutionaryToast('Login failed. Please check your credentials.', 'error');
             }
+        } catch (error) {
+            console.error('❌ Login error:', error);
+            this.showRevolutionaryToast('Login failed. Please try again.', 'error');
         }
     }
 
+    async handleRegister(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const name = formData.get('name');
+        
+        try {
+            const response = await fetch(`/.netlify/functions/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password, name })
+            });
+            
+            if (response.ok) {
+                this.showRevolutionaryToast('Registration successful! Please log in.', 'success');
+                // Switch to login form
+                this.switchAuthForm('login');
+            } else {
+                this.showRevolutionaryToast('Registration failed. Please try again.', 'error');
+            }
+        } catch (error) {
+            console.error('❌ Registration error:', error);
+            this.showRevolutionaryToast('Registration failed. Please try again.', 'error');
+        }
+    }
+
+    switchAuthForm(formType) {
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        
+        if (formType === 'login') {
+            loginForm.classList.remove('hidden');
+            registerForm.classList.add('hidden');
+        } else {
+            registerForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        }
+    }
+
+    logout() {
+        localStorage.removeItem('authToken');
+        this.currentUser = null;
+        this.isAuthenticated = false;
+        
+        this.showRevolutionaryToast('Logged out successfully', 'info');
+        this.showAuthContainerWithAnimation();
+    }
+
+    // Revolutionary Feature Methods
+    async showKnowledgeBank() {
+        this.switchSection('knowledge-bank');
+        this.showRevolutionaryToast('📚 Medical Knowledge Bank Activated', 'success');
+        this.initializeKnowledgeBank();
+    }
+
+    async showDrugDatabase() {
+        this.switchSection('drug-database');
+        this.showRevolutionaryToast('💊 Drug Database & Interactions Ready', 'success');
+        this.initializeDrugDatabase();
+    }
+
+    async showHospitalDirectory() {
+        this.switchSection('hospital-directory');
+        this.showRevolutionaryToast('🏥 Sri Lanka Hospital Directory Loaded', 'success');
+        this.initializeHospitalDirectory();
+    }
+
+    async showInterUniversity() {
+        this.switchSection('inter-university');
+        this.showRevolutionaryToast('🎓 Inter-University Medical Community Connected', 'success');
+        this.initializeInterUniversity();
+    }
+
+    async showNoteTaking() {
+        this.switchSection('note-taking');
+        this.showRevolutionaryToast('📝 Smart Note Taking System Ready', 'success');
+        this.initializeNoteTaking();
+    }
+
+    // Initialize Knowledge Bank
+    initializeKnowledgeBank() {
+        const container = document.querySelector('.knowledge-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>Medical Knowledge Base</h3>
+                        <p>Comprehensive medical information with Sri Lankan context</p>
+                        
+                        <div class="knowledge-search">
+                            <input type="text" id="knowledgeSearch" placeholder="Search medical knowledge..." class="form-control">
+                            <button class="btn btn-primary" onclick="app.searchKnowledge()">Search</button>
+                        </div>
+                        
+                        <div class="knowledge-categories">
+                            <h4>Categories:</h4>
+                            <div class="category-grid">
+                                <span class="category-tag">Anatomy</span>
+                                <span class="category-tag">Physiology</span>
+                                <span class="category-tag">Pathology</span>
+                                <span class="category-tag">Pharmacology</span>
+                                <span class="category-tag">Clinical Skills</span>
+                                <span class="category-tag">Emergency Medicine</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Initialize Drug Database
+    initializeDrugDatabase() {
+        const container = document.querySelector('.drug-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💊</div>
+                        <h3>Drug Information & Interactions</h3>
+                        <p>Comprehensive drug database with dosage, side effects, and interactions</p>
+                        
+                        <div class="drug-search">
+                            <input type="text" id="drugSearch" placeholder="Search for drugs..." class="form-control">
+                            <button class="btn btn-primary" onclick="app.searchDrug()">Search</button>
+                        </div>
+                        
+                        <div class="drug-categories">
+                            <h4>Drug Categories:</h4>
+                            <div class="category-grid">
+                                <span class="category-tag">Antibiotics</span>
+                                <span class="category-tag">Analgesics</span>
+                                <span class="category-tag">Cardiovascular</span>
+                                <span class="category-tag">Psychiatric</span>
+                                <span class="category-tag">Emergency</span>
+                                <span class="category-tag">Pediatric</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Initialize Hospital Directory
+    initializeHospitalDirectory() {
+        const container = document.querySelector('.hospital-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏥</div>
+                        <h3>Sri Lanka Hospital Directory</h3>
+                        <p>Complete directory of hospitals, clinics, and medical facilities</p>
+                        
+                        <div class="hospital-search">
+                            <input type="text" id="hospitalSearch" placeholder="Search hospitals..." class="form-control">
+                            <select id="hospitalProvince" class="form-control">
+                                <option value="">All Provinces</option>
+                                <option value="western">Western Province</option>
+                                <option value="central">Central Province</option>
+                                <option value="southern">Southern Province</option>
+                                <option value="northern">Northern Province</option>
+                                <option value="eastern">Eastern Province</option>
+                                <option value="north-western">North Western Province</option>
+                                <option value="north-central">North Central Province</option>
+                                <option value="uva">Uva Province</option>
+                                <option value="sabaragamuwa">Sabaragamuwa Province</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="app.searchHospitals()">Search</button>
+                        </div>
+                        
+                        <div class="hospital-results"></div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Initialize Inter-University Features
+    initializeInterUniversity() {
+        const container = document.querySelector('.inter-university-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3>Inter-University Medical Community</h3>
+                        <p>Connect with medical students and faculty across Sri Lankan universities</p>
+                        
+                        <div class="university-connections">
+                            <h4>Connected Universities:</h4>
+                            <div class="university-grid">
+                                <div class="university-card">
+                                    <h5>University of Colombo</h5>
+                                    <p>Faculty of Medicine</p>
+                                    <button class="btn btn-secondary" onclick="app.connectUniversity('colombo')">Connect</button>
+                                </div>
+                                <div class="university-card">
+                                    <h5>University of Peradeniya</h5>
+                                    <p>Faculty of Medicine</p>
+                                    <button class="btn btn-secondary" onclick="app.connectUniversity('peradeniya')">Connect</button>
+                                </div>
+                                <div class="university-card">
+                                    <h5>University of Jaffna</h5>
+                                    <p>Faculty of Medicine</p>
+                                    <button class="btn btn-secondary" onclick="app.connectUniversity('jaffna')">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Initialize Note Taking
+    initializeNoteTaking() {
+        const container = document.querySelector('.note-taking-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Smart Note Taking System</h3>
+                        <p>AI-powered note taking with templates, organization, and search</p>
+                        
+                        <div class="note-actions">
+                            <button class="btn btn-primary" onclick="app.createNewNote()">Create New Note</button>
+                            <button class="btn btn-secondary" onclick="app.showNoteTemplates()">Note Templates</button>
+                        </div>
+                        
+                        <div class="note-templates">
+                            <h4>Available Templates:</h4>
+                            <div class="template-grid">
+                                <span class="template-tag" onclick="app.useTemplate('patient-history')">Patient History</span>
+                                <span class="template-tag" onclick="app.useTemplate('prescription')">Prescription</span>
+                                <span class="template-tag" onclick="app.useTemplate('case-study')">Case Study</span>
+                                <span class="template-tag" onclick="app.useTemplate('research-notes')">Research Notes</span>
+                            </div>
+                        </div>
+                        
+                        <div class="notes-list">
+                            <h4>Your Notes:</h4>
+                            <div id="notesContainer"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            this.loadNotes();
+        }
+    }
+
+    // Utility Methods
+    showRevolutionaryToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = `advanced-toast ${type}`;
+        toast.textContent = message;
+        
+        document.body.appendChild(toast);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+
+    // Initialize all event listeners
     initializeAllEventListeners() {
+        // Profile setup form
+        const profileForm = document.getElementById('profileSetupForm');
+        if (profileForm) {
+            profileForm.addEventListener('submit', (e) => this.handleProfileSetup(e));
+        }
+
         // Chat form submission
         const chatForm = document.getElementById('chatForm');
         if (chatForm) {
