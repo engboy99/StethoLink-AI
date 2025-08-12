@@ -1,0 +1,294 @@
+const { logger } = require('../utils/logger');
+const { v4: uuidv4 } = require('uuid');
+
+class NotificationService {
+    constructor() {
+        this.activeNotifications = new Map();
+        this.voiceEnabled = true;
+        this.soundEnabled = true;
+    }
+
+    // Send alert with multiple channels
+    async sendAlert(studentId, alert, userData = {}) {
+        try {
+            const notificationId = uuidv4();
+            const now = new Date();
+
+            const notification = {
+                id: notificationId,
+                studentId: studentId,
+                alertId: alert.id,
+                type: alert.type,
+                priority: alert.priority,
+                title: this.generateAlertTitle(alert),
+                message: alert.message,
+                channels: alert.channels || ['telegram'],
+                status: 'sent',
+                createdAt: now,
+                sentAt: now,
+                userData: userData
+            };
+
+            // Store notification
+            this.activeNotifications.set(notificationId, notification);
+
+            // Send through different channels
+            const results = await Promise.allSettled([
+                this.sendTelegramAlert(studentId, notification),
+                this.sendVoiceAlert(studentId, notification),
+                this.sendSoundAlert(studentId, notification),
+                this.sendDashboardAlert(studentId, notification)
+            ]);
+
+            // Log results
+            results.forEach((result, index) => {
+                if (result.status === 'fulfilled') {
+                    logger.info(`✅ Alert sent via channel ${index}: ${result.value}`, { notificationId });
+                } else {
+                    logger.error(`❌ Alert failed via channel ${index}:`, result.reason);
+                }
+            });
+
+            logger.info(`🚨 Alert sent successfully: ${notification.title}`, { 
+                notificationId, 
+                studentId, 
+                channels: notification.channels 
+            });
+
+            return notification;
+        } catch (error) {
+            logger.error('❌ Error sending alert:', error);
+            throw error;
+        }
+    }
+
+    // Generate alert title based on type
+    generateAlertTitle(alert) {
+        const titles = {
+            'task_reminder': '⏰ Study Reminder',
+            'task_urgent': '🚨 URGENT: Study Task',
+            'exam_reminder': '📚 Exam Reminder',
+            'clinical_reminder': '🏥 Clinical Reminder',
+            'drug_alert': '💊 Drug Alert',
+            'emergency': '🚨 EMERGENCY ALERT',
+            'general': '📢 Notification'
+        };
+        return titles[alert.type] || '📢 Alert';
+    }
+
+    // Send Telegram alert with enhanced formatting
+    async sendTelegramAlert(studentId, notification) {
+        try {
+            // This will be called from telegram.js
+            const message = this.formatTelegramAlert(notification);
+            
+            // Store for telegram bot to pick up
+            const telegramNotification = {
+                ...notification,
+                platform: 'telegram',
+                formattedMessage: message
+            };
+
+            // Add to a queue that telegram bot can access
+            if (!global.telegramNotifications) {
+                global.telegramNotifications = new Map();
+            }
+            global.telegramNotifications.set(notification.id, telegramNotification);
+
+            return 'telegram_queued';
+        } catch (error) {
+            logger.error('❌ Error sending Telegram alert:', error);
+            throw error;
+        }
+    }
+
+    // Format Telegram alert message
+    formatTelegramAlert(notification) {
+        const priorityEmojis = {
+            'low': '🔵',
+            'medium': '🟡',
+            'high': '🟠',
+            'urgent': '🔴'
+        };
+
+        const emoji = priorityEmojis[notification.priority] || '📢';
+        
+        return `${emoji} *${notification.title}*
+
+${notification.message}
+
+*Time:* ${notification.sentAt.toLocaleTimeString()}
+*Priority:* ${notification.priority.toUpperCase()}
+
+*Actions:*
+• ✅ Mark as done
+• ⏰ Snooze 15 minutes
+• 📝 Add note
+• 🗑️ Dismiss
+
+*Need help?* Type "help" or use /dashboard`;
+    }
+
+    // Send voice alert (simulated for now)
+    async sendVoiceAlert(studentId, notification) {
+        try {
+            if (!this.voiceEnabled) return 'voice_disabled';
+
+            // Generate voice message text
+            const voiceText = this.generateVoiceText(notification);
+            
+            // Store voice notification for processing
+            const voiceNotification = {
+                ...notification,
+                platform: 'voice',
+                voiceText: voiceText,
+                audioUrl: null // Would be generated by TTS service
+            };
+
+            // Add to voice queue
+            if (!global.voiceNotifications) {
+                global.voiceNotifications = new Map();
+            }
+            global.voiceNotifications.set(notification.id, voiceNotification);
+
+            logger.info(`🎤 Voice alert queued: ${voiceText}`, { notificationId: notification.id });
+            return 'voice_queued';
+        } catch (error) {
+            logger.error('❌ Error sending voice alert:', error);
+            throw error;
+        }
+    }
+
+    // Generate voice message text
+    generateVoiceText(notification) {
+        const priorityVoice = {
+            'low': 'Gentle reminder',
+            'medium': 'Important reminder',
+            'high': 'Urgent reminder',
+            'urgent': 'EMERGENCY ALERT'
+        };
+
+        const voicePrefix = priorityVoice[notification.priority] || 'Reminder';
+        
+        return `${voicePrefix}: ${notification.message}. Please check your StethoLink AI for details.`;
+    }
+
+    // Send sound alert
+    async sendSoundAlert(studentId, notification) {
+        try {
+            if (!this.soundEnabled) return 'sound_disabled';
+
+            // Generate sound notification
+            const soundNotification = {
+                ...notification,
+                platform: 'sound',
+                soundType: this.getSoundType(notification.priority),
+                duration: this.getSoundDuration(notification.priority)
+            };
+
+            // Add to sound queue
+            if (!global.soundNotifications) {
+                global.soundNotifications = new Map();
+            }
+            global.soundNotifications.set(notification.id, soundNotification);
+
+            logger.info(`🔊 Sound alert queued: ${soundNotification.soundType}`, { notificationId: notification.id });
+            return 'sound_queued';
+        } catch (error) {
+            logger.error('❌ Error sending sound alert:', error);
+            throw error;
+        }
+    }
+
+    // Get sound type based on priority
+    getSoundType(priority) {
+        const sounds = {
+            'low': 'gentle_chime',
+            'medium': 'notification_bell',
+            'high': 'urgent_beep',
+            'urgent': 'emergency_alarm'
+        };
+        return sounds[priority] || 'notification_bell';
+    }
+
+    // Get sound duration based on priority
+    getSoundDuration(priority) {
+        const durations = {
+            'low': 2000,
+            'medium': 3000,
+            'high': 5000,
+            'urgent': 8000
+        };
+        return durations[priority] || 3000;
+    }
+
+    // Send dashboard alert
+    async sendDashboardAlert(studentId, notification) {
+        try {
+            const dashboardNotification = {
+                ...notification,
+                platform: 'dashboard',
+                displayType: 'popup',
+                autoHide: notification.priority === 'low' ? 5000 : 10000
+            };
+
+            // Add to dashboard queue
+            if (!global.dashboardNotifications) {
+                global.dashboardNotifications = new Map();
+            }
+            global.dashboardNotifications.set(notification.id, dashboardNotification);
+
+            logger.info(`🖥️ Dashboard alert queued`, { notificationId: notification.id });
+            return 'dashboard_queued';
+        } catch (error) {
+            logger.error('❌ Error sending dashboard alert:', error);
+            throw error;
+        }
+    }
+
+    // Get pending notifications for a student
+    getPendingNotifications(studentId) {
+        const notifications = [];
+        
+        for (const [id, notification] of this.activeNotifications) {
+            if (notification.studentId === studentId && notification.status === 'sent') {
+                notifications.push(notification);
+            }
+        }
+        
+        return notifications;
+    }
+
+    // Mark notification as processed
+    async markNotificationProcessed(notificationId, status = 'processed') {
+        try {
+            const notification = this.activeNotifications.get(notificationId);
+            if (notification) {
+                notification.status = status;
+                notification.processedAt = new Date();
+                this.activeNotifications.set(notificationId, notification);
+                
+                logger.info(`✅ Notification marked as ${status}: ${notificationId}`);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            logger.error('❌ Error marking notification as processed:', error);
+            throw error;
+        }
+    }
+
+    // Enable/disable voice alerts
+    toggleVoice(enabled) {
+        this.voiceEnabled = enabled;
+        logger.info(`🎤 Voice alerts ${enabled ? 'enabled' : 'disabled'}`);
+    }
+
+    // Enable/disable sound alerts
+    toggleSound(enabled) {
+        this.soundEnabled = enabled;
+        logger.info(`🔊 Sound alerts ${enabled ? 'enabled' : 'disabled'}`);
+    }
+}
+
+module.exports = new NotificationService(); 

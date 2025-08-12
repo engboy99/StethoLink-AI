@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Actions Test</title>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet" href="public/css/quick-actions-enhanced.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .test-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-section h2 {
+            color: #1e40af;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .test-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .test-btn {
+            padding: 0.5rem 1rem;
+            background: #1e40af;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .test-btn:hover {
+            background: #1e3a8a;
+        }
+        
+        .status-display {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🚀 Enhanced Quick Actions Test</h1>
+            <p>Test the interactive functionality of the quick actions system</p>
+        </div>
+
+        <!-- Basic Quick Actions Test -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-play-circle"></i>
+                Basic Quick Actions
+            </h2>
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-stethoscope action-icon"></i>
+                    <div class="action-label">Patient Assessment</div>
+                    <div class="action-description">Quick patient evaluation</div>
+                </div>
+                <div class="quick-action-btn study">
+                    <i class="fas fa-book-medical action-icon"></i>
+                    <div class="action-label">Study Materials</div>
+                    <div class="action-description">Educational resources</div>
+                </div>
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-dumbbell action-icon"></i>
+                    <div class="action-label">Practice Mode</div>
+                    <div class="action-description">Training exercises</div>
+                </div>
+                <div class="quick-action-btn emergency">
+                    <i class="fas fa-ambulance action-icon"></i>
+                    <div class="action-label">Emergency Protocol</div>
+                    <div class="action-description">Urgent care procedures</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid Variations Test -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-th-large"></i>
+                Grid Variations
+            </h2>
+            <div class="test-controls">
+                <button class="test-btn" onclick="changeGridSize('compact')">Compact</button>
+                <button class="test-btn" onclick="changeGridSize('')">Standard</button>
+                <button class="test-btn" onclick="changeGridSize('large')">Large</button>
+            </div>
+            <div class="quick-actions-grid" id="grid-variations">
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-heartbeat action-icon"></i>
+                    <div class="action-label">Vital Signs</div>
+                </div>
+                <div class="quick-action-btn study">
+                    <i class="fas fa-graduation-cap action-icon"></i>
+                    <div class="action-label">Certification</div>
+                </div>
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-users action-icon"></i>
+                    <div class="action-label">Team Training</div>
+                </div>
+                <div class="quick-action-btn emergency">
+                    <i class="fas fa-exclamation-triangle action-icon"></i>
+                    <div class="action-label">Alert System</div>
+                </div>
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-pills action-icon"></i>
+                    <div class="action-label">Medication</div>
+                </div>
+                <div class="quick-action-btn study">
+                    <i class="fas fa-microscope action-icon"></i>
+                    <div class="action-label">Lab Results</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- State Management Test -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-cogs"></i>
+                State Management
+            </h2>
+            <div class="test-controls">
+                <button class="test-btn" onclick="addState('success')">Success State</button>
+                <button class="test-btn" onclick="addState('error')">Error State</button>
+                <button class="test-btn" onclick="addState('warning')">Warning State</button>
+                <button class="test-btn" onclick="addState('loading')">Loading State</button>
+                <button class="test-btn" onclick="clearStates()">Clear States</button>
+            </div>
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn medical" id="state-test-1">
+                    <i class="fas fa-stethoscope action-icon"></i>
+                    <div class="action-label">Test Button 1</div>
+                </div>
+                <div class="quick-action-btn study" id="state-test-2">
+                    <i class="fas fa-book-medical action-icon"></i>
+                    <div class="action-label">Test Button 2</div>
+                </div>
+                <div class="quick-action-btn practice" id="state-test-3">
+                    <i class="fas fa-dumbbell action-icon"></i>
+                    <div class="action-label">Test Button 3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Features Test -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-magic"></i>
+                Interactive Features
+            </h2>
+            <div class="test-controls">
+                <button class="test-btn" onclick="showStatus()">Show Status</button>
+                <button class="test-btn" onclick="resetActions()">Reset Actions</button>
+                <button class="test-btn" onclick="exportHistory()">Export History</button>
+            </div>
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn medical" data-action="test-interactive">
+                    <i class="fas fa-brain action-icon"></i>
+                    <div class="action-label">Interactive Test</div>
+                    <div class="action-description">Click to test functionality</div>
+                </div>
+            </div>
+            <div class="status-display" id="status-display" style="display: none;">
+                Status information will appear here...
+            </div>
+        </div>
+
+        <!-- Keyboard Shortcuts Info -->
+        <div class="test-section">
+            <h2>
+                <i class="fas fa-keyboard"></i>
+                Keyboard Shortcuts
+            </h2>
+            <p>Use <strong>Alt + number keys (1-9)</strong> to activate quick actions in order.</p>
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn medical">
+                    <div class="action-label">Alt + 1</div>
+                    <div class="action-description">First action</div>
+                </div>
+                <div class="quick-action-btn study">
+                    <div class="action-label">Alt + 2</div>
+                    <div class="action-description">Second action</div>
+                </div>
+                <div class="quick-action-btn practice">
+                    <div class="action-label">Alt + 3</div>
+                    <div class="action-description">Third action</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="public/js/quick-actions.js"></script>
+    <script>
+        // Test functions
+        function changeGridSize(size) {
+            const grid = document.getElementById('grid-variations');
+            grid.className = `quick-actions-grid ${size}`;
+        }
+
+        function addState(state) {
+            const buttons = ['state-test-1', 'state-test-2', 'state-test-3'];
+            buttons.forEach(id => {
+                const btn = document.getElementById(id);
+                btn.className = `quick-action-btn ${getButtonType(btn)} ${state}`;
+            });
+        }
+
+        function getButtonType(button) {
+            if (button.classList.contains('medical')) return 'medical';
+            if (button.classList.contains('study')) return 'study';
+            if (button.classList.contains('practice')) return 'practice';
+            return '';
+        }
+
+        function clearStates() {
+            const buttons = ['state-test-1', 'state-test-2', 'state-test-3'];
+            buttons.forEach(id => {
+                const btn = document.getElementById(id);
+                btn.className = `quick-action-btn ${getButtonType(btn)}`;
+            });
+        }
+
+        function showStatus() {
+            const display = document.getElementById('status-display');
+            if (window.quickActionsManager) {
+                const activeActions = quickActionsManager.getActiveActions();
+                const history = quickActionsManager.getActionHistory();
+                
+                display.innerHTML = `
+                    <strong>Active Actions:</strong> ${activeActions.length}<br>
+                    <strong>Action History:</strong> ${history.length} items<br>
+                    <strong>Last Action:</strong> ${history[0] ? history[0].label : 'None'}<br>
+                    <strong>Timestamp:</strong> ${history[0] ? new Date(history[0].timestamp).toLocaleTimeString() : 'N/A'}
+                `;
+                display.style.display = 'block';
+            } else {
+                display.innerHTML = 'Quick Actions Manager not initialized';
+                display.style.display = 'block';
+            }
+        }
+
+        function resetActions() {
+            if (window.quickActionsManager) {
+                quickActionsManager.resetActions();
+                showStatus();
+            }
+        }
+
+        function exportHistory() {
+            if (window.quickActionsManager) {
+                const history = quickActionsManager.exportHistory();
+                const blob = new Blob([history], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'quick-actions-history.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Quick Actions Test Page Loaded');
+            console.log('Quick Actions Manager:', window.quickActionsManager);
+        });
+    </script>
+</body>
+</html> 
