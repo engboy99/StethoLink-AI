@@ -1,107 +1,26 @@
 {
-  "name": "StethoLink AI - Medical Learning Platform",
+  "name": "StethoLink AI - Medical AI Assistant",
   "short_name": "StethoLink AI",
-  "description": "Advanced medical learning platform with AI-powered curriculum, offline access, and clinical tools",
+  "description": "Advanced Medical AI Assistant for Medical Students and Professionals",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#667eea",
   "orientation": "portrait-primary",
-  "scope": "/",
-  "lang": "en",
-  "categories": ["education", "medical", "productivity"],
   "icons": [
     {
-      "src": "/icons/icon-72x72.svg",
-      "sizes": "72x72",
+      "src": "/logo.svg",
+      "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-96x96.svg",
-      "sizes": "96x96",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-128x128.svg",
-      "sizes": "128x128",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-144x144.svg",
-      "sizes": "144x144",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-152x152.svg",
-      "sizes": "152x152",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-192x192.svg",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-384x384.svg",
-      "sizes": "384x384",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-512x512.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
     }
   ],
-  "shortcuts": [
-    {
-      "name": "Medical Curriculum",
-      "short_name": "Curriculum",
-      "description": "Access medical curriculum and study materials",
-      "url": "/dashboard.html",
-      "icons": [
-        {
-          "src": "/icons/icon-96x96.svg",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "Medical Tools",
-      "short_name": "Tools",
-      "description": "Use medical calculators and clinical tools",
-      "url": "/dashboard.html?section=progress",
-      "icons": [
-        {
-          "src": "/icons/icon-96x96.svg",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "Study Progress",
-      "short_name": "Progress",
-      "description": "View study progress and completed tasks",
-      "url": "/dashboard.html?section=progress",
-      "icons": [
-        {
-          "src": "/icons/icon-96x96.svg",
-          "sizes": "96x96"
-        }
-      ]
-    }
-  ],
-
-  "related_applications": [],
-  "prefer_related_applications": false,
-  "edge_side_panel": {
-    "preferred_width": 400
-  }
+  "categories": ["medical", "education", "productivity"],
+  "lang": "en",
+  "dir": "ltr"
 } 
