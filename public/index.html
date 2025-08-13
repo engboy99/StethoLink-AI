@@ -14,8 +14,9 @@
     <meta name="apple-mobile-web-app-title" content="StethoLink AI">
     
     <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/logo.svg">
     
     <!-- Advanced CSS with Revolutionary Design -->
     <style>
@@ -100,6 +101,110 @@
             height: 100%;
             z-index: 10000;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .advanced-loading {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .loading-heartbeat {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .heartbeat-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .heartbeat-pulse {
+            width: 100px;
+            height: 100px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            margin: 0 auto;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .loading-text h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .loading-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .loading-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .loading-progress .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #fff, #f0f0f0);
+            border-radius: 4px;
+            animation: progressFill 3s ease-in-out infinite;
+        }
+
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .loading-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .feature-tag:nth-child(1) { animation-delay: 0.1s; }
+        .feature-tag:nth-child(2) { animation-delay: 0.2s; }
+        .feature-tag:nth-child(3) { animation-delay: 0.3s; }
+        .feature-tag:nth-child(4) { animation-delay: 0.4s; }
+        .feature-tag:nth-child(5) { animation-delay: 0.5s; }
+        .feature-tag:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         /* Main Container */
@@ -673,6 +778,168 @@
             .nav-grid {
                 grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             }
+        }
+
+        /* Chat Styles */
+        .chat-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .chat-header h2 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+
+        .chat-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        #chatContainer {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(248, 250, 252, 0.8);
+            border-radius: 15px;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+        }
+
+        .message.user-message {
+            justify-content: flex-end;
+        }
+
+        .message.ai-message {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+        }
+
+        .message-bubble {
+            padding: 1rem;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-bubble {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-bubble {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .message-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-text {
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-time {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .chat-form {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .chat-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-form input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+        }
+
+        .chat-form button {
+            padding: 1rem 2rem;
+            white-space: nowrap;
+        }
+
+        /* Progress Styles */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .progress-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-header h3 {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .progress-header span {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.5s ease;
         }
 
         /* Utility Classes */
