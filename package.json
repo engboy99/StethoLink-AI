@@ -25,7 +25,8 @@
     "open:android": "npx cap open android",
     "open:ios": "npx cap open ios",
     "run:android": "npx cap run android",
-    "run:ios": "npx cap run ios"
+    "run:ios": "npx cap run ios",
+    "heroku:deploy": "node deploy-heroku-now.js"
   },
   "keywords": [
     "medical",
