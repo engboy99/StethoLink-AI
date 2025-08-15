@@ -2,7 +2,8 @@
 # NETLIFY CONFIGURATION - STETHOLINK AI
 # ========================================
 # This file forces Netlify to use our custom build script
-# Last updated: 2025-08-12
+# Last updated: 2025-08-12 - FORCE REBUILD
+# Cache buster: 2025-08-12-15:30
 
 [build]
   publish = "public"
