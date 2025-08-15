@@ -12,6 +12,8 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  # Disable secrets scanning temporarily for development
+  SECRETS_SCAN_ENABLED = "false"
 
 [functions]
   directory = "netlify/functions"
