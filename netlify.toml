@@ -1,21 +1,13 @@
 # ========================================
 # NETLIFY CONFIGURATION - STETHOLINK AI
 # ========================================
-# This file forces Netlify to use our custom build script
-# Last updated: 2025-08-12 - FORCE REBUILD
-# Cache buster: 2025-08-12-15:30
+# Minimal configuration to avoid environment variable issues
+# Last updated: 2025-08-12 - MINIMAL CONFIG
 
 [build]
   publish = "public"
   command = "node netlify-build.js"
   functions = "netlify/functions"
-
-[build.environment]
-  NODE_VERSION = "18"
-  # Disable secrets scanning temporarily for development
-  SECRETS_SCAN_ENABLED = "false"
-  # Only essential environment variables
-  NODE_ENV = "production"
 
 [functions]
   directory = "netlify/functions"
