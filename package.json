@@ -4,7 +4,7 @@
   "description": "Cross-platform multilingual medical diagnostic chatbot for WhatsApp and Telegram",
   "main": "src/server.js",
   "scripts": {
-    "start": "node start-minimal.js",
+    "start": "node src/server-railway.js",
     "start-standalone": "node start-standalone.js",
     "dev": "nodemon src/server.js",
     "railway:start": "node src/server-railway.js",
