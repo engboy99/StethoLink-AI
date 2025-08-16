@@ -122,7 +122,7 @@ Expected Result:
 
 #### **🖥️ Dashboard:**
 - **Click:** Should show dashboard URL
-- **Expected:** "Access your full dashboard at: http://localhost:3000/dashboard.html"
+- **Expected:** "Access your full dashboard at: https://awake-courage-production.up.railway.app/dashboard.html"
 
 #### **📖 User Guide:**
 - **Click:** Should show guide instructions

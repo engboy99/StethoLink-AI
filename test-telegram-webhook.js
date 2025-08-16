@@ -10,7 +10,7 @@ async function testTelegramWebhook() {
     return;
   }
 
-  const webhookUrl = `http://localhost:3000/webhook/telegram/${token}`;
+  const webhookUrl = `https://awake-courage-production.up.railway.app/webhook/telegram/${token}`;
   
   // Test 1: Simple text message
   console.log('📝 Test 1: Simple text message');

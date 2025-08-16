@@ -38,7 +38,7 @@ TWILIO_AUTH_TOKEN=your-twilio-auth-token
 ### 1. Health Check
 
 ```bash
-curl http://localhost:3000/health
+curl https://awake-courage-production.up.railway.app/health
 ```
 
 Expected response:
@@ -55,13 +55,13 @@ Expected response:
 ### 2. API Documentation
 
 ```bash
-curl http://localhost:3000/api/docs
+curl https://awake-courage-production.up.railway.app/api/docs
 ```
 
 ### 3. Medical Diagnosis Test
 
 ```bash
-curl -X POST http://localhost:3000/api/diagnosis \
+curl -X POST https://awake-courage-production.up.railway.app/api/diagnosis \
   -H "Content-Type: application/json" \
   -d '{
     "symptoms": "fever, headache, and nausea for the past 3 days",
@@ -72,7 +72,7 @@ curl -X POST http://localhost:3000/api/diagnosis \
 ### 4. Patient Simulation Test
 
 ```bash
-curl -X POST http://localhost:3000/api/simulation \
+curl -X POST https://awake-courage-production.up.railway.app/api/simulation \
   -H "Content-Type: application/json" \
   -d '{
     "condition": "Dengue fever",
@@ -89,7 +89,7 @@ curl -X POST http://localhost:3000/api/simulation \
 ### 5. Medical Education Test
 
 ```bash
-curl -X POST http://localhost:3000/api/education \
+curl -X POST https://awake-courage-production.up.railway.app/api/education \
   -H "Content-Type: application/json" \
   -d '{
     "topic": "Dengue fever management",
@@ -101,7 +101,7 @@ curl -X POST http://localhost:3000/api/education \
 ### 6. Motivational Message Test
 
 ```bash
-curl "http://localhost:3000/api/motivation?language=en&context=daily"
+curl "https://awake-courage-production.up.railway.app/api/motivation?language=en&context=daily"
 ```
 
 ## 🔐 Authentication Testing
@@ -109,7 +109,7 @@ curl "http://localhost:3000/api/motivation?language=en&context=daily"
 ### 1. User Registration
 
 ```bash
-curl -X POST http://localhost:3000/auth/register \
+curl -X POST https://awake-courage-production.up.railway.app/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -123,7 +123,7 @@ curl -X POST http://localhost:3000/auth/register \
 ### 2. User Login
 
 ```bash
-curl -X POST http://localhost:3000/auth/login \
+curl -X POST https://awake-courage-production.up.railway.app/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -135,7 +135,7 @@ curl -X POST http://localhost:3000/auth/login \
 
 ```bash
 # Use the token from login response
-curl -X GET http://localhost:3000/auth/profile \
+curl -X GET https://awake-courage-production.up.railway.app/auth/profile \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 ```
 
@@ -199,7 +199,7 @@ curl -X GET http://localhost:3000/auth/profile \
 ### Sinhala (සිංහල) Testing
 
 ```bash
-curl -X POST http://localhost:3000/api/diagnosis \
+curl -X POST https://awake-courage-production.up.railway.app/api/diagnosis \
   -H "Content-Type: application/json" \
   -d '{
     "symptoms": "උණ, හිසරදය සහ වමනය තුන් දිනක්",
@@ -210,7 +210,7 @@ curl -X POST http://localhost:3000/api/diagnosis \
 ### Tamil (தமிழ்) Testing
 
 ```bash
-curl -X POST http://localhost:3000/api/diagnosis \
+curl -X POST https://awake-courage-production.up.railway.app/api/diagnosis \
   -H "Content-Type: application/json" \
   -d '{
     "symptoms": "காய்ச்சல், தலைவலி மற்றும் குமட்டல் மூன்று நாட்களாக",
@@ -223,23 +223,23 @@ curl -X POST http://localhost:3000/api/diagnosis \
 ### 1. API Status
 
 ```bash
-curl http://localhost:3000/api/status
+curl https://awake-courage-production.up.railway.app/api/status
 ```
 
 ### 2. Bot Health Checks
 
 ```bash
 # WhatsApp bot health
-curl http://localhost:3000/webhook/whatsapp/health
+curl https://awake-courage-production.up.railway.app/webhook/whatsapp/health
 
 # Telegram bot health
-curl http://localhost:3000/webhook/telegram/health
+curl https://awake-courage-production.up.railway.app/webhook/telegram/health
 ```
 
 ### 3. Authentication Health
 
 ```bash
-curl http://localhost:3000/auth/health
+curl https://awake-courage-production.up.railway.app/auth/health
 ```
 
 ## 🧪 Advanced Testing
@@ -251,23 +251,23 @@ curl http://localhost:3000/auth/health
 # On Windows: Download from https://httpd.apache.org/download.cgi
 
 # Test API endpoints
-ab -n 100 -c 10 http://localhost:3000/health
-ab -n 50 -c 5 -p diagnosis.json -T application/json http://localhost:3000/api/diagnosis
+ab -n 100 -c 10 https://awake-courage-production.up.railway.app/health
+ab -n 50 -c 5 -p diagnosis.json -T application/json https://awake-courage-production.up.railway.app/api/diagnosis
 ```
 
 ### 2. Error Testing
 
 ```bash
 # Test invalid input
-curl -X POST http://localhost:3000/api/diagnosis \
+curl -X POST https://awake-courage-production.up.railway.app/api/diagnosis \
   -H "Content-Type: application/json" \
   -d '{"symptoms": ""}'
 
 # Test missing authentication
-curl -X GET http://localhost:3000/auth/profile
+curl -X GET https://awake-courage-production.up.railway.app/auth/profile
 
 # Test invalid token
-curl -X GET http://localhost:3000/auth/profile \
+curl -X GET https://awake-courage-production.up.railway.app/auth/profile \
   -H "Authorization: Bearer invalid-token"
 ```
 
@@ -276,7 +276,7 @@ curl -X GET http://localhost:3000/auth/profile \
 ```bash
 # Create a test audio file (you'll need to create this manually)
 # Test voice processing endpoint
-curl -X POST http://localhost:3000/api/voice \
+curl -X POST https://awake-courage-production.up.railway.app/api/voice \
   -F "audio=@test-audio.wav" \
   -F "language=en"
 ```
@@ -344,8 +344,8 @@ LOG_LEVEL=debug
 
 ```bash
 # Test API response times
-time curl http://localhost:3000/health
-time curl -X POST http://localhost:3000/api/diagnosis \
+time curl https://awake-courage-production.up.railway.app/health
+time curl -X POST https://awake-courage-production.up.railway.app/api/diagnosis \
   -H "Content-Type: application/json" \
   -d '{"symptoms": "fever and headache", "language": "en"}'
 ```

@@ -3680,7 +3680,7 @@ No notes found for "${searchTerm}"
 
 async function handleDashboardCommand(user, language) {
   try {
-    const dashboardUrl = `http://localhost:3000/dashboard.html?userId=${user.uid}`;
+    const dashboardUrl = `https://awake-courage-production.up.railway.app/dashboard.html?userId=${user.uid}`;
     
     const responses = {
       en: `🖥️ *StethoLink AI Dashboard*
@@ -3817,7 +3817,7 @@ bot.on('callback_query', async (callbackQuery) => {
         break;
         
       case 'dashboard':
-        response = '🖥️ *Web Dashboard*\n\nAccess your full dashboard at:\nhttp://localhost:3000/dashboard.html\n\nAll features available in web interface!';
+        response = '🖥️ *Web Dashboard*\n\nAccess your full dashboard at:\nhttps://awake-courage-production.up.railway.app/dashboard.html\n\nAll features available in web interface!';
         break;
         
       case 'guide':

@@ -50,7 +50,7 @@ Your StethoLink AI system now has **ALL advanced features** working in both Tele
 ## 💻 **WEB DASHBOARD FEATURES**
 
 ### 🌐 **Access Dashboard:**
-**URL:** `http://localhost:3000/dashboard.html`
+**URL:** `https://awake-courage-production.up.railway.app/dashboard.html`
 
 ### 🚨 **Emergency & Simulation Section**
 - Cardiac Arrest Protocol
@@ -136,7 +136,7 @@ Your StethoLink AI system now has **ALL advanced features** working in both Tele
 7. **Start Simulation:** `/simulate`
 
 ### **In Web Dashboard:**
-1. **Open:** `http://localhost:3000/dashboard.html`
+1. **Open:** `https://awake-courage-production.up.railway.app/dashboard.html`
 2. **Click any button** to test features
 3. **All sections** are fully functional
 4. **Real-time** responses from AI system

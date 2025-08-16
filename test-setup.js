@@ -147,8 +147,8 @@ console.log('\n🚀 Next Steps:');
 console.log('1. Configure your .env file with API keys');
 console.log('2. Run: npm install (if not done)');
 console.log('3. Run: npm run dev');
-console.log('4. Test the API: curl http://localhost:3000/health');
-console.log('5. Check API docs: curl http://localhost:3000/api/docs');
+console.log('4. Test the API: curl https://awake-courage-production.up.railway.app/health');
+console.log('5. Check API docs: curl https://awake-courage-production.up.railway.app/api/docs');
 
 console.log('\n📚 For detailed setup instructions, see: README.md');
 console.log('🧪 For testing instructions, see: setup-testing.md');

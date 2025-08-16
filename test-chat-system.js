@@ -94,8 +94,8 @@ async function runTests() {
         
         console.log('\n🎯 All tests completed successfully!');
         console.log('\n📱 The chat system is now accessible at:');
-        console.log('   • Main page: http://localhost:3000');
-        console.log('   • Chat interface: http://localhost:3000/chat');
+        console.log('   • Main page: https://awake-courage-production.up.railway.app');
+        console.log('   • Chat interface: https://awake-courage-production.up.railway.app/chat');
         console.log('\n✨ Features implemented:');
         console.log('   ✅ Persistent chat sessions with memory');
         console.log('   ✅ Chat history and new chat functionality');

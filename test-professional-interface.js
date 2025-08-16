@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000/api/professional';
+const BASE_URL = 'https://awake-courage-production.up.railway.app/api/professional';
 
 console.log('🏥 PROFESSIONAL MEDICAL INTERFACE TEST\n');
 console.log('Testing: Professional dashboard, quick action buttons, medical tools\n');

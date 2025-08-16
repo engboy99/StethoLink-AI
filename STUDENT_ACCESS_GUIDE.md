@@ -47,7 +47,7 @@ This is a **comprehensive AI medical assistant** designed specifically for **Sri
 
 ### **How to Access:**
 1. **Open your web browser**
-2. **Go to:** `http://localhost:3000/dashboard.html` (when server is running)
+2. **Go to:** `https://awake-courage-production.up.railway.app/dashboard.html` (when server is running)
 3. **Or access via:** Your deployed server URL
 
 ### **Complete Dashboard Features:**

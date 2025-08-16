@@ -79,8 +79,8 @@ console.log('\n2. Start the server:');
 console.log('   npm run dev');
 
 console.log('\n3. Test the application:');
-console.log('   - Health check: curl http://localhost:3000/health');
-console.log('   - API docs: curl http://localhost:3000/api/docs');
+console.log('   - Health check: curl https://awake-courage-production.up.railway.app/health');
+console.log('   - API docs: curl https://awake-courage-production.up.railway.app/api/docs');
 
 console.log('\n4. Test Telegram bot:');
 console.log('   - Find your bot and send /start');

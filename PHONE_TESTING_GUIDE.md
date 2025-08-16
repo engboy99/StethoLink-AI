@@ -14,7 +14,7 @@
 
 ### **Android (Chrome):**
 1. **Open Chrome** on your Android phone
-2. **Navigate to**: `http://localhost:3000` (or your server URL)
+2. **Navigate to**: `https://awake-courage-production.up.railway.app` (or your server URL)
 3. **Wait for the page to load completely**
 4. **Look for the "Add to Home Screen" banner** at the bottom
 5. **Tap "Add to Home Screen"** or "Install"
@@ -22,7 +22,7 @@
 
 ### **iPhone (Safari):**
 1. **Open Safari** on your iPhone
-2. **Navigate to**: `http://localhost:3000` (or your server URL)
+2. **Navigate to**: `https://awake-courage-production.up.railway.app` (or your server URL)
 3. **Tap the Share button** (square with arrow up)
 4. **Scroll down and tap "Add to Home Screen"**
 5. **Customize the name** if desired

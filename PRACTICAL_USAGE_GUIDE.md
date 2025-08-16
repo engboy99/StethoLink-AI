@@ -36,7 +36,7 @@ npm run start-standalone
 🚀 Starting StethoLink AI Standalone App...
 
 🚀 StethoLink AI Standalone App running on port 3000
-📱 Access on your phone: http://localhost:3000
+📱 Access on your phone: https://awake-courage-production.up.railway.app
 🔗 PWA ready for installation
 📚 Simple AI system initialized
 ```
@@ -378,7 +378,7 @@ npm run start-standalone
 npm run test-standalone
 
 # Check health
-curl http://localhost:3000/health
+curl https://awake-courage-production.up.railway.app/health
 
 # View logs
 tail -f logs/app.log

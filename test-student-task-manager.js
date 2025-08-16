@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000/api/student';
+const BASE_URL = 'https://awake-courage-production.up.railway.app/api/student';
 
 console.log('📅 STUDENT TASK MANAGER TEST\n');
 console.log('Testing: Task creation with time alerts, notebook functionality, and student management\n');

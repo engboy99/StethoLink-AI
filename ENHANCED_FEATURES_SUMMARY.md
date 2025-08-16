@@ -110,7 +110,7 @@
 
 #### **🖥️ Web Dashboard Access:**
 - **Direct Command:** "dashboard" or "open dashboard"
-- **Personalized URL:** `http://localhost:3000/dashboard.html?userId=[ID]`
+- **Personalized URL:** `https://awake-courage-production.up.railway.app/dashboard.html?userId=[ID]`
 - **Full Feature Access:** All advanced features available
 - **Real-Time Sync:** Data synchronized between platforms
 

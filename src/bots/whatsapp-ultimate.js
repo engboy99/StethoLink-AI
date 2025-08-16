@@ -341,7 +341,7 @@ Please provide a drug name to get information.
           '12': '🖼️ *Image Analysis*\n\n*Supported Image Types:*\n• X-ray - Chest, Abdominal, Extremities\n• ECG - 12-lead, Rhythm strips\n• CT - Head, Chest, Abdomen\n• MRI - Brain, Spine, Joints\n\n*Upload an image or describe:* "Analyze this chest X-ray"',
           '13': '🏥 *Emergency Support*\n\n*Emergency Protocols:*\n• ACLS - Advanced Cardiac Life Support\n• ATLS - Advanced Trauma Life Support\n• BLS - Basic Life Support\n\n*For real emergencies, call emergency services immediately!* 🚨',
           '14': '📚 *Medical Education*\n\n*Learning Modules:*\n• Anatomy - Human anatomy and physiology\n• Physiology - Body systems and functions\n• Pathology - Disease mechanisms\n• Pharmacology - Drug mechanisms\n\n*Start:* "education: cardiology"',
-          '15': '🖥️ *Web Dashboard*\n\n*Access your full dashboard at:*\nhttp://localhost:3000/dashboard.html\n\n*All features available in web interface!*',
+          '15': '🖥️ *Web Dashboard*\n\n*Access your full dashboard at:*\nhttps://awake-courage-production.up.railway.app/dashboard.html\n\n*All features available in web interface!*',
           '16': `📖 *User Guide - Dr. ${user.name}*\n\n*Getting Started:*\n1. Tasks - Add study tasks with automatic reminders\n2. Notes - Create and organize medical notes\n3. Calculators - Use medical calculators\n4. Drug Info - Access drug database\n5. Guidelines - Get clinical guidelines\n6. Simulations - Practice patient cases\n\n*I'm your AI medical assistant - your best friend in medical school!* 🎓`
         };
 

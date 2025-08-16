@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://awake-courage-production.up.railway.app';
 
 // Level 1 Medical System Test - Advanced Features for Future Doctors
 async function testLevel1MedicalSystem() {

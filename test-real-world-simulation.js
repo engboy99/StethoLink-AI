@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000/api/simulation';
+const BASE_URL = 'https://awake-courage-production.up.railway.app/api/simulation';
 
 console.log('🏥 REAL-WORLD MEDICAL SIMULATION TEST\n');
 console.log('Testing: Real-world patient simulation, Sri Lankan hospitals, doctor interactions\n');

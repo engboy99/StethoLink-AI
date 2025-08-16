@@ -741,7 +741,7 @@ No notes found. Create your first note!
         response = `🖥️ *Web Dashboard*
 
 *Access your full dashboard at:*
-http://localhost:3000/dashboard.html
+https://awake-courage-production.up.railway.app/dashboard.html
 
 *Dashboard Features:*
 • Complete task management

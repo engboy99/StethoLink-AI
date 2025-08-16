@@ -75,7 +75,7 @@ Your **enhanced WhatsApp ultimate medical student agent** is now ready and runni
 
 3. **Verify server is running:**
    - Check if port 3000 is active
-   - Visit `http://localhost:3000` in browser
+   - Visit `https://awake-courage-production.up.railway.app` in browser
 
 ### **Step 2: WhatsApp Testing**
 

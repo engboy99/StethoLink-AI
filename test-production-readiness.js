@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://awake-courage-production.up.railway.app';
 
 console.log('🚀 STETHOLINK AI - PRODUCTION READINESS TEST');
 console.log('=============================================\n');

@@ -40,7 +40,7 @@
    netstat -ano | findstr :3000
    
    # Or visit in browser
-   http://localhost:3000
+   https://awake-courage-production.up.railway.app
    ```
 
 ### **Step 3: WhatsApp Bot Configuration**
@@ -58,7 +58,7 @@
 3. **Test Webhook**
    ```bash
    # Test webhook endpoint
-   curl -X GET http://localhost:3000/whatsapp
+   curl -X GET https://awake-courage-production.up.railway.app/whatsapp
    ```
 
 ### **Step 4: WhatsApp Testing**
@@ -136,7 +136,7 @@ echo "TWILIO_PHONE_NUMBER=whatsapp:+14155238886" >> .env
 #### **4. Webhook Not Working**
 ```bash
 # Test webhook endpoint
-curl -X POST http://localhost:3000/whatsapp \
+curl -X POST https://awake-courage-production.up.railway.app/whatsapp \
   -H "Content-Type: application/json" \
   -d '{"Body":"start","From":"whatsapp:+1234567890"}'
 ```

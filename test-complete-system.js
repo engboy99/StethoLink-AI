@@ -62,7 +62,7 @@ async function testCompleteSystem() {
     
     const checkServer = () => {
       return new Promise((resolve) => {
-        const req = http.get('http://localhost:3000/health', (res) => {
+        const req = http.get('https://awake-courage-production.up.railway.app/health', (res) => {
           if (res.statusCode === 200) {
             resolve(true);
           } else {
@@ -120,7 +120,7 @@ async function testCompleteSystem() {
     console.log('6. Try: "calculate BMI 70kg 1.75m"');
     
     console.log('\n💻 To test Web Dashboard:');
-    console.log('1. Open: http://localhost:3000/dashboard.html');
+    console.log('1. Open: https://awake-courage-production.up.railway.app/dashboard.html');
     console.log('2. Click any button to test features');
     console.log('3. All sections should be functional');
     

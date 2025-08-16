@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://awake-courage-production.up.railway.app';
 
 // Enhanced functionality test for medical students
 async function testEnhancedMedicalFunctionality() {

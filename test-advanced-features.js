@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000/api/advanced-features';
+const BASE_URL = 'https://awake-courage-production.up.railway.app/api/advanced-features';
 
 console.log('🚀 ADVANCED FEATURES TEST\n');
 console.log('Testing: Medical Image Analysis, Advanced Calculators, Research Assistant AI, Mobile Medical Assistant\n');

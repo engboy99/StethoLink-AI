@@ -146,7 +146,7 @@ Your StethoLink AI is now **95% production ready** with comprehensive security, 
 ## 📋 **IMMEDIATE NEXT STEPS**
 
 ### **Step 1: Test PWA Installation (5 minutes)**
-1. Go to `http://localhost:3000` (main app)
+1. Go to `https://awake-courage-production.up.railway.app` (main app)
 2. Check if PWA install prompt appears
 3. Test offline functionality
 4. Verify service worker registration

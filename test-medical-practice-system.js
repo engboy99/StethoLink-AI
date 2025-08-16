@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://awake-courage-production.up.railway.app';
 
 // Medical Practice System Test - Real Doctor Practice for Sri Lankan Medical Students
 async function testMedicalPracticeSystem() {

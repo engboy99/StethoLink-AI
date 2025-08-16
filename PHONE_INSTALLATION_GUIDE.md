@@ -81,7 +81,7 @@ You should see:
 🚀 Starting StethoLink AI Standalone App...
 
 🚀 StethoLink AI Standalone App running on port 3000
-📱 Access on your phone: http://localhost:3000
+📱 Access on your phone: https://awake-courage-production.up.railway.app
 🔗 PWA ready for installation
 📚 Simple AI system initialized
 ```

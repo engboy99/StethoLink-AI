@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000/api/dashboard';
+const BASE_URL = 'https://awake-courage-production.up.railway.app/api/dashboard';
 
 console.log('🏥 COMPREHENSIVE MEDICAL DASHBOARD TEST\n');
 console.log('Testing: All features, buttons, time alerts, notifications in one place\n');

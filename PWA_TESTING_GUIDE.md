@@ -13,19 +13,19 @@ Your system is now a **fully functional Progressive Web App (PWA)** that combine
 ### **Step 1: Start the Server**
 ```bash
 # The server is already running in the background
-# Access your app at: http://localhost:3000
+# Access your app at: https://awake-courage-production.up.railway.app
 ```
 
 ### **Step 2: Test PWA Installation**
 
 #### **On Desktop (Chrome/Edge):**
-1. Open `http://localhost:3000/pwa-quick-actions-test.html`
+1. Open `https://awake-courage-production.up.railway.app/pwa-quick-actions-test.html`
 2. Look for the **"Install" button** in the address bar
 3. Click **"Install"** to add to desktop
 4. App opens in its own window (like a native app!)
 
 #### **On Mobile (Chrome/Safari):**
-1. Open `http://localhost:3000/pwa-quick-actions-test.html`
+1. Open `https://awake-courage-production.up.railway.app/pwa-quick-actions-test.html`
 2. Look for **"Add to Home Screen"** prompt
 3. Tap **"Add"** to install on home screen
 4. App icon appears on home screen
@@ -84,22 +84,22 @@ Your system is now a **fully functional Progressive Web App (PWA)** that combine
 
 ### **Main PWA Test Page**
 ```
-http://localhost:3000/pwa-quick-actions-test.html
+https://awake-courage-production.up.railway.app/pwa-quick-actions-test.html
 ```
 
 ### **Individual Test Pages**
 ```
-http://localhost:3000/test-sw.html          # Service Worker test
-http://localhost:3000/test-icons.html       # Icon verification
-http://localhost:3000/offline-dashboard.html # Offline functionality
-http://localhost:3000/quick-actions-demo.html # Quick actions demo
+https://awake-courage-production.up.railway.app/test-sw.html          # Service Worker test
+https://awake-courage-production.up.railway.app/test-icons.html       # Icon verification
+https://awake-courage-production.up.railway.app/offline-dashboard.html # Offline functionality
+https://awake-courage-production.up.railway.app/quick-actions-demo.html # Quick actions demo
 ```
 
 ### **Core App Pages**
 ```
-http://localhost:3000/                     # Main app
-http://localhost:3000/dashboard.html       # Dashboard
-http://localhost:3000/index.html          # Home page
+https://awake-courage-production.up.railway.app/                     # Main app
+https://awake-courage-production.up.railway.app/dashboard.html       # Dashboard
+https://awake-courage-production.up.railway.app/index.html          # Home page
 ```
 
 ## 📊 **PWA Score Testing**
@@ -236,4 +236,4 @@ After testing, you should have:
 
 Your PWA system is now ready for comprehensive testing. Open the test page and experience the native app-like functionality with your enhanced quick actions system!
 
-**Test URL:** `http://localhost:3000/pwa-quick-actions-test.html` 
+**Test URL:** `https://awake-courage-production.up.railway.app/pwa-quick-actions-test.html` 

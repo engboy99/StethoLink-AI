@@ -127,7 +127,7 @@ Your backend URL will look like: `https://your-app.railway.app`
 In your PWA code (app.js), find and change:
 ```javascript
 // Change this line:
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'https://awake-courage-production.up.railway.app';
 
 // To your Railway backend URL:
 const API_BASE_URL = 'https://your-app.railway.app';

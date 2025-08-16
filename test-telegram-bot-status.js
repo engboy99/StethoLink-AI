@@ -35,7 +35,7 @@ async function testTelegramBotStatus() {
     console.log('✅ The /agent command should now work in Telegram');
     console.log('✅ All agent functions are operational');
     console.log('✅ Server is running on port 3000');
-    console.log('✅ Web dashboard available at: http://localhost:3000/dashboard.html');
+    console.log('✅ Web dashboard available at: https://awake-courage-production.up.railway.app/dashboard.html');
     
     console.log('\n📱 To test in Telegram:');
     console.log('1. Open Telegram');

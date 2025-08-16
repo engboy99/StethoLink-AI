@@ -147,7 +147,7 @@ console.log('✅ Created test-icons.html');
 
 console.log('\n🎉 Icon generation complete!');
 console.log('\n📱 Next steps:');
-console.log('1. Open http://localhost:3000/test-icons.html to verify icons');
+console.log('1. Open https://awake-courage-production.up.railway.app/test-icons.html to verify icons');
 console.log('2. Test PWA installation on your phone');
 console.log('3. Follow the PHONE_TESTING_GUIDE.md for detailed testing');
 console.log('\n💡 Note: These are placeholder SVG icons. Replace with actual PNG icons for production.'); 

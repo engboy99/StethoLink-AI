@@ -14,7 +14,7 @@ console.log('=====================================\n');
 
 // Test configuration
 const TEST_CONFIG = {
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://awake-courage-production.up.railway.app',
     timeout: 10000,
     testFiles: [
         '/',
@@ -247,7 +247,7 @@ async function runAllTests() {
     if (testResults.failed === 0) {
         console.log('\n🎉 All tests passed! Your PWA is ready for phone testing.');
         console.log('\n📱 Next Steps:');
-        console.log('1. Open http://localhost:3000 on your phone');
+        console.log('1. Open https://awake-courage-production.up.railway.app on your phone');
         console.log('2. Look for "Add to Home Screen" or install prompt');
         console.log('3. Test offline functionality by turning off WiFi');
         console.log('4. Follow PHONE_TESTING_GUIDE.md for detailed testing');

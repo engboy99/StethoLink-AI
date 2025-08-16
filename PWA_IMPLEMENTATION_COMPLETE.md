@@ -39,7 +39,7 @@
 
 ### **Step 1: Install the App**
 1. **Open Chrome/Safari** on your phone
-2. **Navigate to**: `http://localhost:3000`
+2. **Navigate to**: `https://awake-courage-production.up.railway.app`
 3. **Wait for page to load completely**
 4. **Look for install prompt** or "Add to Home Screen"
 5. **Confirm installation** - app appears on home screen

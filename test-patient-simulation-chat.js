@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:3000/api/chat';
+const BASE_URL = 'https://awake-courage-production.up.railway.app/api/chat';
 
 console.log('🎭 PATIENT SIMULATION CHAT TEST\n');
 console.log('Testing: Doctor-patient conversations, proper question handling, diagnosis submission\n');
