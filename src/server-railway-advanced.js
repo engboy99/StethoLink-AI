@@ -246,6 +246,16 @@ app.get('/api/dashboard', (req, res) => {
   });
 });
 
+// Serve Dashboard HTML
+app.get('/dashboard.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dashboard.html'));
+});
+
+// Serve Dashboard as root
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dashboard.html'));
+});
+
 // Basic API endpoint
 app.get('/api', (req, res) => {
   res.json({
