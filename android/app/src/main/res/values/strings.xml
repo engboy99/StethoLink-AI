@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">StethoLink AI</string>
+    <string name="title_activity_main">StethoLink AI</string>
+    <string name="package_name">com.stetholink.ai</string>
+    <string name="custom_url_scheme">com.stetholink.ai</string>
+</resources>

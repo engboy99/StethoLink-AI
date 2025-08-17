@@ -1,0 +1,17 @@
+{
+  "platform": "Android",
+  "buildType": "APK/AAB",
+  "location": "android/app/build/outputs/",
+  "requirements": [
+    "Google Play Console account ($25 one-time)",
+    "Android Studio installed",
+    "Android SDK configured",
+    "Keystore for app signing"
+  ],
+  "deploymentSteps": [
+    "Build signed APK/AAB in Android Studio",
+    "Upload to Google Play Console",
+    "Fill app store listing",
+    "Submit for review"
+  ]
+}

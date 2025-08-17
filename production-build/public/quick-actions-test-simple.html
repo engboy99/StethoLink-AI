@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Actions Test - StethoLink AI</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/quick-actions-enhanced.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .test-info {
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .test-info h3 {
+            margin: 0 0 0.5rem 0;
+            color: #667eea;
+        }
+        
+        .status-display {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Quick Actions Test</h1>
+            <p>Test the enhanced quick actions functionality</p>
+        </div>
+        
+        <div class="content">
+            <div class="test-info">
+                <h3>📋 Test Instructions</h3>
+                <p>Click on the quick action buttons below to test their functionality. Each button should:</p>
+                <ul>
+                    <li>Show hover effects when you move your mouse over them</li>
+                    <li>Display click animations when clicked</li>
+                    <li>Show appropriate feedback messages</li>
+                    <li>Have responsive design for different screen sizes</li>
+                </ul>
+            </div>
+            
+            <div class="status-display" id="status-display">
+                <strong>Status:</strong> Ready to test quick actions...
+            </div>
+            
+            <!-- Quick Actions Grid -->
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn medical" data-action="patient-assessment">
+                    <i class="fas fa-stethoscope action-icon"></i>
+                    <div class="action-label">Patient Assessment</div>
+                    <div class="action-description">Quick patient evaluation</div>
+                </div>
+                
+                <div class="quick-action-btn study" data-action="study-materials">
+                    <i class="fas fa-book-medical action-icon"></i>
+                    <div class="action-label">Study Materials</div>
+                    <div class="action-description">Educational resources</div>
+                </div>
+                
+                <div class="quick-action-btn practice" data-action="practice-mode">
+                    <i class="fas fa-dumbbell action-icon"></i>
+                    <div class="action-label">Practice Mode</div>
+                    <div class="action-description">Training exercises</div>
+                </div>
+                
+                <div class="quick-action-btn emergency" data-action="emergency-protocol">
+                    <i class="fas fa-ambulance action-icon"></i>
+                    <div class="action-label">Emergency Protocol</div>
+                    <div class="action-description">Urgent care procedures</div>
+                </div>
+                
+                <div class="quick-action-btn medical" data-action="vital-signs">
+                    <i class="fas fa-heartbeat action-icon"></i>
+                    <div class="action-label">Vital Signs</div>
+                    <div class="action-description">Monitor patient vitals</div>
+                </div>
+                
+                <div class="quick-action-btn study" data-action="certification">
+                    <i class="fas fa-graduation-cap action-icon"></i>
+                    <div class="action-label">Certification</div>
+                    <div class="action-description">Professional development</div>
+                </div>
+            </div>
+            
+            <div class="test-info">
+                <h3>🔧 Test Controls</h3>
+                <button onclick="testAllActions()" style="background: #667eea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; margin-right: 1rem;">
+                    Test All Actions
+                </button>
+                <button onclick="resetActions()" style="background: #6c757d; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer;">
+                    Reset Actions
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions JavaScript -->
+    <script src="js/quick-actions.js"></script>
+    
+    <script>
+        // Simple test functions
+        function updateStatus(message) {
+            const statusDisplay = document.getElementById('status-display');
+            statusDisplay.innerHTML = `<strong>Status:</strong> ${message}`;
+        }
+        
+        function testAllActions() {
+            updateStatus('Testing all actions...');
+            const buttons = document.querySelectorAll('.quick-action-btn');
+            
+            buttons.forEach((btn, index) => {
+                setTimeout(() => {
+                    btn.click();
+                    updateStatus(`Clicked: ${btn.querySelector('.action-label').textContent}`);
+                }, index * 500);
+            });
+            
+            setTimeout(() => {
+                updateStatus('All actions tested! Check the console for detailed logs.');
+            }, buttons.length * 500 + 1000);
+        }
+        
+        function resetActions() {
+            const buttons = document.querySelectorAll('.quick-action-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'success', 'error', 'warning', 'loading');
+            });
+            updateStatus('Actions reset to initial state.');
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStatus('Page loaded. Quick actions are ready for testing.');
+            
+            // Add click event listeners for individual testing
+            document.querySelectorAll('.quick-action-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const actionLabel = btn.querySelector('.action-label').textContent;
+                    updateStatus(`Clicked: ${actionLabel}`);
+                    console.log(`Quick action clicked: ${actionLabel}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

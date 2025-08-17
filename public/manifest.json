@@ -1,0 +1,26 @@
+{
+  "name": "StethoLink AI - Medical AI Assistant",
+  "short_name": "StethoLink AI",
+  "description": "Advanced Medical AI Assistant for Medical Students and Professionals",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["medical", "education", "productivity"],
+  "lang": "en",
+  "dir": "ltr"
+} 

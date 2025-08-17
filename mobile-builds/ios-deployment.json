@@ -1,0 +1,18 @@
+{
+  "platform": "iOS",
+  "buildType": "IPA",
+  "location": "ios/App/build/",
+  "requirements": [
+    "Mac computer with Xcode",
+    "Apple Developer Account ($99/year)",
+    "iOS device for testing",
+    "App Store Connect access"
+  ],
+  "deploymentSteps": [
+    "Build in Xcode",
+    "Archive and export IPA",
+    "Upload to App Store Connect",
+    "Fill app store listing",
+    "Submit for review"
+  ]
+}

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Quick Actions Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .demo-header h1 {
+            font-size: 2.5rem;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+        
+        .demo-header p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .demo-section h2 {
+            color: var(--gray-800);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>Enhanced Quick Actions</h1>
+            <p>Medical AI Assistant - Quick Action Buttons Demo</p>
+        </div>
+
+        <!-- Medical Quick Actions -->
+        <div class="demo-section">
+            <div class="quick-actions-category">
+                <div class="category-header">
+                    <i class="fas fa-heartbeat category-icon"></i>
+                    <div>
+                        <div class="category-title">Medical Quick Actions</div>
+                        <div class="category-description">Essential medical functions and tools</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-stethoscope action-icon"></i>
+                    <div class="action-label">Patient Assessment</div>
+                    <div class="action-description">Quick patient evaluation</div>
+                </div>
+                
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-pills action-icon"></i>
+                    <div class="action-label">Medication Guide</div>
+                    <div class="action-description">Drug information & dosing</div>
+                </div>
+                
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-notes-medical action-icon"></i>
+                    <div class="action-label">Clinical Notes</div>
+                    <div class="action-description">Document patient care</div>
+                </div>
+                
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-brain action-icon"></i>
+                    <div class="action-label">Diagnosis AI</div>
+                    <div class="action-description">AI-powered diagnosis</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Study Quick Actions -->
+        <div class="demo-section">
+            <div class="quick-actions-category">
+                <div class="category-header">
+                    <i class="fas fa-graduation-cap category-icon"></i>
+                    <div>
+                        <div class="category-title">Study & Learning</div>
+                        <div class="category-description">Educational resources and study tools</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn study">
+                    <i class="fas fa-book-medical action-icon"></i>
+                    <div class="action-label">Study Materials</div>
+                    <div class="action-description">Access learning resources</div>
+                </div>
+                
+                <div class="quick-action-btn study">
+                    <i class="fas fa-question-circle action-icon"></i>
+                    <div class="action-label">Practice Questions</div>
+                    <div class="action-description">Test your knowledge</div>
+                </div>
+                
+                <div class="quick-action-btn study">
+                    <i class="fas fa-chart-line action-icon"></i>
+                    <div class="action-label">Progress Tracking</div>
+                    <div class="action-description">Monitor learning progress</div>
+                </div>
+                
+                <div class="quick-action-btn study">
+                    <i class="fas fa-users action-icon"></i>
+                    <div class="action-label">Study Groups</div>
+                    <div class="action-description">Collaborate with peers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Quick Actions -->
+        <div class="demo-section">
+            <div class="quick-actions-category">
+                <div class="category-header">
+                    <i class="fas fa-dumbbell category-icon"></i>
+                    <div>
+                        <div class="category-title">Practice & Simulation</div>
+                        <div class="category-description">Hands-on practice scenarios</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-user-injured action-icon"></i>
+                    <div class="action-label">Case Studies</div>
+                    <div class="action-description">Real patient scenarios</div>
+                </div>
+                
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-gamepad action-icon"></i>
+                    <div class="action-label">Medical Games</div>
+                    <div class="action-description">Interactive learning</div>
+                </div>
+                
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-vr-cardboard action-icon"></i>
+                    <div class="action-label">VR Training</div>
+                    <div class="action-description">Immersive practice</div>
+                </div>
+                
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-tasks action-icon"></i>
+                    <div class="action-label">Skill Assessment</div>
+                    <div class="action-description">Evaluate competencies</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Quick Actions -->
+        <div class="demo-section">
+            <div class="quick-actions-category">
+                <div class="category-header">
+                    <i class="fas fa-exclamation-triangle category-icon"></i>
+                    <div>
+                        <div class="category-title">Emergency & Urgent Care</div>
+                        <div class="category-description">Critical care protocols</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn emergency">
+                    <i class="fas fa-heart action-icon"></i>
+                    <div class="action-label">CPR Guide</div>
+                    <div class="action-description">Cardiopulmonary resuscitation</div>
+                </div>
+                
+                <div class="quick-action-btn emergency">
+                    <i class="fas fa-ambulance action-icon"></i>
+                    <div class="action-label">Emergency Protocols</div>
+                    <div class="action-description">Urgent care procedures</div>
+                </div>
+                
+                <div class="quick-action-btn emergency">
+                    <i class="fas fa-first-aid action-icon"></i>
+                    <div class="action-label">First Aid</div>
+                    <div class="action-description">Immediate care steps</div>
+                </div>
+                
+                <div class="quick-action-btn emergency">
+                    <i class="fas fa-phone action-icon"></i>
+                    <div class="action-label">Emergency Contacts</div>
+                    <div class="action-description">Quick access numbers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid Variations Demo -->
+        <div class="demo-section">
+            <h2>Grid Variations</h2>
+            
+            <h3>Compact Grid</h3>
+            <div class="quick-actions-grid compact">
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-microscope action-icon"></i>
+                    <div class="action-label">Lab Tests</div>
+                </div>
+                <div class="quick-action-btn study">
+                    <i class="fas fa-flask action-icon"></i>
+                    <div class="action-label">Research</div>
+                </div>
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-syringe action-icon"></i>
+                    <div class="action-label">Procedures</div>
+                </div>
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-x-ray action-icon"></i>
+                    <div class="action-label">Imaging</div>
+                </div>
+                <div class="quick-action-btn study">
+                    <i class="fas fa-dna action-icon"></i>
+                    <div class="action-label">Genetics</div>
+                </div>
+                <div class="quick-action-btn practice">
+                    <i class="fas fa-thermometer action-icon"></i>
+                    <div class="action-label">Vitals</div>
+                </div>
+            </div>
+
+            <h3>Large Grid</h3>
+            <div class="quick-actions-grid large">
+                <div class="quick-action-btn medical">
+                    <i class="fas fa-hospital action-icon"></i>
+                    <div class="action-label">Hospital Management</div>
+                    <div class="action-description">Comprehensive hospital operations</div>
+                </div>
+                <div class="quick-action-btn study">
+                    <i class="fas fa-certificate action-icon"></i>
+                    <div class="action-label">Certification Prep</div>
+                    <div class="action-description">Board exam preparation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive States Demo -->
+        <div class="demo-section">
+            <h2>Interactive States</h2>
+            
+            <div class="quick-actions-grid">
+                <div class="quick-action-btn medical" onclick="toggleLoading(this)">
+                    <i class="fas fa-cog action-icon"></i>
+                    <div class="action-label">Loading State</div>
+                    <div class="action-description">Click to toggle</div>
+                </div>
+                
+                <div class="quick-action-btn study disabled">
+                    <i class="fas fa-lock action-icon"></i>
+                    <div class="action-label">Disabled State</div>
+                    <div class="action-description">Feature unavailable</div>
+                </div>
+                
+                <div class="quick-action-btn practice" onclick="toggleActive(this)">
+                    <i class="fas fa-star action-icon"></i>
+                    <div class="action-label">Active State</div>
+                    <div class="action-description">Click to activate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLoading(btn) {
+            btn.classList.toggle('loading');
+            if (btn.classList.contains('loading')) {
+                setTimeout(() => {
+                    btn.classList.remove('loading');
+                }, 3000);
+            }
+        }
+
+        function toggleActive(btn) {
+            btn.classList.toggle('active');
+            if (btn.classList.contains('active')) {
+                btn.style.background = 'linear-gradient(135deg, var(--accent-dark), var(--accent-color))';
+                btn.style.borderColor = 'var(--accent-dark)';
+            } else {
+                btn.style.background = 'linear-gradient(135deg, var(--accent-color), var(--medical-orange))';
+                btn.style.borderColor = 'var(--accent-color)';
+            }
+        }
+
+        // Add hover effects for demo
+        document.querySelectorAll('.quick-action-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('disabled')) {
+                    this.style.transform = 'translateY(-4px) scale(1.02)';
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('disabled')) {
+                    this.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

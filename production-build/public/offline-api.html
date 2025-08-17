@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StethoLink AI - API Offline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .api-offline-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        
+        .api-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #dc3545;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .error-details {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .error-details h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .error-info {
+            list-style: none;
+        }
+        
+        .error-info li {
+            color: #555;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .error-info li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+        
+        .cached-data-info {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .cached-data-info h3 {
+            color: #0056b3;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .cached-list {
+            list-style: none;
+        }
+        
+        .cached-list li {
+            color: #0056b3;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .cached-list li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+        
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #dc3545;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .connection-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            color: #856404;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .api-status {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #721c24;
+        }
+        
+        .api-status h4 {
+            margin-bottom: 10px;
+            color: #721c24;
+        }
+        
+        .retry-timer {
+            font-weight: bold;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="api-offline-container">
+        <div class="api-icon">🔌</div>
+        <h1>API Service Unavailable</h1>
+        <p class="subtitle">
+            The API endpoint you're trying to access is currently offline. 
+            This usually happens when you're disconnected from the internet.
+        </p>
+        
+        <div class="api-status">
+            <h4>📡 API Status</h4>
+            <p><span class="status-indicator"></span><strong>Status:</strong> Offline</p>
+            <p><strong>Error:</strong> Network Error / Service Unavailable</p>
+            <p><strong>Retry:</strong> <span class="retry-timer" id="retryTimer">5</span> seconds</p>
+        </div>
+        
+        <div class="error-details">
+            <h3>❌ What Happened?</h3>
+            <ul class="error-info">
+                <li>Network connection is unavailable</li>
+                <li>API server cannot be reached</li>
+                <li>Request timed out or failed</li>
+                <li>Service worker is serving cached content</li>
+            </ul>
+        </div>
+        
+        <div class="cached-data-info">
+            <h3>💾 Available Cached Data</h3>
+            <ul class="cached-list">
+                <li>Medical curriculum content</li>
+                <li>Clinical guidelines and standards</li>
+                <li>Medical tools and calculators</li>
+                <li>User preferences and settings</li>
+                <li>Previously loaded study materials</li>
+            </ul>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="retryRequest()">
+                🔄 Retry Request
+            </button>
+            <button class="btn btn-secondary" onclick="goToOfflineMode()">
+                📱 Offline Mode
+            </button>
+            <button class="btn btn-secondary" onclick="checkConnection()">
+                🌐 Check Connection
+            </button>
+        </div>
+        
+        <div class="connection-info">
+            <p><strong>💡 Tip:</strong> Your data will sync automatically when the connection is restored.</p>
+            <p>You can continue using cached features while offline.</p>
+        </div>
+        
+        <div class="footer">
+            <p>StethoLink AI v2.0.0 - Advanced Offline Support</p>
+            <p>API Error: 503 Service Unavailable</p>
+        </div>
+    </div>
+
+    <script>
+        let retryCountdown = 5;
+        let retryInterval;
+        
+        // Start retry countdown
+        function startRetryCountdown() {
+            retryInterval = setInterval(() => {
+                retryCountdown--;
+                document.getElementById('retryTimer').textContent = retryCountdown;
+                
+                if (retryCountdown <= 0) {
+                    clearInterval(retryInterval);
+                    document.getElementById('retryTimer').textContent = 'Ready';
+                    document.getElementById('retryTimer').style.color = '#28a745';
+                }
+            }, 1000);
+        }
+        
+        // Retry the request
+        function retryRequest() {
+            if (retryCountdown > 0) {
+                alert(`Please wait ${retryCountdown} seconds before retrying.`);
+                return;
+            }
+            
+            console.log('Retrying API request...');
+            
+            // Try to fetch the current page to check if we're back online
+            fetch(window.location.href, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Connection restored, reloading...');
+                        window.location.reload();
+                    } else {
+                        throw new Error('Still offline');
+                    }
+                })
+                .catch(error => {
+                    console.log('Still offline:', error);
+                    alert('Still offline. Please check your internet connection.');
+                    
+                    // Reset countdown
+                    retryCountdown = 5;
+                    document.getElementById('retryTimer').textContent = retryCountdown;
+                    document.getElementById('retryTimer').style.color = '#dc3545';
+                    startRetryCountdown();
+                });
+        }
+        
+        // Go to offline mode
+        function goToOfflineMode() {
+            if (confirm('Would you like to go to the offline dashboard?')) {
+                window.location.href = '/offline-dashboard.html';
+            }
+        }
+        
+        // Check connection
+        function checkConnection() {
+            if (navigator.onLine) {
+                alert('Connection restored! The page will reload automatically.');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            } else {
+                alert('Still offline. Please check your internet connection.');
+            }
+        }
+        
+        // Listen for online/offline events
+        window.addEventListener('online', () => {
+            console.log('Connection restored');
+            document.querySelector('.status-indicator').style.background = '#28a745';
+            document.querySelector('.api-status h4').textContent = '📡 API Status - Online';
+            document.querySelector('.api-status').style.background = '#d4edda';
+            document.querySelector('.api-status').style.borderColor = '#c3e6cb';
+            document.querySelector('.api-status').style.color = '#155724';
+            
+            setTimeout(() => {
+                if (confirm('Connection restored! Would you like to reload the page?')) {
+                    window.location.reload();
+                }
+            }, 1000);
+        });
+        
+        window.addEventListener('offline', () => {
+            console.log('Connection lost');
+            document.querySelector('.status-indicator').style.background = '#dc3545';
+            document.querySelector('.api-status h4').textContent = '📡 API Status - Offline';
+            document.querySelector('.api-status').style.background = '#f8d7da';
+            document.querySelector('.api-status').style.borderColor = '#f5c6cb';
+            document.querySelector('.api-status').style.color = '#721c24';
+        });
+        
+        // Check if we have a service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(registration => {
+                console.log('Service Worker ready:', registration);
+            });
+        }
+        
+        // Initialize
+        startRetryCountdown();
+        
+        // Check connection every 10 seconds
+        setInterval(() => {
+            if (navigator.onLine) {
+                console.log('Connection check: Online');
+            } else {
+                console.log('Connection check: Offline');
+            }
+        }, 10000);
+        
+        // Auto-retry when connection is restored
+        let connectionCheckInterval = setInterval(() => {
+            if (navigator.onLine) {
+                clearInterval(connectionCheckInterval);
+                console.log('Auto-retrying due to connection restoration...');
+                setTimeout(() => {
+                    retryRequest();
+                }, 2000);
+            }
+        }, 5000);
+    </script>
+</body>
+</html> 
