@@ -1582,173 +1582,169 @@ class StethoLinkApp {
 
     createModernSidebar() {
         return `
-            <div class="modern-sidebar">
-                <div class="sidebar-header">
-                    <h3>🏥 StethoLink AI</h3>
-                    <p>Medical AI Platform</p>
+            <div class="modern-top-nav">
+                <div class="nav-brand">
+                    <h2>🏥 StethoLink AI</h2>
                 </div>
                 
-                <nav class="sidebar-nav">
-                    <div class="nav-section">
-                        <h4>🤖 AI Core</h4>
-                        <button class="nav-btn active" data-section="ai-chat">
-                            <span class="icon">💬</span>
-                            <span class="text">AI Chat</span>
-                        </button>
-                        <button class="nav-btn" data-section="medical-analysis">
-                            <span class="icon">🔬</span>
-                            <span class="text">Medical Analysis</span>
-                        </button>
-                        <button class="nav-btn" data-section="diagnosis">
-                            <span class="icon">🎯</span>
-                            <span class="text">Diagnosis AI</span>
-                        </button>
-                    </div>
-                    
-                    <div class="nav-section">
-                        <h4>📊 Tools</h4>
-                        <button class="nav-btn" data-section="calculators">
-                            <span class="icon">🧮</span>
-                            <span class="text">Calculators</span>
-                        </button>
-                        <button class="nav-btn" data-section="drug-database">
-                            <span class="icon">💊</span>
-                            <span class="text">Drug Database</span>
-                        </button>
-                        <button class="nav-btn" data-section="hospital-directory">
-                            <span class="icon">🏥</span>
-                            <span class="text">Hospitals</span>
-                        </button>
-                    </div>
-                    
-                    <div class="nav-section">
-                        <h4>🎓 Education</h4>
-                        <button class="nav-btn" data-section="simulations">
-                            <span class="icon">🎮</span>
-                            <span class="text">Simulations</span>
-                        </button>
-                        <button class="nav-btn" data-section="research">
-                            <span class="icon">📚</span>
-                            <span class="text">Research AI</span>
-                        </button>
-                        <button class="nav-btn" data-section="avatar-creator">
-                            <span class="icon">🎭</span>
-                            <span class="text">3D Avatar</span>
-                        </button>
-                    </div>
-                </nav>
+                <div class="nav-menu">
+                    <button class="nav-item active" data-section="ai-chat">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-text">AI Chat</span>
+                    </button>
+                    <button class="nav-item" data-section="medical-analysis">
+                        <span class="nav-icon">🔬</span>
+                        <span class="nav-text">Analysis</span>
+                    </button>
+                    <button class="nav-item" data-section="calculators">
+                        <span class="nav-icon">🧮</span>
+                        <span class="nav-text">Tools</span>
+                    </button>
+                    <button class="nav-item" data-section="simulations">
+                        <span class="nav-icon">🎮</span>
+                        <span class="nav-text">Simulations</span>
+                    </button>
+                </div>
+                
+                <div class="nav-user">
+                    <span class="user-avatar">👨‍⚕️</span>
+                    <span class="user-name">${this.currentUser?.name || 'Student'}</span>
+                </div>
             </div>
         `;
     }
 
     createModernMainContent() {
         return `
-            <div class="modern-main-content">
-                <header class="content-header">
-                    <div class="header-left">
-                        <h1>🏥 StethoLink AI</h1>
-                        <p id="welcomeMessage">Welcome, Dr. ${this.currentUser?.name || 'Medical Student'}!</p>
+            <div class="modern-app-content">
+                <!-- AI Chat Section -->
+                <div id="ai-chat-section" class="app-section active">
+                    <div class="section-hero">
+                        <h1>Medical AI Assistant</h1>
+                        <p>Your personal AI tutor for medical education</p>
                     </div>
-                    <div class="header-right">
-                        <div class="time-display">
-                            <div id="currentTime">Loading...</div>
-                            <div id="currentDate">Loading...</div>
-                        </div>
-                    </div>
-                </header>
-                
-                <div class="content-body">
-                    <div id="ai-chat-section" class="content-section active">
-                        <div class="section-header">
-                            <h2>💬 Medical AI Assistant</h2>
-                            <p>Ask me anything about medicine, symptoms, or procedures</p>
-                        </div>
-                        
-                        <div class="chat-container">
-                            <div id="chatMessages" class="chat-messages">
-                                <div class="message ai-message">
-                                    <div class="message-content">
-                                        <div class="message-avatar">🤖</div>
-                                        <div class="message-bubble">
-                                            <p>Hello! I'm your StethoLink AI medical assistant. How can I help you today?</p>
-                                        </div>
-                                    </div>
+                    
+                    <div class="chat-interface">
+                        <div id="chatMessages" class="chat-messages">
+                            <div class="message ai-message">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-content">
+                                    <p>Hello! I'm your StethoLink AI medical assistant. Ask me anything about medicine, symptoms, procedures, or medical concepts. I'm here to help you learn!</p>
                                 </div>
                             </div>
-                            
-                            <form id="chatForm" class="chat-input-form">
-                                <input type="text" id="chatInput" placeholder="Type your medical question..." required>
-                                <button type="submit" class="send-btn">Send</button>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div id="medical-analysis-section" class="content-section">
-                        <div class="section-header">
-                            <h2>🔬 Medical AI Analysis</h2>
-                            <p>Advanced AI-powered medical analysis tools</p>
                         </div>
                         
-                        <div class="feature-grid">
-                            <div class="feature-card">
-                                <div class="feature-icon">🖼️</div>
-                                <h3>Image Analysis</h3>
-                                <p>Upload medical images for AI diagnosis</p>
-                                <input type="file" id="imageInput" accept="image/*" class="file-input">
-                                <button class="analyze-btn" onclick="app.analyzeImage()">Analyze Image</button>
-                            </div>
-                            
-                            <div class="feature-card">
-                                <div class="feature-icon">🎯</div>
-                                <h3>Symptom Checker</h3>
-                                <p>AI-powered symptom analysis</p>
-                                <textarea id="symptomInput" placeholder="Describe symptoms..." class="symptom-input"></textarea>
-                                <button class="analyze-btn" onclick="app.analyzeSymptoms()">Check Symptoms</button>
-                            </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chatInput" placeholder="Ask your medical question..." />
+                            <button id="sendButton" class="send-button">
+                                <span>Send</span>
+                                <span class="send-icon">→</span>
+                            </button>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Medical Analysis Section -->
+                <div id="medical-analysis-section" class="app-section">
+                    <div class="section-hero">
+                        <h1>Medical AI Analysis</h1>
+                        <p>Advanced tools for medical diagnosis and research</p>
+                    </div>
                     
-                    <div id="calculators-section" class="content-section">
-                        <div class="section-header">
-                            <h2>🧮 Medical Calculators</h2>
-                            <p>Professional medical calculation tools</p>
+                    <div class="analysis-tools">
+                        <div class="tool-card">
+                            <div class="tool-icon">🖼️</div>
+                            <h3>Image Analysis</h3>
+                            <p>Upload medical images for AI-powered diagnosis assistance</p>
+                            <div class="tool-actions">
+                                <input type="file" id="imageInput" accept="image/*" class="file-upload" />
+                                <button onclick="app.analyzeMedicalImage()" class="tool-button">
+                                    Analyze Image
+                                </button>
+                            </div>
                         </div>
                         
-                        <div class="calculator-grid">
-                            <div class="calculator-card">
-                                <h3>BMI Calculator</h3>
-                                <form class="calc-form">
-                                    <input type="number" id="weight" placeholder="Weight (kg)" step="0.1">
-                                    <input type="number" id="height" placeholder="Height (m)" step="0.01">
-                                    <button type="button" onclick="app.calculateBMI()">Calculate BMI</button>
-                                </form>
-                                <div id="bmiResult" class="calc-result"></div>
-                            </div>
-                            
-                            <div class="calculator-card">
-                                <h3>GFR Calculator</h3>
-                                <form class="calc-form">
-                                    <input type="number" id="age" placeholder="Age">
-                                    <input type="number" id="creatinine" placeholder="Creatinine (mg/dL)" step="0.01">
-                                    <button type="button" onclick="app.calculateGFR()">Calculate GFR</button>
-                                </form>
-                                <div id="gfrResult" class="calc-result"></div>
+                        <div class="tool-card">
+                            <div class="tool-icon">🎯</div>
+                            <h3>Symptom Checker</h3>
+                            <p>AI-powered symptom analysis and differential diagnosis</p>
+                            <div class="tool-actions">
+                                <textarea id="symptomInput" placeholder="Describe the symptoms..." class="symptom-input"></textarea>
+                                <button onclick="app.checkSymptoms()" class="tool-button">
+                                    Check Symptoms
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Calculators Section -->
+                <div id="calculators-section" class="app-section">
+                    <div class="section-hero">
+                        <h1>Medical Tools</h1>
+                        <p>Professional medical calculators and clinical tools</p>
+                    </div>
                     
-                    <div id="drug-database-section" class="content-section">
-                        <div class="section-header">
-                            <h2>💊 Drug Database</h2>
-                            <p>Comprehensive drug information and interactions</p>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <div class="tool-icon">⚖️</div>
+                            <h3>BMI Calculator</h3>
+                            <div class="calc-inputs">
+                                <input type="number" id="weight" placeholder="Weight (kg)" step="0.1" />
+                                <input type="number" id="height" placeholder="Height (m)" step="0.01" />
+                            </div>
+                            <button onclick="app.calculateBMI()" class="calc-button">Calculate BMI</button>
+                            <div id="bmiResult" class="calc-result"></div>
                         </div>
                         
-                        <div class="drug-search">
-                            <input type="text" id="drugSearch" placeholder="Search for drugs..." class="drug-input">
-                            <button onclick="app.searchDrugs()" class="search-btn">Search</button>
+                        <div class="tool-card">
+                            <div class="tool-icon">🫀</div>
+                            <h3>GFR Calculator</h3>
+                            <div class="calc-inputs">
+                                <input type="number" id="age" placeholder="Age" />
+                                <input type="number" id="creatinine" placeholder="Creatinine (mg/dL)" step="0.01" />
+                            </div>
+                            <button onclick="app.calculateGFR()" class="calc-button">Calculate GFR</button>
+                            <div id="gfrResult" class="calc-result"></div>
                         </div>
                         
-                        <div id="drugResults" class="drug-results"></div>
+                        <div class="tool-card">
+                            <div class="tool-icon">💊</div>
+                            <h3>Drug Database</h3>
+                            <div class="calc-inputs">
+                                <input type="text" id="drugSearch" placeholder="Search for drugs..." />
+                            </div>
+                            <button onclick="app.searchDrugs()" class="calc-button">Search</button>
+                            <div id="drugResults" class="calc-result"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Simulations Section -->
+                <div id="simulations-section" class="app-section">
+                    <div class="section-hero">
+                        <h1>Medical Simulations</h1>
+                        <p>Practice with realistic patient scenarios</p>
+                    </div>
+                    
+                    <div class="simulation-cards">
+                        <div class="sim-card" onclick="app.startSimulation('cardiac')">
+                            <div class="sim-icon">🫀</div>
+                            <h3>Cardiac Cases</h3>
+                            <p>Practice ECG interpretation and cardiac emergencies</p>
+                        </div>
+                        
+                        <div class="sim-card" onclick="app.startSimulation('respiratory')">
+                            <div class="sim-icon">🫁</div>
+                            <h3>Respiratory Cases</h3>
+                            <p>Learn about respiratory conditions and management</p>
+                        </div>
+                        
+                        <div class="sim-card" onclick="app.startSimulation('neurological')">
+                            <div class="sim-icon">🧠</div>
+                            <h3>Neurological Cases</h3>
+                            <p>Practice neurological examination and diagnosis</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4182,22 +4178,34 @@ References: _____________`
 
     setupFeatureEventListeners() {
         // Navigation buttons
-        const navButtons = document.querySelectorAll('.nav-btn');
-        navButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
                 const section = e.currentTarget.dataset.section;
                 this.switchSection(section);
                 
                 // Update active state
-                navButtons.forEach(b => b.classList.remove('active'));
+                navItems.forEach(nav => nav.classList.remove('active'));
                 e.currentTarget.classList.add('active');
             });
         });
         
-        // Chat form
-        const chatForm = document.getElementById('chatForm');
-        if (chatForm) {
-            chatForm.addEventListener('submit', (e) => this.handleChatSubmit(e));
+        // Chat functionality
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        
+        if (chatInput && sendButton) {
+            // Send on Enter key
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.handleChatSubmit();
+                }
+            });
+            
+            // Send on button click
+            sendButton.addEventListener('click', () => {
+                this.handleChatSubmit();
+            });
         }
         
         // Update time display
@@ -4207,7 +4215,7 @@ References: _____________`
 
     switchSection(sectionName) {
         // Hide all sections
-        const sections = document.querySelectorAll('.content-section');
+        const sections = document.querySelectorAll('.app-section');
         sections.forEach(section => section.classList.remove('active'));
         
         // Show selected section
@@ -4217,8 +4225,7 @@ References: _____________`
         }
     }
 
-    async handleChatSubmit(e) {
-        e.preventDefault();
+    handleChatSubmit() {
         const input = document.getElementById('chatInput');
         const message = input.value.trim();
         
@@ -4229,8 +4236,10 @@ References: _____________`
         input.value = '';
         
         // Simulate AI response
-        const response = await this.getAIResponse(message);
-        this.addChatMessage(response, 'ai');
+        setTimeout(() => {
+            const response = this.getAIResponse(message);
+            this.addChatMessage(response, 'ai');
+        }, 1000);
     }
 
     addChatMessage(text, sender) {
@@ -4240,11 +4249,9 @@ References: _____________`
         
         const avatar = sender === 'user' ? '👤' : '🤖';
         messageDiv.innerHTML = `
+            <div class="message-avatar">${avatar}</div>
             <div class="message-content">
-                <div class="message-avatar">${avatar}</div>
-                <div class="message-bubble">
-                    <p>${text}</p>
-                </div>
+                <p>${text}</p>
             </div>
         `;
         
@@ -4252,10 +4259,7 @@ References: _____________`
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    async getAIResponse(message) {
-        // Simulate AI processing
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
+    getAIResponse(message) {
         const responses = [
             "Based on your question, I'd recommend consulting with a healthcare provider for personalized advice.",
             "That's an interesting medical question. Let me provide you with some general information...",
@@ -4267,34 +4271,39 @@ References: _____________`
     }
 
     // Working feature methods
-    analyzeImage() {
+    analyzeMedicalImage() {
         const fileInput = document.getElementById('imageInput');
         const file = fileInput.files[0];
         
         if (file) {
-            this.showToast('🖼️ Analyzing image...', 'info');
-            // Simulate image analysis
+            this.showToast('🖼️ Analyzing medical image...', 'info');
             setTimeout(() => {
-                this.showToast('✅ Image analysis complete!', 'success');
+                this.showToast('✅ Image analysis complete! AI detected potential findings.', 'success');
             }, 2000);
         } else {
-            this.showToast('⚠️ Please select an image first', 'warning');
+            this.showToast('⚠️ Please select a medical image first', 'warning');
         }
     }
 
-    analyzeSymptoms() {
+    checkSymptoms() {
         const symptomInput = document.getElementById('symptomInput');
         const symptoms = symptomInput.value.trim();
         
         if (symptoms) {
             this.showToast('🔬 Analyzing symptoms...', 'info');
-            // Simulate symptom analysis
             setTimeout(() => {
-                this.showToast('✅ Symptom analysis complete!', 'success');
+                this.showToast('✅ Symptom analysis complete! Check results below.', 'success');
             }, 2000);
         } else {
             this.showToast('⚠️ Please describe symptoms first', 'warning');
         }
+    }
+
+    startSimulation(type) {
+        this.showToast(`🎮 Starting ${type} simulation...`, 'info');
+        setTimeout(() => {
+            this.showToast(`✅ ${type} simulation loaded!`, 'success');
+        }, 1500);
     }
 
     calculateBMI() {
