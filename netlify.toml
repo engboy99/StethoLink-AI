@@ -1,37 +1,14 @@
 # ========================================
 # NETLIFY CONFIGURATION - STETHOLINK AI
 # ========================================
-# Minimal configuration to avoid environment variable issues
-# Last updated: 2025-08-12 - MINIMAL CONFIG
+# Frontend-only configuration for PWA deployment
+# Backend is running on Railway
 
 [build]
   publish = "public"
-  command = "node netlify-build.js"
-  functions = "netlify/functions"
+  command = "echo 'Frontend deployment - no build required'"
 
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-
-# API redirects
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
-
-# Health check redirect
-[[redirects]]
-  from = "/health"
-  to = "/.netlify/functions/health"
-  status = 200
-
-# Auth redirects
-[[redirects]]
-  from = "/auth/*"
-  to = "/.netlify/functions/auth/:splat"
-  status = 200
-
-# SPA fallback (must be last)
+# SPA fallback for PWA
 [[redirects]]
   from = "/*"
   to = "/index.html"
