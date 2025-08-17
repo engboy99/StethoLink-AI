@@ -843,7 +843,7 @@ class StethoLinkApp {
     async initializeRevolutionaryFeatures() {
         try {
             // Test advanced features availability
-            const response = await fetch(`${this.apiBaseUrl}/advanced-features/health`);
+            const response = await fetch(`https://awake-courage-production.up.railway.app/health`);
             if (response.ok) {
                 this.advancedFeatures = {
                     imageAnalysis: true,
@@ -1658,35 +1658,30 @@ class StethoLinkApp {
         const password = formData.get('password');
         
         try {
-            const response = await fetch(`https://awake-courage-production.up.railway.app/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-            
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('authToken', data.token);
-                this.currentUser = data.user;
+            // Simple local authentication for now
+            if (email && password) {
+                // Create a simple user object
+                const user = {
+                    id: Date.now(),
+                    email: email,
+                    name: email.split('@')[0] || 'Medical Student',
+                    role: 'medical_student'
+                };
+                
+                // Store user data locally
+                localStorage.setItem('authToken', 'local-auth-' + Date.now());
+                localStorage.setItem('userProfile', JSON.stringify(user));
+                this.currentUser = user;
                 this.isAuthenticated = true;
                 
-                // Check if profile exists
-                const savedProfile = localStorage.getItem('userProfile');
-                if (savedProfile) {
-                    this.userProfile = JSON.parse(savedProfile);
-                    await this.showAppContainerWithAnimation();
-                    await this.loadUserData();
-                    this.updateWelcomeMessage();
-                } else {
-                    // Show profile setup
-                    this.showProfileSetup();
-                }
+                // Show success and proceed
+                await this.showAppContainerWithAnimation();
+                await this.loadUserData();
+                this.updateWelcomeMessage();
                 
                 this.showRevolutionaryToast('Login successful! Welcome to StethoLink AI', 'success');
             } else {
-                this.showRevolutionaryToast('Login failed. Please check your credentials.', 'error');
+                this.showRevolutionaryToast('Please enter both email and password.', 'error');
             }
         } catch (error) {
             console.error('❌ Login error:', error);
@@ -1703,20 +1698,24 @@ class StethoLinkApp {
         const name = formData.get('name');
         
         try {
-            const response = await fetch(`https://awake-courage-production.up.railway.app/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password, name })
-            });
-            
-            if (response.ok) {
+            // Simple local registration
+            if (email && password && name) {
+                // Create user profile
+                const user = {
+                    id: Date.now(),
+                    email: email,
+                    name: name,
+                    role: 'medical_student'
+                };
+                
+                // Store locally
+                localStorage.setItem('userProfile', JSON.stringify(user));
+                
                 this.showRevolutionaryToast('Registration successful! Please log in.', 'success');
                 // Switch to login form
                 this.switchAuthForm('login');
             } else {
-                this.showRevolutionaryToast('Registration failed. Please try again.', 'error');
+                this.showRevolutionaryToast('Please fill in all fields.', 'error');
             }
         } catch (error) {
             console.error('❌ Registration error:', error);
@@ -2002,17 +2001,17 @@ class StethoLinkApp {
         const token = localStorage.getItem('authToken');
         if (token) {
             try {
-                const response = await fetch(`https://awake-courage-production.up.railway.app/auth/verify`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
+                // Simple local token verification
+                if (token.startsWith('local-auth-')) {
+                    const savedProfile = localStorage.getItem('userProfile');
+                    if (savedProfile) {
+                        this.currentUser = JSON.parse(savedProfile);
+                        this.isAuthenticated = true;
+                        console.log('✅ User authenticated locally:', this.currentUser);
+                    } else {
+                        localStorage.removeItem('authToken');
+                        this.isAuthenticated = false;
                     }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    this.currentUser = data.user;
-                    this.isAuthenticated = true;
-                    console.log('✅ User authenticated:', this.currentUser);
                 } else {
                     localStorage.removeItem('authToken');
                     this.isAuthenticated = false;
@@ -2053,16 +2052,13 @@ class StethoLinkApp {
 
     async loadUserData() {
         try {
-            // Load user preferences and progress
-            const response = await fetch(`${this.apiBaseUrl}/user/profile`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-                }
-            });
-            
-            if (response.ok) {
-                const userData = await response.json();
+            // Load user data from local storage
+            const savedProfile = localStorage.getItem('userProfile');
+            if (savedProfile) {
+                const userData = JSON.parse(savedProfile);
                 this.updateUserInterface(userData);
+            } else {
+                console.log('⚠️ No user profile found, using defaults');
             }
         } catch (error) {
             console.log('⚠️ Could not load user data, using defaults');
