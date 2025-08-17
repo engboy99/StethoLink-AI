@@ -1,37 +1,13 @@
 # ========================================
 # NETLIFY CONFIGURATION - STETHOLINK AI
 # ========================================
-# Frontend-only configuration for PWA deployment
-# Backend is running on Railway
+# Ultra-minimal configuration for guaranteed deployment
 
 [build]
   publish = "public"
-  command = "echo 'Frontend deployment - no build required'"
 
 # SPA fallback for PWA
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
-
-# Security headers
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-
-# Service Worker headers
-[[headers]]
-  for = "/sw.js"
-  [headers.values]
-    Cache-Control = "no-cache"
-    Service-Worker-Allowed = "/"
-
-# Manifest headers
-[[headers]]
-  for = "/manifest.json"
-  [headers.values]
-    Cache-Control = "no-cache" 
+  status = 200 
