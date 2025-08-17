@@ -1537,16 +1537,49 @@ class StethoLinkApp {
     }
 
     async showAppContainerWithAnimation() {
+        console.log('🚀 Starting app container transition...');
+        
         const appContainer = document.getElementById('appContainer');
         const loadingScreen = document.getElementById('loadingScreen');
+        const authContainer = document.getElementById('authContainer');
+        
+        console.log('📱 App Container:', appContainer);
+        console.log('⏳ Loading Screen:', loadingScreen);
+        console.log('🔐 Auth Container:', authContainer);
         
         if (loadingScreen) {
+            console.log('🔄 Hiding loading screen...');
             loadingScreen.style.opacity = '0';
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
-                appContainer.classList.remove('hidden');
-                appContainer.style.animation = 'fadeIn 0.8s ease-out';
+                console.log('✅ Loading screen hidden');
             }, 500);
+        }
+        
+        if (authContainer) {
+            console.log('🔒 Hiding auth container...');
+            authContainer.classList.add('hidden');
+        }
+        
+        if (appContainer) {
+            console.log('🚀 Showing app container...');
+            appContainer.classList.remove('hidden');
+            appContainer.style.display = 'block';
+            appContainer.style.animation = 'fadeIn 0.8s ease-out';
+            console.log('✅ App container should now be visible');
+            
+            // Fallback: Force show after animation
+            setTimeout(() => {
+                if (appContainer.classList.contains('hidden')) {
+                    console.log('🔄 Fallback: Forcing app container visible');
+                    appContainer.classList.remove('hidden');
+                    appContainer.style.display = 'block';
+                    appContainer.style.opacity = '1';
+                    appContainer.style.visibility = 'visible';
+                }
+            }, 1000);
+        } else {
+            console.error('❌ App container not found!');
         }
     }
 
@@ -3956,11 +3989,37 @@ References: _____________`
     getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+
+    // Simple method to manually show app container (for debugging)
+    showAppContainer() {
+        console.log('🔧 Manual app container show...');
+        const appContainer = document.getElementById('appContainer');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const authContainer = document.getElementById('authContainer');
+        
+        if (loadingScreen) loadingScreen.style.display = 'none';
+        if (authContainer) authContainer.classList.add('hidden');
+        if (appContainer) {
+            appContainer.classList.remove('hidden');
+            appContainer.style.display = 'block';
+            appContainer.style.opacity = '1';
+            appContainer.style.visibility = 'visible';
+            console.log('✅ App container manually shown');
+        }
+    }
 }
 
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Initializing StethoLink AI...');
     window.app = new StethoLinkApp();
+    
+    // Add manual methods to window for debugging
+    window.showApp = () => window.app.showAppContainer();
+    window.showAuth = () => window.app.showAuthContainerWithAnimation();
+    
+    console.log('✅ StethoLink AI initialized!');
+    console.log('🔧 Debug commands: showApp(), showAuth()');
 });
 
 // Close modal when clicking overlay
