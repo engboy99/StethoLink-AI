@@ -4,7 +4,7 @@ class StethoLinkApp {
         this.currentUser = null;
         this.chatHistory = [];
         this.isAuthenticated = false;
-        this.apiBaseUrl = '/.netlify/functions/api';
+        this.apiBaseUrl = 'https://awake-courage-production.up.railway.app/api';
         this.currentSection = 'chat';
         this.animationQueue = [];
         this.isAnimating = false;
@@ -1658,7 +1658,7 @@ class StethoLinkApp {
         const password = formData.get('password');
         
         try {
-            const response = await fetch(`/.netlify/functions/auth/login`, {
+            const response = await fetch(`https://awake-courage-production.up.railway.app/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1703,7 +1703,7 @@ class StethoLinkApp {
         const name = formData.get('name');
         
         try {
-            const response = await fetch(`/.netlify/functions/auth/register`, {
+            const response = await fetch(`https://awake-courage-production.up.railway.app/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -2002,7 +2002,7 @@ class StethoLinkApp {
         const token = localStorage.getItem('authToken');
         if (token) {
             try {
-                const response = await fetch(`/.netlify/functions/auth/verify`, {
+                const response = await fetch(`https://awake-courage-production.up.railway.app/auth/verify`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
