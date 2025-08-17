@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StethoLink AI Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f0f2f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #1a73e8; font-size: 2.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .card h3 { color: #333; margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .btn { background: #1a73e8; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn:hover { background: #1557b0; }
+        .result { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; display: none; }
+        .result.show { display: block; }
+        .status { padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+        .status.online { background: #d4edda; color: #155724; }
+        .status.offline { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 StethoLink AI Dashboard</h1>
+            <div class="status" id="status">Checking backend status...</div>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3>🤖 AI Medical Diagnosis</h3>
+                <div class="form-group">
+                    <label>Symptoms:</label>
+                    <textarea id="symptoms" class="form-control" rows="3" placeholder="Enter symptoms..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Language:</label>
+                    <select id="language" class="form-control">
+                        <option value="en">English</option>
+                        <option value="si">සිංහල</option>
+                        <option value="ta">தமிழ்</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="performDiagnosis()">Get Diagnosis</button>
+                <div class="result" id="diagnosisResult"></div>
+            </div>
+            
+            <div class="card">
+                <h3>🎭 Patient Simulation</h3>
+                <div class="form-group">
+                    <label>Condition:</label>
+                    <select id="condition" class="form-control">
+                        <option value="diabetes">Diabetes</option>
+                        <option value="hypertension">Hypertension</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="startSimulation()">Start Simulation</button>
+                <div class="result" id="simulationResult"></div>
+            </div>
+            
+            <div class="card">
+                <h3>📚 Medical Education</h3>
+                <div class="form-group">
+                    <label>Topic:</label>
+                    <select id="topic" class="form-control">
+                        <option value="cardiology">Cardiology</option>
+                        <option value="pediatrics">Pediatrics</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="getEducation()">Get Module</button>
+                <div class="result" id="educationResult"></div>
+            </div>
+            
+            <div class="card">
+                <h3>📱 WhatsApp Bot</h3>
+                <p>Status: <span id="whatsappStatus">Checking...</span></p>
+                <button class="btn" onclick="testWhatsApp()">Test Integration</button>
+                <div class="result" id="whatsappResult"></div>
+            </div>
+            
+            <div class="card">
+                <h3>📲 Telegram Bot</h3>
+                <p>Status: <span id="telegramStatus">Checking...</span></p>
+                <button class="btn" onclick="testTelegram()">Test Integration</button>
+                <div class="result" id="telegramResult"></div>
+            </div>
+            
+            <div class="card">
+                <h3>📊 Analytics</h3>
+                <div id="analytics">
+                    <p>Total Diagnoses: <span id="totalDiagnoses">-</span></p>
+                    <p>Active Users: <span id="activeUsers">-</span></p>
+                    <p>Success Rate: <span id="successRate">-</span></p>
+                </div>
+                <button class="btn" onclick="refreshAnalytics()">Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BACKEND_URL = 'https://awake-courage-production.up.railway.app';
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            checkBackendStatus();
+            refreshAnalytics();
+        });
+        
+        // Check backend status
+        async function checkBackendStatus() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/health`);
+                const data = await response.json();
+                
+                if (data.status === 'healthy') {
+                    document.getElementById('status').textContent = '✅ Backend Online - All Systems Operational';
+                    document.getElementById('status').className = 'status online';
+                } else {
+                    throw new Error('Backend not healthy');
+                }
+            } catch (error) {
+                document.getElementById('status').textContent = '❌ Backend Offline - Check Connection';
+                document.getElementById('status').className = 'status offline';
+            }
+        }
+        
+        // Perform AI Diagnosis
+        async function performDiagnosis() {
+            const symptoms = document.getElementById('symptoms').value;
+            const language = document.getElementById('language').value;
+            
+            if (!symptoms) {
+                alert('Please enter symptoms');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/diagnosis`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        symptoms: symptoms,
+                        language: language,
+                        patientAge: 30,
+                        patientGender: 'Unknown'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const result = document.getElementById('diagnosisResult');
+                    result.innerHTML = `
+                        <h4>AI Diagnosis Result:</h4>
+                        <p><strong>Primary:</strong> ${data.diagnosis.primary}</p>
+                        <p><strong>Confidence:</strong> ${Math.round(data.confidence * 100)}%</p>
+                        <p><strong>Severity:</strong> ${data.diagnosis.severity}</p>
+                        <p><strong>Urgency:</strong> ${data.diagnosis.urgency}</p>
+                        <p><strong>Recommendations:</strong></p>
+                        <ul>${data.recommendations.map(r => `<li>${r}</li>`).join('')}</ul>
+                    `;
+                    result.classList.add('show');
+                } else {
+                    throw new Error(data.message || 'Diagnosis failed');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        // Start Patient Simulation
+        async function startSimulation() {
+            const condition = document.getElementById('condition').value;
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/simulation`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        condition: condition,
+                        language: 'en',
+                        complexity: 'intermediate'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const result = document.getElementById('simulationResult');
+                    result.innerHTML = `
+                        <h4>Simulation Scenario:</h4>
+                        <p><strong>Condition:</strong> ${condition}</p>
+                        <p><strong>Scenario:</strong> ${data.simulation.scenario}</p>
+                        <p><strong>Time:</strong> ${data.simulation.estimatedTime}</p>
+                        <p><strong>Objectives:</strong></p>
+                        <ul>${data.simulation.learningObjectives.map(o => `<li>${o}</li>`).join('')}</ul>
+                    `;
+                    result.classList.add('show');
+                } else {
+                    throw new Error(data.message || 'Simulation failed');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        // Get Medical Education
+        async function getEducation() {
+            const topic = document.getElementById('topic').value;
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/education`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        topic: topic,
+                        language: 'en',
+                        level: 'student'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const result = document.getElementById('educationResult');
+                    result.innerHTML = `
+                        <h4>Education Module:</h4>
+                        <p><strong>Topic:</strong> ${data.education.topic}</p>
+                        <p><strong>Content:</strong> ${data.education.content}</p>
+                        <p><strong>Duration:</strong> ${data.education.estimatedTime}</p>
+                        <p><strong>Resources:</strong></p>
+                        <ul>${data.education.resources.map(r => `<li>${r}</li>`).join('')}</ul>
+                    `;
+                    result.classList.add('show');
+                } else {
+                    throw new Error(data.message || 'Education failed');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        // Test WhatsApp Integration
+        async function testWhatsApp() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/whatsapp`);
+                const data = await response.json();
+                
+                document.getElementById('whatsappStatus').textContent = data.status;
+                
+                const result = document.getElementById('whatsappResult');
+                result.innerHTML = `
+                    <h4>WhatsApp Bot Status:</h4>
+                    <p><strong>Status:</strong> ${data.status}</p>
+                    <p><strong>Features:</strong> ${data.features.join(', ')}</p>
+                `;
+                result.classList.add('show');
+            } catch (error) {
+                alert('Error testing WhatsApp: ' + error.message);
+            }
+        }
+        
+        // Test Telegram Integration
+        async function testTelegram() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/telegram`);
+                const data = await response.json();
+                
+                document.getElementById('telegramStatus').textContent = data.status;
+                
+                const result = document.getElementById('telegramResult');
+                result.innerHTML = `
+                    <h4>Telegram Bot Status:</h4>
+                    <p><strong>Status:</strong> ${data.status}</p>
+                    <p><strong>Features:</strong> ${data.features.join(', ')}</p>
+                    <p><strong>Bot:</strong> ${data.botUsername}</p>
+                `;
+                result.classList.add('show');
+            } catch (error) {
+                alert('Error testing Telegram: ' + error.message);
+            }
+        }
+        
+        // Refresh Analytics
+        async function refreshAnalytics() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/analytics`);
+                const data = await response.json();
+                
+                document.getElementById('totalDiagnoses').textContent = data.metrics.totalDiagnoses;
+                document.getElementById('activeUsers').textContent = data.metrics.activeUsers;
+                document.getElementById('successRate').textContent = Math.round(data.metrics.successRate * 100) + '%';
+            } catch (error) {
+                console.error('Error refreshing analytics:', error);
+            }
+        }
+        
+        // Auto-refresh analytics every 30 seconds
+        setInterval(refreshAnalytics, 30000);
+    </script>
+</body>
+</html>

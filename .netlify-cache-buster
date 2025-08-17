@@ -1,0 +1,5 @@
+# NETLIFY CACHE BUSTER
+# This file forces Netlify to refresh its cache
+# Last updated: 2025-08-12 15:30:00
+# Force rebuild: YES
+# Cache invalidation: REQUIRED
